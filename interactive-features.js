@@ -583,3 +583,105 @@ console.log('- Long press cards');
 console.log('- Shake your device');
 console.log('- Keyboard shortcuts: Ctrl+K, Ctrl+H, Ctrl+C');
 console.log('- Explore all sections for achievements!');
+
+// ===== CERTIFICATES MODAL HANDLER =====
+// Tambahkan script ini di bagian JavaScript sebelum closing </script>
+
+// Certificates Modal Handler
+const certificateModal = document.getElementById('certificateModal');
+const closeCertModal = document.getElementById('closeCertModal');
+const certificateCards = document.querySelectorAll('.certificate-card');
+
+const certificateData = {
+    1: {
+        title: 'Advanced React.js Development',
+        issuer: 'LinkedIn Learning',
+        date: 'January 2024',
+        id: 'LI-ABC123456',
+        image: 'https://i.ibb.co.com/b5RDpGHt/1748881706426-e-1772064000-v-beta-t-2-Fz-Y1n-Z5-N4-OLn2dragk-Ty6-ZI-0w-JD7-Gqzy4o-q3-YDl-Q.jpg'
+    },
+    2: {
+        title: 'AWS Certified Cloud Practitioner',
+        issuer: 'Amazon Web Services',
+        date: 'December 2023',
+        id: 'AWS-CCP-789',
+        image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900&h=600&fit=crop'
+    },
+    3: {
+        title: 'Full-Stack Web Development',
+        issuer: 'Microsoft',
+        date: 'November 2023',
+        id: 'MS-FSD-456',
+        image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=900&h=600&fit=crop'
+    },
+    4: {
+        title: 'Hackathon Winner - Best UI/UX',
+        issuer: 'Google Developer',
+        date: 'October 2023',
+        id: 'GDG-HK-2023',
+        image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=900&h=600&fit=crop'
+    },
+    5: {
+        title: 'JavaScript Algorithms & Data Structures',
+        issuer: 'Udemy',
+        date: 'September 2023',
+        id: 'UD-JS-DSA-99',
+        image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900&h=600&fit=crop'
+    },
+    6: {
+        title: 'Machine Learning Fundamentals',
+        issuer: 'Coursera',
+        date: 'August 2023',
+        id: 'CR-ML-2023',
+        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&h=600&fit=crop'
+    }
+};
+
+certificateCards.forEach(card => {
+    const viewBtn = card.querySelector('.certificate-btn-primary');
+    if (viewBtn) {
+        viewBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const certId = card.getAttribute('data-certificate');
+            const cert = certificateData[certId];
+            
+            if (cert) {
+                document.getElementById('modalCertTitle').textContent = cert.title;
+                document.getElementById('modalCertIssuer').textContent = cert.issuer;
+                document.getElementById('modalCertDate').textContent = cert.date;
+                document.getElementById('modalCertId').textContent = cert.id;
+                document.getElementById('modalCertImage').src = cert.image;
+                
+                certificateModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    }
+});
+
+closeCertModal.addEventListener('click', () => {
+    certificateModal.classList.remove('active');
+    document.body.style.overflow = '';
+});
+
+certificateModal.addEventListener('click', (e) => {
+    if (e.target === certificateModal) {
+        certificateModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && certificateModal.classList.contains('active')) {
+        certificateModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// Update search data untuk certificates
+// Tambahkan ini ke array searchData yang sudah ada:
+/*
+{ title: 'Certificates', description: 'My achievements', section: 'certificates' },
+{ title: 'React.js Certificate', description: 'LinkedIn Learning', section: 'certificates' },
+{ title: 'AWS Certificate', description: 'Cloud Practitioner', section: 'certificates' },
+*/
