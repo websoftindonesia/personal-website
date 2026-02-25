@@ -78,10 +78,439 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 .mobile-nav-text { display: flex; flex-direction: column; gap: 2px; }
 .mobile-nav-title { font-weight: 600; font-size: 14px; }
 .mobile-nav-desc { font-size: 11px; color: var(--text-secondary); }
+
+/* ===== VOICE ASSISTANT STYLES ===== */
+/* Modern voice-controlled assistant with speech recognition */
+
+/* Voice Assistant Container */
+.voice-assistant {
+    position: fixed;
+    bottom: 160px;
+    right: 20px;
+    z-index: 1500;
+}
+
+.voice-toggle {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: white;
+    box-shadow: var(--shadow-lg), 0 0 30px rgba(139, 92, 246, 0.4);
+    transition: all 0.3s;
+    position: relative;
+}
+
+.voice-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-xl), 0 0 40px rgba(139, 92, 246, 0.6);
+}
+
+.voice-toggle.listening {
+    animation: voicePulse 1.5s ease-in-out infinite;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+@keyframes voicePulse {
+    0%, 100% { 
+        transform: scale(1); 
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); 
+    }
+    50% { 
+        transform: scale(1.05); 
+        box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); 
+    }
+}
+
+.voice-indicator {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 16px;
+    height: 16px;
+    background: #22c55e;
+    border: 3px solid white;
+    border-radius: 50%;
+    display: none;
+}
+
+.voice-toggle.listening .voice-indicator {
+    display: block;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0.3; }
+}
+
+/* Voice Panel */
+.voice-panel {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 340px;
+    background: var(--card-bg);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-xl);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    max-height: 450px;
+}
+
+.voice-panel.active {
+    display: flex;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.voice-header {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.voice-header-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.voice-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+}
+
+.voice-info .voice-name {
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.voice-info .voice-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 11px;
+}
+
+.voice-close {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.voice-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Voice Content */
+.voice-content {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.voice-message {
+    display: flex;
+    gap: 8px;
+    animation: messageSlide 0.3s ease;
+}
+
+.voice-message.user {
+    flex-direction: row-reverse;
+}
+
+.voice-message-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.voice-message.user .voice-message-avatar {
+    background: var(--text-secondary);
+}
+
+.voice-message-content {
+    max-width: 70%;
+    padding: 10px 14px;
+    border-radius: var(--radius-lg);
+    background: var(--hover-bg);
+    color: var(--text-primary);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.voice-message.user .voice-message-content {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    color: white;
+}
+
+/* Voice Visualizer */
+.voice-visualizer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: 40px;
+    padding: 16px;
+    background: var(--hover-bg);
+    border-radius: var(--radius-lg);
+    margin-bottom: 10px;
+    display: none;
+}
+
+.voice-visualizer.active {
+    display: flex;
+}
+
+.voice-bar {
+    width: 4px;
+    height: 20px;
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    border-radius: 2px;
+    animation: voiceWave 1s ease-in-out infinite;
+}
+
+.voice-bar:nth-child(1) { animation-delay: 0s; }
+.voice-bar:nth-child(2) { animation-delay: 0.1s; }
+.voice-bar:nth-child(3) { animation-delay: 0.2s; }
+.voice-bar:nth-child(4) { animation-delay: 0.3s; }
+.voice-bar:nth-child(5) { animation-delay: 0.4s; }
+.voice-bar:nth-child(6) { animation-delay: 0.3s; }
+.voice-bar:nth-child(7) { animation-delay: 0.2s; }
+.voice-bar:nth-child(8) { animation-delay: 0.1s; }
+
+@keyframes voiceWave {
+    0%, 100% { height: 10px; }
+    50% { height: 30px; }
+}
+
+/* Voice Controls */
+.voice-controls {
+    padding: 14px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.voice-mic-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s;
+    flex-shrink: 0;
+}
+
+.voice-mic-btn:hover {
+    transform: scale(1.05);
+}
+
+.voice-mic-btn.listening {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    animation: micPulse 1s infinite;
+}
+
+@keyframes micPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+    50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+}
+
+.voice-text-input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--bg-color);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+.voice-text-input:focus {
+    outline: none;
+    border-color: var(--main-color);
+}
+
+/* Quick Commands */
+.voice-commands {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 16px 16px;
+}
+
+.voice-command-chip {
+    padding: 6px 12px;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: var(--radius-full);
+    color: #8b5cf6;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.voice-command-chip:hover {
+    background: rgba(139, 92, 246, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Mobile Voice Assistant */
+@media (max-width: 768px) {
+    .voice-assistant {
+        bottom: 140px;
+        right: 16px;
+    }
+    
+    .voice-toggle {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .voice-panel {
+        width: calc(100vw - 32px);
+        height: 400px;
+        bottom: 64px;
+    }
+}
+
+@media (max-width: 480px) {
+    .voice-assistant {
+        bottom: 130px;
+    }
+    
+    .voice-panel {
+        height: 380px;
+    }
+    
+    .voice-commands {
+        gap: 4px;
+    }
+    
+    .voice-command-chip {
+        font-size: 10px;
+        padding: 5px 10px;
+    }
+}
 </style>
 </head>
 <script src="interactive-features.js"></script>
 <body>
+
+<!-- ===== VOICE ASSISTANT WIDGET ===== -->
+<!-- Add this HTML before the chat widget in your index.html -->
+
+<!-- Voice Assistant Widget -->
+<div class="voice-assistant">
+    <button class="voice-toggle" id="voiceToggle" title="Voice Assistant">
+        <i class="fas fa-microphone"></i>
+        <div class="voice-indicator"></div>
+    </button>
+    <div class="voice-panel" id="voicePanel">
+        <div class="voice-header">
+            <div class="voice-header-info">
+                <div class="voice-avatar"><i class="fas fa-robot"></i></div>
+                <div class="voice-info">
+                    <div class="voice-name">Voice Assistant</div>
+                    <div class="voice-status">
+                        <div class="online-dot"></div>
+                        <span id="voiceStatusText">Ready to listen</span>
+                    </div>
+                </div>
+            </div>
+            <button class="voice-close" id="closeVoicePanel"><i class="fas fa-times"></i></button>
+        </div>
+        
+        <div class="voice-visualizer" id="voiceVisualizer">
+            <div class="voice-bar"></div>
+            <div class="voice-bar"></div>
+            <div class="voice-bar"></div>
+            <div class="voice-bar"></div>
+            <div class="voice-bar"></div>
+            <div class="voice-bar"></div>
+            <div class="voice-bar"></div>
+            <div class="voice-bar"></div>
+        </div>
+        
+        <div class="voice-content" id="voiceMessages">
+            <div class="voice-message">
+                <div class="voice-message-avatar"><i class="fas fa-robot"></i></div>
+                <div class="voice-message-content">
+                    Hello! 👋 I'm your voice assistant. You can speak or type your questions. Try saying "Show me your skills" or "Tell me about your experience"!
+                </div>
+            </div>
+        </div>
+        
+        <div class="voice-commands">
+            <div class="voice-command-chip" data-command="Show me your skills">💻 Skills</div>
+            <div class="voice-command-chip" data-command="Tell me about your experience">💼 Experience</div>
+            <div class="voice-command-chip" data-command="Show your projects">🚀 Projects</div>
+            <div class="voice-command-chip" data-command="Contact information">📧 Contact</div>
+        </div>
+        
+        <div class="voice-controls">
+            <button class="voice-mic-btn" id="voiceMicBtn" title="Click to speak">
+                <i class="fas fa-microphone"></i>
+            </button>
+            <input type="text" class="voice-text-input" id="voiceTextInput" placeholder="Or type your message...">
+        </div>
+    </div>
+</div>
+
+
 <div id="preloader">
     <div class="loader-content">
         <div class="animals-container">
@@ -1680,6 +2109,263 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log('🚀 Portfolio loaded successfully!');
 });
+
+// ===== VOICE ASSISTANT FUNCTIONALITY =====
+// Speech recognition and text-to-speech for interactive portfolio navigation
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Voice Assistant Elements
+    const voiceToggle = document.getElementById('voiceToggle');
+    const voicePanel = document.getElementById('voicePanel');
+    const closeVoicePanel = document.getElementById('closeVoicePanel');
+    const voiceMessages = document.getElementById('voiceMessages');
+    const voiceMicBtn = document.getElementById('voiceMicBtn');
+    const voiceTextInput = document.getElementById('voiceTextInput');
+    const voiceVisualizer = document.getElementById('voiceVisualizer');
+    const voiceStatusText = document.getElementById('voiceStatusText');
+    
+    // Speech Recognition Setup
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = null;
+    let isListening = false;
+    
+    // Text-to-Speech Setup
+    const synth = window.speechSynthesis;
+    
+    // Check browser support
+    if (SpeechRecognition) {
+        recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'en-US';
+    }
+    
+    // Voice Assistant Responses
+    const voiceResponses = {
+        'skills': {
+            keywords: ['skill', 'technology', 'tech stack', 'programming', 'languages', 'tools'],
+            response: "I specialize in full-stack development with React.js, Node.js, Python, and modern web technologies. I'm also experienced with AWS, Docker, and CI/CD pipelines. Would you like to see my skills section?",
+            action: () => scrollToSection('skills')
+        },
+        'experience': {
+            keywords: ['experience', 'work', 'job', 'career', 'position', 'role'],
+            response: "I have experience as a Campus Ambassador at MySkill, Podcast Specialist at Generasi Energi Bersih, and Full-Stack Developer at Satu Langkah Project. I've also worked as a Graphic Designer and Software Developer. Let me show you my experience section.",
+            action: () => scrollToSection('experience')
+        },
+        'projects': {
+            keywords: ['project', 'portfolio', 'work', 'built', 'created', 'developed'],
+            response: "I've worked on various projects including e-commerce platforms, mobile apps, and analytics dashboards. Check out my portfolio section to see detailed case studies!",
+            action: () => scrollToSection('portfolio')
+        },
+        'education': {
+            keywords: ['education', 'study', 'university', 'school', 'degree', 'learning'],
+            response: "I'm currently studying Computer Science at Universitas Gunadarma, focusing on software development and AI. I graduated from SMA Muhammadiyah 8 Ciputat with a focus on Natural Science.",
+            action: () => scrollToSection('about-education')
+        },
+        'contact': {
+            keywords: ['contact', 'email', 'reach', 'message', 'connect', 'hire'],
+            response: "You can reach me through the contact form, LinkedIn, or email. I'm always open to new opportunities and collaborations. Let me take you to the contact section!",
+            action: () => scrollToSection('contact')
+        },
+        'certificates': {
+            keywords: ['certificate', 'certification', 'achievement', 'award', 'credential'],
+            response: "I have 6+ professional certifications including courses from MySkill, RevoU, and competition achievements. Let me show you my certificates!",
+            action: () => scrollToSection('certificates')
+        },
+        'about': {
+            keywords: ['about', 'who are you', 'tell me about', 'introduce', 'yourself'],
+            response: "I'm Muhammad Fawwaz Rayyan Khalish, a passionate full-stack developer and digital innovator. I love creating efficient web solutions and exploring new technologies. Nice to meet you!",
+            action: () => scrollToSection('home')
+        },
+        'help': {
+            keywords: ['help', 'what can you do', 'commands', 'assist'],
+            response: "I can help you navigate my portfolio! Try asking about my skills, experience, projects, education, certificates, or contact information. You can also ask me to show specific sections!",
+            action: null
+        }
+    };
+    
+    // Toggle Voice Panel
+    voiceToggle.addEventListener('click', () => {
+        voicePanel.classList.toggle('active');
+    });
+    
+    closeVoicePanel.addEventListener('click', () => {
+        voicePanel.classList.remove('active');
+        stopListening();
+    });
+    
+    // Voice Recognition
+    voiceMicBtn.addEventListener('click', () => {
+        if (!recognition) {
+            addVoiceMessage('Sorry, speech recognition is not supported in your browser. Please use the text input instead.', false);
+            return;
+        }
+        
+        if (isListening) {
+            stopListening();
+        } else {
+            startListening();
+        }
+    });
+    
+    function startListening() {
+        if (!recognition) return;
+        
+        isListening = true;
+        voiceMicBtn.classList.add('listening');
+        voiceToggle.classList.add('listening');
+        voiceVisualizer.classList.add('active');
+        voiceStatusText.textContent = 'Listening...';
+        
+        recognition.start();
+        
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            addVoiceMessage(transcript, true);
+            processVoiceCommand(transcript);
+            stopListening();
+        };
+        
+        recognition.onerror = (event) => {
+            console.error('Speech recognition error:', event.error);
+            if (event.error === 'no-speech') {
+                addVoiceMessage("I didn't hear anything. Please try again!", false);
+            } else {
+                addVoiceMessage('Sorry, there was an error with speech recognition. Please try typing instead.', false);
+            }
+            stopListening();
+        };
+        
+        recognition.onend = () => {
+            stopListening();
+        };
+    }
+    
+    function stopListening() {
+        if (recognition && isListening) {
+            recognition.stop();
+        }
+        isListening = false;
+        voiceMicBtn.classList.remove('listening');
+        voiceToggle.classList.remove('listening');
+        voiceVisualizer.classList.remove('active');
+        voiceStatusText.textContent = 'Ready to listen';
+    }
+    
+    // Text Input
+    voiceTextInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const text = voiceTextInput.value.trim();
+            if (text) {
+                addVoiceMessage(text, true);
+                processVoiceCommand(text);
+                voiceTextInput.value = '';
+            }
+        }
+    });
+    
+    // Quick Command Chips
+    document.querySelectorAll('.voice-command-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            const command = chip.dataset.command;
+            addVoiceMessage(command, true);
+            processVoiceCommand(command);
+        });
+    });
+    
+    // Process Voice Command
+    function processVoiceCommand(text) {
+        const lowerText = text.toLowerCase();
+        let matched = false;
+        
+        // Check for matches
+        for (const [key, data] of Object.entries(voiceResponses)) {
+            if (data.keywords.some(keyword => lowerText.includes(keyword))) {
+                matched = true;
+                setTimeout(() => {
+                    addVoiceMessage(data.response, false);
+                    speak(data.response);
+                    if (data.action) {
+                        setTimeout(data.action, 1000);
+                    }
+                }, 500);
+                break;
+            }
+        }
+        
+        // Default response
+        if (!matched) {
+            setTimeout(() => {
+                const defaultResponse = "I'm not sure about that. Try asking about my skills, experience, projects, education, certificates, or contact information!";
+                addVoiceMessage(defaultResponse, false);
+                speak(defaultResponse);
+            }, 500);
+        }
+    }
+    
+    // Add Message to Voice Panel
+    function addVoiceMessage(text, isUser) {
+        const message = document.createElement('div');
+        message.className = `voice-message ${isUser ? 'user' : ''}`;
+        message.innerHTML = `
+            <div class="voice-message-avatar">
+                <i class="fas fa-${isUser ? 'user' : 'robot'}"></i>
+            </div>
+            <div class="voice-message-content">${text}</div>
+        `;
+        voiceMessages.appendChild(message);
+        voiceMessages.scrollTop = voiceMessages.scrollHeight;
+    }
+    
+    // Text-to-Speech
+    function speak(text) {
+        if (!synth) return;
+        
+        // Cancel any ongoing speech
+        synth.cancel();
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 1.0;
+        utterance.pitch = 1.0;
+        utterance.volume = 0.8;
+        
+        // Try to use a better voice if available
+        const voices = synth.getVoices();
+        const preferredVoice = voices.find(voice => 
+            voice.lang.startsWith('en') && voice.name.includes('Google')
+        ) || voices.find(voice => voice.lang.startsWith('en'));
+        
+        if (preferredVoice) {
+            utterance.voice = preferredVoice;
+        }
+        
+        synth.speak(utterance);
+    }
+    
+    // Scroll to Section
+    function scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Close voice panel after navigation
+            setTimeout(() => {
+                voicePanel.classList.remove('active');
+            }, 1500);
+        }
+    }
+    
+    // Load voices (needed for some browsers)
+    if (synth) {
+        if (synth.onvoiceschanged !== undefined) {
+            synth.onvoiceschanged = () => {
+                synth.getVoices();
+            };
+        }
+    }
+    
+    console.log('🎤 Voice Assistant initialized!');
+});
+
 </script>
 <!-- TAMBAHKAN CSS INI SETELAH .theme-dark { ... } -->
 <style>
@@ -2729,7 +3415,6 @@ function showNotification(message, type) {
         setTimeout(() => notification.remove(), 400);
     }, 3500);
 }
-
 </script>
 </body>
 </html>
