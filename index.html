@@ -510,6 +510,641 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     </div>
 </div>
 
+<!-- ===== VOICE ASSISTANT INTEGRATION ===== -->
+<!-- Add this before closing </body> tag in index.html -->
+
+<!-- Voice Assistant CSS -->
+<style>
+/* VOICE ASSISTANT */
+#voiceToggle {
+    position: relative;
+    background: var(--gradient-primary);
+    color: white;
+}
+#voiceToggle.listening {
+    animation: voicePulse 1.5s ease-in-out infinite;
+}
+@keyframes voicePulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7); }
+    50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(99, 102, 241, 0); }
+}
+
+.voice-panel {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 380px;
+    max-height: 550px;
+    background: var(--card-bg);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-xl);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1500;
+    animation: voiceSlideUp 0.3s ease;
+}
+.voice-panel.active {
+    display: flex;
+}
+@keyframes voiceSlideUp {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.voice-header {
+    background: var(--gradient-primary);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.voice-header-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.voice-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+}
+.voice-info .voice-name {
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+}
+.voice-info .voice-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+}
+.voice-status-dot {
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+.voice-close {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+.voice-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.voice-messages {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.voice-message {
+    display: flex;
+    gap: 10px;
+    animation: messageSlide 0.3s ease;
+}
+.voice-message.user {
+    flex-direction: row-reverse;
+}
+.voice-message-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+.voice-message.user .voice-message-avatar {
+    background: var(--text-secondary);
+}
+.voice-message-content {
+    max-width: 75%;
+    padding: 12px 16px;
+    border-radius: var(--radius-lg);
+    background: var(--hover-bg);
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.5;
+}
+.voice-message.user .voice-message-content {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+.voice-commands {
+    padding: 12px 16px;
+    border-top: 1px solid var(--border-color);
+    background: var(--hover-bg);
+}
+.voice-commands-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+.voice-command-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.voice-command-chip {
+    padding: 6px 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    color: var(--text-primary);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.voice-command-chip:hover {
+    background: var(--main-color);
+    color: white;
+    border-color: var(--main-color);
+}
+
+.voice-controls {
+    padding: 16px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.voice-visualizer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: 40px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.voice-visualizer.active {
+    opacity: 1;
+}
+.voice-bar {
+    width: 4px;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+    animation: voiceWave 1s ease-in-out infinite;
+}
+.voice-bar:nth-child(1) { height: 10px; animation-delay: 0s; }
+.voice-bar:nth-child(2) { height: 20px; animation-delay: 0.1s; }
+.voice-bar:nth-child(3) { height: 30px; animation-delay: 0.2s; }
+.voice-bar:nth-child(4) { height: 25px; animation-delay: 0.3s; }
+.voice-bar:nth-child(5) { height: 15px; animation-delay: 0.4s; }
+@keyframes voiceWave {
+    0%, 100% { transform: scaleY(0.5); }
+    50% { transform: scaleY(1); }
+}
+
+.voice-input-area {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.voice-mic-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-full);
+    background: var(--gradient-primary);
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s;
+    flex-shrink: 0;
+}
+.voice-mic-btn:hover {
+    transform: scale(1.05);
+}
+.voice-mic-btn.listening {
+    animation: voicePulse 1.5s ease-in-out infinite;
+}
+.voice-text-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--bg-color);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+.voice-text-input:focus {
+    outline: none;
+    border-color: var(--main-color);
+}
+.voice-status-text {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Mobile Voice Panel */
+@media (max-width: 768px) {
+    .voice-panel {
+        width: calc(100vw - 32px);
+        max-height: 500px;
+        bottom: 80px;
+        right: 16px;
+    }
+}
+@media (max-width: 480px) {
+    .voice-panel {
+        max-height: 450px;
+    }
+    .voice-header {
+        padding: 12px 16px;
+    }
+    .voice-messages {
+        padding: 12px;
+    }
+    .voice-controls {
+        padding: 12px;
+    }
+}
+
+/* ===== VOICE ASSISTANT STYLES ===== */
+#voiceToggle {
+    position: relative;
+    background: var(--gradient-primary);
+    color: white;
+}
+#voiceToggle.listening {
+    animation: voicePulse 1.5s ease-in-out infinite;
+}
+@keyframes voicePulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7); }
+    50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(99, 102, 241, 0); }
+}
+
+.voice-panel {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 380px;
+    max-height: 550px;
+    background: var(--card-bg);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-xl);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1500;
+    animation: voiceSlideUp 0.3s ease;
+}
+.voice-panel.active {
+    display: flex;
+}
+@keyframes voiceSlideUp {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.voice-header {
+    background: var(--gradient-primary);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.voice-header-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.voice-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+}
+.voice-info .voice-name {
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+}
+.voice-info .voice-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+}
+.voice-status-dot {
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+.voice-close {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+.voice-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.voice-messages {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.voice-message {
+    display: flex;
+    gap: 10px;
+    animation: messageSlide 0.3s ease;
+}
+.voice-message.user {
+    flex-direction: row-reverse;
+}
+.voice-message-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+.voice-message.user .voice-message-avatar {
+    background: var(--text-secondary);
+}
+.voice-message-content {
+    max-width: 75%;
+    padding: 12px 16px;
+    border-radius: var(--radius-lg);
+    background: var(--hover-bg);
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.5;
+}
+.voice-message.user .voice-message-content {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+.voice-commands {
+    padding: 12px 16px;
+    border-top: 1px solid var(--border-color);
+    background: var(--hover-bg);
+}
+.voice-commands-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+.voice-command-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.voice-command-chip {
+    padding: 6px 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    color: var(--text-primary);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.voice-command-chip:hover {
+    background: var(--main-color);
+    color: white;
+    border-color: var(--main-color);
+}
+
+.voice-controls {
+    padding: 16px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.voice-visualizer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: 40px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.voice-visualizer.active {
+    opacity: 1;
+}
+.voice-bar {
+    width: 4px;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+    animation: voiceWave 1s ease-in-out infinite;
+}
+.voice-bar:nth-child(1) { height: 10px; animation-delay: 0s; }
+.voice-bar:nth-child(2) { height: 20px; animation-delay: 0.1s; }
+.voice-bar:nth-child(3) { height: 30px; animation-delay: 0.2s; }
+.voice-bar:nth-child(4) { height: 25px; animation-delay: 0.3s; }
+.voice-bar:nth-child(5) { height: 15px; animation-delay: 0.4s; }
+@keyframes voiceWave {
+    0%, 100% { transform: scaleY(0.5); }
+    50% { transform: scaleY(1); }
+}
+
+.voice-input-area {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.voice-mic-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: var(--radius-full);
+    background: var(--gradient-primary);
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s;
+    flex-shrink: 0;
+}
+.voice-mic-btn:hover {
+    transform: scale(1.05);
+}
+.voice-mic-btn.listening {
+    animation: voicePulse 1.5s ease-in-out infinite;
+}
+.voice-text-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: var(--bg-color);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+.voice-text-input:focus {
+    outline: none;
+    border-color: var(--main-color);
+}
+.voice-status-text {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Mobile Voice Panel */
+@media (max-width: 768px) {
+    .voice-panel {
+        width: calc(100vw - 32px);
+        max-height: 500px;
+        bottom: 80px;
+        right: 16px;
+    }
+}
+@media (max-width: 480px) {
+    .voice-panel {
+        max-height: 450px;
+    }
+    .voice-header {
+        padding: 12px 16px;
+    }
+    .voice-messages {
+        padding: 12px;
+    }
+    .voice-controls {
+        padding: 12px;
+    }
+}
+</style>
+
+<!-- Voice Assistant HTML -->
+<div class="voice-panel" id="voicePanel">
+    <div class="voice-header">
+        <div class="voice-header-info">
+            <div class="voice-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="voice-info">
+                <div class="voice-name">Voice Assistant</div>
+                <div class="voice-status">
+                    <div class="voice-status-dot"></div>
+                    <span id="voiceStatusText">Ready to listen</span>
+                </div>
+            </div>
+        </div>
+        <button class="voice-close" id="closeVoicePanel">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <div class="voice-messages" id="voiceMessages">
+        <div class="voice-message">
+            <div class="voice-message-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="voice-message-content">
+                Hi! I'm your voice assistant. You can ask me about skills, experience, projects, education, certificates, or contact information. Try saying "Show me your skills" or click the quick commands below!
+            </div>
+        </div>
+    </div>
+    
+    <div class="voice-commands">
+        <div class="voice-commands-title">Quick Commands</div>
+        <div class="voice-command-chips">
+            <div class="voice-command-chip" data-command="Show me your skills">Skills</div>
+            <div class="voice-command-chip" data-command="Tell me about your experience">Experience</div>
+            <div class="voice-command-chip" data-command="Show your projects">Projects</div>
+            <div class="voice-command-chip" data-command="Contact information">Contact</div>
+        </div>
+    </div>
+    
+    <div class="voice-controls">
+        <div class="voice-visualizer" id="voiceVisualizer">
+            <div class="voice-bar"></div>
+            <div class="voice-bar"></div>
+            <div class="voice-bar"></div>
+            <div class="voice-bar"></div>
+            <div class="voice-bar"></div>
+        </div>
+        <div class="voice-input-area">
+            <button class="voice-mic-btn" id="voiceMicBtn">
+                <i class="fas fa-microphone"></i>
+            </button>
+            <input type="text" class="voice-text-input" id="voiceTextInput" placeholder="Or type your question...">
+        </div>
+        <div class="voice-status-text" id="voiceStatusText2">Click mic to speak or type your question</div>
+    </div>
+</div>
+
+<!-- Voice Assistant JavaScript -->
+<script src="voice-assistant.js"></script>
 
 <div id="preloader">
     <div class="loader-content">
@@ -588,9 +1223,10 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
         <a href="#contact" class="nav-item"><i class="fas fa-envelope"></i> Contact</a>
     </div>
     <div class="navbar-right">
-        <button class="mobile-menu-toggle" id="mobileMenuToggle"><i class="fas fa-bars"></i></button>
-        <button class="icon-button theme-toggle" id="themeToggle" title="Toggle Theme"><i class="fas fa-moon"></i></button>
-    </div>
+    <button class="icon-button" id="voiceToggle" title="Voice Assistant"><i class="fas fa-microphone"></i></button>
+    <button class="mobile-menu-toggle" id="mobileMenuToggle"><i class="fas fa-bars"></i></button>
+    <button class="icon-button theme-toggle" id="themeToggle" title="Toggle Theme"><i class="fas fa-moon"></i></button>
+</div>
     <div class="mobile-nav" id="mobileNav">
         <a href="#home" class="mobile-nav-item active"><i class="fas fa-home"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Home</span><span class="mobile-nav-desc">Welcome page</span></div></a>
         <a href="#about-education" class="mobile-nav-item"><i class="fas fa-user"></i><div class="mobile-nav-text"><span class="mobile-nav-title">About</span><span class="mobile-nav-desc">Education & background</span></div></a>
