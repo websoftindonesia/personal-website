@@ -411,33 +411,6 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
                 </div>
             </div>
         </div>
-     <div class="experience-timeline">
-        <div class="experience-item animate-on-scroll">
-            <div class="experience-marker"><div class="experience-dot"></div><div class="experience-line"></div></div>
-            <div class="experience-content">
-                <div class="experience-header">
-                    <div class="experience-company-logo"><img src="https://i.ibb.co.com/WWVW1S8j/generasi-energi-bersih-logo.jpg" alt="Company"></div>
-                    <div class="experience-info">
-                        <h3 class="experience-title">Podcast Specialist</h3>
-                        <p class="experience-company">Generasi Energi Bersih</p>
-                        <span class="experience-period"><i class="fas fa-calendar-alt"></i> Feb 2026 - Present</span>
-                    </div>
-                </div>
-                <div class="experience-body">
-                    <p class="experience-description">Developing, producing, and managing podcast content from concept to publication. Leading the production workflow, including scripting, recording, editing, and distribution, while ensuring high audio quality and consistent branding across platforms.</p>
-                    <div class="experience-gallery">
-                        <div class="gallery-item"><img src="https://i.ibb.co.com/qM4jQWNm/Screenshot-2026-02-05-152746.png" alt="Team"></div>
-                        <div class="gallery-item"><img src="https://i.ibb.co.com/271FZc9s/Whats-App-Image-2026-02-22-at-22-35-57.jpg" alt="Office"></div>
-                        <div class="gallery-item"><img src="" alt="Work Progress"></div>
-                    </div>
-                    <ul class="experience-highlights">
-                        <li><i class="fas fa-check"></i> Led the transition from manual recording workflows to a streamlined podcast production and publishing system</li>
-                        <li><i class="fas fa-check"></i> Improved audio quality, editing efficiency, and distribution performance by up to 40% through optimized tools and workflows</li>
-                        <li><i class="fas fa-check"></i> Mentored and supported 3 junior team members in podcast production, editing, and content management</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
     <div class="experience-timeline">
         <div class="experience-item animate-on-scroll">
             <div class="experience-marker"><div class="experience-dot"></div><div class="experience-line"></div></div>
@@ -560,9 +533,9 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
                     <ul class="experience-highlights">
                         <li><i class="fas fa-check"></i> Developed and delivered 10+ software features and technical tasks for client and internal projects on schedule, following best coding practices</li>
                         <li><i class="fas fa-check"></i> Awarded “Best Newcomer” for strong problem-solving skills, adaptability, and consistent performance in software development tasks</li>
-              </ul>
-               </div>
-            </div>
+                    </ul>
+                 </div>
+        </div>
     </div>
 </section>
 
@@ -1338,6 +1311,95 @@ footer { text-align: center; padding: 50px 20px; background: var(--card-bg); bor
     </div>
 </div>
 
+<!-- ===== VOICE AI ASSISTANT WIDGET ===== -->
+<div class="voice-ai-widget" id="voiceAiWidget">
+    <button class="voice-ai-toggle" id="voiceAiToggle" title="Voice AI Assistant">
+        <i class="fas fa-microphone-alt"></i>
+        <span class="voice-ai-pulse"></span>
+    </button>
+    
+    <div class="voice-ai-panel" id="voiceAiPanel">
+        <div class="voice-ai-header">
+            <div class="voice-ai-header-info">
+                <div class="voice-ai-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="voice-ai-info">
+                    <div class="voice-ai-title">AI Voice Assistant</div>
+                    <div class="voice-ai-status" id="voiceAiStatus">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Ready to help</span>
+                    </div>
+                </div>
+            </div>
+            <button class="voice-ai-close" id="voiceAiClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="voice-ai-body">
+            <!-- Voice Visualizer -->
+            <div class="voice-ai-visualizer" id="voiceAiVisualizer">
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+                <div class="visualizer-bar"></div>
+            </div>
+            
+            <!-- Conversation Display -->
+            <div class="voice-ai-conversation" id="voiceAiConversation">
+                <div class="conversation-message ai-message">
+                    <div class="message-avatar"><i class="fas fa-robot"></i></div>
+                    <div class="message-bubble">
+                        <p>Hello! I'm your AI voice assistant. You can speak to me or type your questions. How can I help you today?</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="voice-ai-quick-actions">
+                <button class="quick-action-btn" data-action="Tell me about Fawwaz">
+                    <i class="fas fa-user"></i>
+                    <span>About Me</span>
+                </button>
+                <button class="quick-action-btn" data-action="Show my skills">
+                    <i class="fas fa-code"></i>
+                    <span>Skills</span>
+                </button>
+                <button class="quick-action-btn" data-action="View portfolio">
+                    <i class="fas fa-folder-open"></i>
+                    <span>Portfolio</span>
+                </button>
+                <button class="quick-action-btn" data-action="Contact information">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="voice-ai-footer">
+            <div class="voice-ai-input-area">
+                <input type="text" class="voice-ai-text-input" id="voiceAiTextInput" placeholder="Type or speak your message...">
+                <button class="voice-ai-send-btn" id="voiceAiSendBtn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="voice-ai-controls">
+                <button class="voice-ai-mic-btn" id="voiceAiMicBtn">
+                    <i class="fas fa-microphone"></i>
+                    <span>Hold to Speak</span>
+                </button>
+                <button class="voice-ai-speaker-btn active" id="voiceAiSpeakerBtn" title="Voice Output">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <button id="scrollToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
 
 <div class="lightbox" id="lightbox">
@@ -1464,6 +1526,467 @@ footer { text-align: center; padding: 50px 20px; background: var(--card-bg); bor
     .logo { font-size: 1.1rem; }
     .search-container { max-width: 90px; }
     .section-title { font-size: 1.2rem; }
+}
+
+/* ===== VOICE AI ASSISTANT STYLES ===== */
+.voice-ai-widget {
+    position: fixed;
+    bottom: 160px;
+    right: 20px;
+    z-index: 1500;
+}
+
+.voice-ai-toggle {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 0 30px rgba(139, 92, 246, 0.4);
+    transition: all 0.3s;
+}
+
+.voice-ai-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 0 40px rgba(139, 92, 246, 0.6);
+}
+
+.voice-ai-toggle.active {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    animation: voiceAiPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes voiceAiPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.voice-ai-pulse {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid rgba(139, 92, 246, 0.5);
+    opacity: 0;
+    animation: pulsateAi 2s ease-out infinite;
+}
+
+.voice-ai-toggle.active .voice-ai-pulse {
+    border-color: rgba(239, 68, 68, 0.5);
+}
+
+@keyframes pulsateAi {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+.voice-ai-panel {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 400px;
+    max-height: 600px;
+    background: var(--card-bg);
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    animation: voiceAiSlideUp 0.3s ease;
+}
+
+.voice-ai-panel.active {
+    display: flex;
+}
+
+@keyframes voiceAiSlideUp {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.voice-ai-header {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.voice-ai-header-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.voice-ai-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+}
+
+.voice-ai-info {
+    color: white;
+}
+
+.voice-ai-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.voice-ai-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: statusBlink 2s infinite;
+}
+
+@keyframes statusBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.voice-ai-status.listening .status-dot {
+    background: #ef4444;
+    animation: statusPulseAi 1s infinite;
+}
+
+@keyframes statusPulseAi {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+.voice-ai-close {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.voice-ai-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.voice-ai-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.voice-ai-visualizer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    height: 60px;
+    background: var(--hover-bg);
+    padding: 10px;
+}
+
+.visualizer-bar {
+    width: 4px;
+    height: 20px;
+    background: #6366f1;
+    border-radius: 2px;
+    transition: height 0.1s;
+}
+
+.voice-ai-visualizer.active .visualizer-bar {
+    animation: visualizeAi 0.8s ease-in-out infinite;
+}
+
+.visualizer-bar:nth-child(1) { animation-delay: 0s; }
+.visualizer-bar:nth-child(2) { animation-delay: 0.1s; }
+.visualizer-bar:nth-child(3) { animation-delay: 0.2s; }
+.visualizer-bar:nth-child(4) { animation-delay: 0.3s; }
+.visualizer-bar:nth-child(5) { animation-delay: 0.4s; }
+.visualizer-bar:nth-child(6) { animation-delay: 0.5s; }
+.visualizer-bar:nth-child(7) { animation-delay: 0.6s; }
+
+@keyframes visualizeAi {
+    0%, 100% { height: 20px; }
+    50% { height: 40px; }
+}
+
+.voice-ai-conversation {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.conversation-message {
+    display: flex;
+    gap: 10px;
+    animation: messageSlideIn 0.3s ease;
+}
+
+@keyframes messageSlideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.conversation-message.user-message {
+    flex-direction: row-reverse;
+}
+
+.message-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.user-message .message-avatar {
+    background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+}
+
+.message-bubble {
+    max-width: 75%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    background: var(--hover-bg);
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.user-message .message-bubble {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+}
+
+.message-bubble p {
+    margin: 0;
+}
+
+.voice-ai-quick-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 12px 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.quick-action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 8px;
+    background: var(--hover-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.quick-action-btn:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: var(--main-color);
+    color: var(--main-color);
+    transform: translateY(-2px);
+}
+
+.quick-action-btn i {
+    font-size: 18px;
+}
+
+.voice-ai-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 12px;
+}
+
+.voice-ai-input-area {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.voice-ai-text-input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--bg-color);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+.voice-ai-text-input:focus {
+    outline: none;
+    border-color: var(--main-color);
+}
+
+.voice-ai-send-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.voice-ai-send-btn:hover {
+    transform: scale(1.05);
+}
+
+.voice-ai-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.voice-ai-mic-btn {
+    flex: 1;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.voice-ai-mic-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.voice-ai-mic-btn.listening {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.voice-ai-mic-btn.listening i {
+    animation: micPulseAi 1s infinite;
+}
+
+@keyframes micPulseAi {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.voice-ai-speaker-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--hover-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+.voice-ai-speaker-btn:hover {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--main-color);
+}
+
+.voice-ai-speaker-btn.active {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    border-color: transparent;
+}
+
+/* Mobile Voice AI */
+@media (max-width: 768px) {
+    .voice-ai-widget {
+        bottom: 140px;
+        right: 16px;
+    }
+    
+    .voice-ai-toggle {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .voice-ai-panel {
+        width: calc(100vw - 32px);
+        max-width: 400px;
+        max-height: 500px;
+    }
+    
+    .voice-ai-quick-actions {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .voice-ai-panel {
+        bottom: 64px;
+        right: -8px;
+        width: calc(100vw - 16px);
+        max-height: 450px;
+    }
+    
+    .voice-ai-conversation {
+        padding: 12px;
+    }
+    
+    .message-bubble {
+        font-size: 13px;
+        padding: 10px 12px;
+    }
 }
 </style>
 
@@ -1678,7 +2201,281 @@ document.addEventListener('DOMContentLoaded', function() {
     // Start typing after preloader
     setTimeout(typeNameEffect, 2600);
 
-    console.log('🚀 Portfolio loaded successfully!');
+    // ===== VOICE AI ASSISTANT FUNCTIONALITY =====
+    const voiceAiToggle = document.getElementById('voiceAiToggle');
+    const voiceAiPanel = document.getElementById('voiceAiPanel');
+    const voiceAiClose = document.getElementById('voiceAiClose');
+    const voiceAiMicBtn = document.getElementById('voiceAiMicBtn');
+    const voiceAiSendBtn = document.getElementById('voiceAiSendBtn');
+    const voiceAiTextInput = document.getElementById('voiceAiTextInput');
+    const voiceAiSpeakerBtn = document.getElementById('voiceAiSpeakerBtn');
+    const voiceAiStatus = document.getElementById('voiceAiStatus');
+    const voiceAiConversation = document.getElementById('voiceAiConversation');
+    const voiceAiVisualizer = document.getElementById('voiceAiVisualizer');
+    
+    let isVoiceAiListening = false;
+    let voiceAiRecognition = null;
+    let isSpeechEnabled = true;
+    let speechSynthesis = window.speechSynthesis;
+    
+    // AI Knowledge Base
+    const aiKnowledgeBase = {
+        about: "Muhammad Fawwaz Rayyan Khalish is a passionate Full-Stack Developer and Digital Innovator. He's currently studying Computer Science at Universitas Gunadarma and has experience as a Junior Full-Stack Developer at Satu Langkah Project, Campus Ambassador at MySkill, and Podcast Specialist at Generasi Energi Bersih.",
+        skills: "Fawwaz specializes in Front-End technologies like HTML5, CSS3, JavaScript ES6+, React.js, Redux, Vue.js, Tailwind CSS, and Bootstrap. For Back-End, he works with Node.js, Express, Python, Django, PostgreSQL, MySQL, MongoDB, RESTful APIs, and GraphQL. He's also proficient in DevOps tools like Git, GitHub, Docker, AWS, Kubernetes, CI/CD Pipelines, and Figma.",
+        experience: "Fawwaz has worked as a Campus Ambassador at MySkill since February 2026, Podcast Specialist at Generasi Energi Bersih since February 2026, Junior Full-Stack Developer at Satu Langkah Project since December 2025, Mentor of Graphic Designer at International Youth Goals since January 2025, and has previous experience as Junior Graphic Designer and Graphic Design Intern at International Youth Goals, plus Junior Software Developer at Bumindo Group.",
+        education: "He's currently pursuing a Bachelor of Computer Science at Universitas Gunadarma (2025-2029), focusing on software development, artificial intelligence, and distributed systems. He completed Natural Science (IPA) at SMA Muhammadiyah 8 Ciputat (2023-2025).",
+        contact: "You can reach Fawwaz through email, LinkedIn, GitHub, Instagram, WhatsApp, or TikTok. His GitHub is websoftindonesia, LinkedIn is m-fawwaz-rayyan-khalish, and Instagram is @wazrynn.",
+        portfolio: "Fawwaz has worked on several impressive projects including an E-Commerce B2B Platform using React, Node.js, and PostgreSQL, a Fitness Tracker App with React Native and Firebase, and an Analytics Dashboard using Vue.js, Python, and Chart.js.",
+        certificates: "He has earned 6+ certificates including HMD Mathematics Certificate from University of Indonesia, HIMA Fisika Certificate from Gadjah Mada University, Introduction to Programming in HTML5 and CSS from MySkill, and Introduction to Software Engineer from RevoU."
+    };
+    
+    // Initialize Speech Recognition
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        voiceAiRecognition = new SpeechRecognition();
+        voiceAiRecognition.continuous = false;
+        voiceAiRecognition.interimResults = true;
+        voiceAiRecognition.lang = 'en-US';
+        
+        voiceAiRecognition.onstart = () => {
+            isVoiceAiListening = true;
+            voiceAiToggle.classList.add('active');
+            voiceAiMicBtn.classList.add('listening');
+            voiceAiMicBtn.innerHTML = '<i class="fas fa-stop"></i><span>Release to Stop</span>';
+            voiceAiStatus.classList.add('listening');
+            voiceAiStatus.querySelector('.status-text').textContent = 'Listening...';
+            voiceAiVisualizer.classList.add('active');
+        };
+        
+        voiceAiRecognition.onresult = (event) => {
+            let transcript = '';
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                transcript += event.results[i][0].transcript;
+            }
+            
+            if (event.results[0].isFinal) {
+                addUserMessage(transcript);
+                processAiQuery(transcript);
+            }
+        };
+        
+        voiceAiRecognition.onerror = (event) => {
+            console.error('Speech recognition error:', event.error);
+            stopVoiceAiListening();
+            showNotification('Voice recognition error. Please try again.', 'error');
+        };
+        
+        voiceAiRecognition.onend = () => {
+            stopVoiceAiListening();
+        };
+    } else {
+        voiceAiMicBtn.disabled = true;
+        voiceAiMicBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i><span>Not Supported</span>';
+    }
+    
+    function stopVoiceAiListening() {
+        isVoiceAiListening = false;
+        voiceAiToggle.classList.remove('active');
+        voiceAiMicBtn.classList.remove('listening');
+        voiceAiMicBtn.innerHTML = '<i class="fas fa-microphone"></i><span>Hold to Speak</span>';
+        voiceAiStatus.classList.remove('listening');
+        voiceAiStatus.querySelector('.status-text').textContent = 'Ready to help';
+        voiceAiVisualizer.classList.remove('active');
+    }
+    
+    function addUserMessage(text) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'conversation-message user-message';
+        messageDiv.innerHTML = `
+            <div class="message-avatar"><i class="fas fa-user"></i></div>
+            <div class="message-bubble"><p>${text}</p></div>
+        `;
+        voiceAiConversation.appendChild(messageDiv);
+        voiceAiConversation.scrollTop = voiceAiConversation.scrollHeight;
+    }
+    
+    function addAiMessage(text) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'conversation-message ai-message';
+        messageDiv.innerHTML = `
+            <div class="message-avatar"><i class="fas fa-robot"></i></div>
+            <div class="message-bubble"><p>${text}</p></div>
+        `;
+        voiceAiConversation.appendChild(messageDiv);
+        voiceAiConversation.scrollTop = voiceAiConversation.scrollHeight;
+        
+        // Speak the response if enabled
+        if (isSpeechEnabled) {
+            speakText(text);
+        }
+    }
+    
+    function speakText(text) {
+        if (speechSynthesis.speaking) {
+            speechSynthesis.cancel();
+        }
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.9;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+        utterance.lang = 'en-US';
+        
+        speechSynthesis.speak(utterance);
+    }
+    
+    function processAiQuery(query) {
+        const lowerQuery = query.toLowerCase();
+        let response = '';
+        
+        // Greeting
+        if (lowerQuery.includes('hello') || lowerQuery.includes('hi') || lowerQuery.includes('hey')) {
+            response = "Hello! I'm Fawwaz's AI assistant. I can tell you about his skills, experience, education, portfolio, or contact information. What would you like to know?";
+        }
+        // About
+        else if (lowerQuery.includes('about') || lowerQuery.includes('who is') || lowerQuery.includes('tell me about')) {
+            response = aiKnowledgeBase.about;
+        }
+        // Skills
+        else if (lowerQuery.includes('skill') || lowerQuery.includes('technology') || lowerQuery.includes('tech stack')) {
+            response = aiKnowledgeBase.skills;
+        }
+        // Experience
+        else if (lowerQuery.includes('experience') || lowerQuery.includes('work') || lowerQuery.includes('job')) {
+            response = aiKnowledgeBase.experience;
+        }
+        // Education
+        else if (lowerQuery.includes('education') || lowerQuery.includes('study') || lowerQuery.includes('university')) {
+            response = aiKnowledgeBase.education;
+        }
+        // Contact
+        else if (lowerQuery.includes('contact') || lowerQuery.includes('reach') || lowerQuery.includes('email')) {
+            response = aiKnowledgeBase.contact;
+            setTimeout(() => {
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+        }
+        // Portfolio
+        else if (lowerQuery.includes('portfolio') || lowerQuery.includes('project') || lowerQuery.includes('work sample')) {
+            response = aiKnowledgeBase.portfolio;
+            setTimeout(() => {
+                document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+        }
+        // Certificates
+        else if (lowerQuery.includes('certificate') || lowerQuery.includes('certification') || lowerQuery.includes('achievement')) {
+            response = aiKnowledgeBase.certificates;
+            setTimeout(() => {
+                document.getElementById('certificates')?.scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+        }
+        // Navigation
+        else if (lowerQuery.includes('scroll to') || lowerQuery.includes('go to') || lowerQuery.includes('show me')) {
+            if (lowerQuery.includes('home')) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                response = "Scrolling to the home section.";
+            } else if (lowerQuery.includes('skill')) {
+                document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' });
+                response = "Showing the skills section.";
+            } else if (lowerQuery.includes('experience')) {
+                document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' });
+                response = "Showing the experience section.";
+            } else if (lowerQuery.includes('portfolio')) {
+                document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' });
+                response = "Showing the portfolio section.";
+            } else if (lowerQuery.includes('contact')) {
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                response = "Showing the contact section.";
+            }
+        }
+        // Default
+        else {
+            response = "I can help you learn about Fawwaz's skills, experience, education, portfolio, or contact information. You can also ask me to navigate to different sections of the website. What would you like to know?";
+        }
+        
+        setTimeout(() => {
+            addAiMessage(response);
+        }, 500);
+    }
+    
+    // Toggle Voice AI Panel
+    voiceAiToggle.addEventListener('click', () => {
+        voiceAiPanel.classList.toggle('active');
+    });
+    
+    voiceAiClose.addEventListener('click', () => {
+        voiceAiPanel.classList.remove('active');
+        if (isVoiceAiListening && voiceAiRecognition) {
+            voiceAiRecognition.stop();
+        }
+        if (speechSynthesis.speaking) {
+            speechSynthesis.cancel();
+        }
+    });
+    
+    // Microphone button (hold to speak)
+    voiceAiMicBtn.addEventListener('mousedown', () => {
+        if (!voiceAiRecognition) return;
+        voiceAiRecognition.start();
+    });
+    
+    voiceAiMicBtn.addEventListener('mouseup', () => {
+        if (!voiceAiRecognition || !isVoiceAiListening) return;
+        voiceAiRecognition.stop();
+    });
+    
+    voiceAiMicBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        if (!voiceAiRecognition) return;
+        voiceAiRecognition.start();
+    });
+    
+    voiceAiMicBtn.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        if (!voiceAiRecognition || !isVoiceAiListening) return;
+        voiceAiRecognition.stop();
+    });
+    
+    // Send text message
+    function sendTextMessage() {
+        const text = voiceAiTextInput.value.trim();
+        if (!text) return;
+        
+        addUserMessage(text);
+        processAiQuery(text);
+        voiceAiTextInput.value = '';
+    }
+    
+    voiceAiSendBtn.addEventListener('click', sendTextMessage);
+    
+    voiceAiTextInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            sendTextMessage();
+        }
+    });
+    
+    // Toggle speaker
+    voiceAiSpeakerBtn.addEventListener('click', () => {
+        isSpeechEnabled = !isSpeechEnabled;
+        voiceAiSpeakerBtn.classList.toggle('active', isSpeechEnabled);
+        voiceAiSpeakerBtn.innerHTML = isSpeechEnabled ? '<i class="fas fa-volume-up"></i>' : '<i class="fas fa-volume-mute"></i>';
+        
+        if (!isSpeechEnabled && speechSynthesis.speaking) {
+            speechSynthesis.cancel();
+        }
+    });
+    
+    // Quick action buttons
+    document.querySelectorAll('.quick-action-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const action = btn.dataset.action;
+            addUserMessage(action);
+            processAiQuery(action);
+        });
+    });
+
+    console.log('🚀 Portfolio with Voice AI loaded successfully!');
 });
 </script>
 <!-- TAMBAHKAN CSS INI SETELAH .theme-dark { ... } -->
