@@ -1955,37 +1955,276 @@ footer { text-align: center; padding: 50px 20px; background: var(--card-bg); bor
     }
     
     .voice-ai-toggle {
-        width: 50px;
-        height: 50px;
+        width: 52px;
+        height: 52px;
         font-size: 20px;
     }
     
     .voice-ai-panel {
-        width: calc(100vw - 32px);
-        max-width: 400px;
-        max-height: 500px;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        max-width: 100%;
+        max-height: 85vh;
+        border-radius: 20px 20px 0 0;
+        animation: voiceAiSlideUpMobile 0.3s ease;
+    }
+    
+    @keyframes voiceAiSlideUpMobile {
+        from { transform: translateY(100%); }
+        to { transform: translateY(0); }
+    }
+    
+    .voice-ai-header {
+        padding: 16px 20px;
+        border-radius: 20px 20px 0 0;
+    }
+    
+    .voice-ai-visualizer {
+        height: 50px;
+    }
+    
+    .voice-ai-conversation {
+        max-height: calc(85vh - 280px);
+        padding: 16px;
     }
     
     .voice-ai-quick-actions {
         grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 12px 16px;
+    }
+    
+    .quick-action-btn {
+        padding: 14px 10px;
+        font-size: 12px;
+    }
+    
+    .quick-action-btn i {
+        font-size: 20px;
+    }
+    
+    .voice-ai-footer {
+        padding: 16px;
+        background: var(--card-bg);
+        border-top: 2px solid var(--border-color);
+    }
+    
+    .voice-ai-input-area {
+        margin-bottom: 10px;
+    }
+    
+    .voice-ai-text-input {
+        padding: 12px 16px;
+        font-size: 14px;
+    }
+    
+    .voice-ai-send-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 16px;
+    }
+    
+    .voice-ai-mic-btn {
+        padding: 14px 24px;
+        font-size: 14px;
+    }
+    
+    .voice-ai-speaker-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 18px;
+    }
+    
+    .message-bubble {
+        max-width: 80%;
     }
 }
 
 @media (max-width: 480px) {
+    .voice-ai-widget {
+        bottom: 130px;
+        right: 12px;
+    }
+    
+    .voice-ai-toggle {
+        width: 48px;
+        height: 48px;
+        font-size: 18px;
+    }
+    
     .voice-ai-panel {
-        bottom: 64px;
-        right: -8px;
-        width: calc(100vw - 16px);
-        max-height: 450px;
+        max-height: 90vh;
+    }
+    
+    .voice-ai-header {
+        padding: 14px 16px;
+    }
+    
+    .voice-ai-avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+    
+    .voice-ai-title {
+        font-size: 14px;
+    }
+    
+    .voice-ai-status {
+        font-size: 11px;
+    }
+    
+    .voice-ai-visualizer {
+        height: 45px;
+        gap: 3px;
+    }
+    
+    .visualizer-bar {
+        width: 3px;
     }
     
     .voice-ai-conversation {
+        max-height: calc(90vh - 300px);
         padding: 12px;
+        gap: 10px;
+    }
+    
+    .message-avatar {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
     }
     
     .message-bubble {
         font-size: 13px;
+        padding: 10px 14px;
+        max-width: 85%;
+    }
+    
+    .voice-ai-quick-actions {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
         padding: 10px 12px;
+    }
+    
+    .quick-action-btn {
+        padding: 12px 8px;
+        font-size: 11px;
+    }
+    
+    .quick-action-btn i {
+        font-size: 18px;
+    }
+    
+    .voice-ai-footer {
+        padding: 12px;
+    }
+    
+    .voice-ai-input-area {
+        margin-bottom: 8px;
+        gap: 6px;
+    }
+    
+    .voice-ai-text-input {
+        padding: 10px 14px;
+        font-size: 13px;
+        border-radius: 10px;
+    }
+    
+    .voice-ai-send-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
+    
+    .voice-ai-controls {
+        gap: 6px;
+    }
+    
+    .voice-ai-mic-btn {
+        padding: 12px 20px;
+        font-size: 13px;
+        border-radius: 10px;
+    }
+    
+    .voice-ai-mic-btn i {
+        font-size: 14px;
+    }
+    
+    .voice-ai-speaker-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    .voice-ai-toggle {
+        width: 44px;
+        height: 44px;
+        font-size: 16px;
+    }
+    
+    .voice-ai-conversation {
+        max-height: calc(90vh - 320px);
+    }
+    
+    .quick-action-btn {
+        padding: 10px 6px;
+        font-size: 10px;
+    }
+    
+    .quick-action-btn i {
+        font-size: 16px;
+    }
+    
+    .voice-ai-mic-btn {
+        padding: 10px 16px;
+        font-size: 12px;
+    }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+    .voice-ai-toggle {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .voice-ai-mic-btn {
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+    
+    .quick-action-btn {
+        -webkit-tap-highlight-color: transparent;
+        min-height: 44px;
+    }
+    
+    .voice-ai-send-btn,
+    .voice-ai-speaker-btn,
+    .voice-ai-close {
+        -webkit-tap-highlight-color: transparent;
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
+/* Landscape mode for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .voice-ai-panel {
+        max-height: 95vh;
+    }
+    
+    .voice-ai-conversation {
+        max-height: calc(95vh - 240px);
+    }
+    
+    .voice-ai-visualizer {
+        height: 40px;
     }
 }
 </style>
@@ -2414,26 +2653,86 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Microphone button (hold to speak)
-    voiceAiMicBtn.addEventListener('mousedown', () => {
-        if (!voiceAiRecognition) return;
-        voiceAiRecognition.start();
-    });
+    let touchTimer = null;
+    let isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
     
-    voiceAiMicBtn.addEventListener('mouseup', () => {
-        if (!voiceAiRecognition || !isVoiceAiListening) return;
-        voiceAiRecognition.stop();
-    });
+    // Desktop: Mouse events
+    if (!isTouchDevice) {
+        voiceAiMicBtn.addEventListener('mousedown', () => {
+            if (!voiceAiRecognition) return;
+            voiceAiRecognition.start();
+        });
+        
+        voiceAiMicBtn.addEventListener('mouseup', () => {
+            if (!voiceAiRecognition || !isVoiceAiListening) return;
+            voiceAiRecognition.stop();
+        });
+        
+        voiceAiMicBtn.addEventListener('mouseleave', () => {
+            if (!voiceAiRecognition || !isVoiceAiListening) return;
+            voiceAiRecognition.stop();
+        });
+    }
     
+    // Mobile: Touch events with haptic feedback
     voiceAiMicBtn.addEventListener('touchstart', (e) => {
         e.preventDefault();
         if (!voiceAiRecognition) return;
-        voiceAiRecognition.start();
+        
+        // Haptic feedback (if supported)
+        if (navigator.vibrate) {
+            navigator.vibrate(50);
+        }
+        
+        // Visual feedback
+        voiceAiMicBtn.style.transform = 'scale(0.95)';
+        
+        // Start recognition after short delay
+        touchTimer = setTimeout(() => {
+            voiceAiRecognition.start();
+        }, 100);
     });
     
     voiceAiMicBtn.addEventListener('touchend', (e) => {
         e.preventDefault();
+        
+        // Clear timer if touch ended before recognition started
+        if (touchTimer) {
+            clearTimeout(touchTimer);
+            touchTimer = null;
+        }
+        
+        // Reset visual feedback
+        voiceAiMicBtn.style.transform = 'scale(1)';
+        
+        if (!voiceAiRecognition || !isVoiceAiListening) return;
+        
+        // Haptic feedback (if supported)
+        if (navigator.vibrate) {
+            navigator.vibrate(30);
+        }
+        
+        voiceAiRecognition.stop();
+    });
+    
+    voiceAiMicBtn.addEventListener('touchcancel', (e) => {
+        e.preventDefault();
+        
+        if (touchTimer) {
+            clearTimeout(touchTimer);
+            touchTimer = null;
+        }
+        
+        voiceAiMicBtn.style.transform = 'scale(1)';
+        
         if (!voiceAiRecognition || !isVoiceAiListening) return;
         voiceAiRecognition.stop();
+    });
+    
+    // Prevent context menu on long press (mobile)
+    voiceAiMicBtn.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        return false;
     });
     
     // Send text message
@@ -2470,10 +2769,168 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.quick-action-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const action = btn.dataset.action;
+            
+            // Haptic feedback for mobile
+            if (navigator.vibrate) {
+                navigator.vibrate(30);
+            }
+            
             addUserMessage(action);
             processAiQuery(action);
         });
     });
+    
+    // Mobile-specific features
+    if (isTouchDevice) {
+        let touchStartY = 0;
+        let touchEndY = 0;
+        
+        // Swipe down to close panel
+        voiceAiPanel.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+        
+        voiceAiPanel.addEventListener('touchmove', (e) => {
+            touchEndY = e.touches[0].clientY;
+            
+            // Only allow swipe down from header
+            if (e.target.closest('.voice-ai-header')) {
+                const diff = touchEndY - touchStartY;
+                if (diff > 0) {
+                    voiceAiPanel.style.transform = `translateY(${diff}px)`;
+                }
+            }
+        }, { passive: true });
+        
+        voiceAiPanel.addEventListener('touchend', (e) => {
+            const diff = touchEndY - touchStartY;
+            
+            // If swiped down more than 100px, close panel
+            if (diff > 100) {
+                voiceAiPanel.style.transform = 'translateY(100%)';
+                setTimeout(() => {
+                    voiceAiPanel.classList.remove('active');
+                    voiceAiPanel.style.transform = '';
+                }, 300);
+                
+                if (isVoiceAiListening && voiceAiRecognition) {
+                    voiceAiRecognition.stop();
+                }
+                if (speechSynthesis.speaking) {
+                    speechSynthesis.cancel();
+                }
+            } else {
+                voiceAiPanel.style.transform = '';
+            }
+            
+            touchStartY = 0;
+            touchEndY = 0;
+        }, { passive: true });
+        
+        // Prevent body scroll when panel is open
+        voiceAiPanel.addEventListener('touchmove', (e) => {
+            const conversation = voiceAiConversation;
+            const isScrollable = conversation.scrollHeight > conversation.clientHeight;
+            
+            if (!isScrollable || 
+                (conversation.scrollTop === 0 && e.touches[0].clientY > touchStartY) ||
+                (conversation.scrollTop + conversation.clientHeight >= conversation.scrollHeight && e.touches[0].clientY < touchStartY)) {
+                // Prevent scroll on body
+                if (!e.target.closest('.voice-ai-conversation')) {
+                    e.preventDefault();
+                }
+            }
+        }, { passive: false });
+        
+        // Auto-hide keyboard when scrolling conversation
+        voiceAiConversation.addEventListener('touchstart', () => {
+            if (document.activeElement === voiceAiTextInput) {
+                voiceAiTextInput.blur();
+            }
+        });
+        
+        // Adjust panel height when keyboard appears
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener('resize', () => {
+                if (voiceAiPanel.classList.contains('active')) {
+                    const viewportHeight = window.visualViewport.height;
+                    const windowHeight = window.innerHeight;
+                    const keyboardHeight = windowHeight - viewportHeight;
+                    
+                    if (keyboardHeight > 100) {
+                        // Keyboard is open
+                        voiceAiPanel.style.maxHeight = `${viewportHeight - 20}px`;
+                    } else {
+                        // Keyboard is closed
+                        voiceAiPanel.style.maxHeight = '';
+                    }
+                }
+            });
+        }
+    }
+    
+    // Handle orientation change
+    window.addEventListener('orientationchange', () => {
+        setTimeout(() => {
+            if (voiceAiPanel.classList.contains('active')) {
+                voiceAiConversation.scrollTop = voiceAiConversation.scrollHeight;
+            }
+        }, 300);
+    });
+    
+    // Prevent zoom on double tap for buttons
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', (e) => {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+            if (e.target.closest('.voice-ai-mic-btn, .voice-ai-send-btn, .voice-ai-speaker-btn, .quick-action-btn')) {
+                e.preventDefault();
+            }
+        }
+        lastTouchEnd = now;
+    }, { passive: false });
+    
+    // Add visual indicator for mobile users
+    if (isTouchDevice && voiceAiMicBtn) {
+        const mobileHint = document.createElement('div');
+        mobileHint.style.cssText = `
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            white-space: nowrap;
+            margin-bottom: 8px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        `;
+        mobileHint.textContent = 'Tap & hold to speak';
+        voiceAiMicBtn.parentElement.style.position = 'relative';
+        voiceAiMicBtn.parentElement.appendChild(mobileHint);
+        
+        // Show hint on first panel open
+        let hintShown = localStorage.getItem('voiceAiHintShown');
+        if (!hintShown) {
+            const showHint = () => {
+                if (voiceAiPanel.classList.contains('active')) {
+                    setTimeout(() => {
+                        mobileHint.style.opacity = '1';
+                        setTimeout(() => {
+                            mobileHint.style.opacity = '0';
+                        }, 3000);
+                    }, 500);
+                    localStorage.setItem('voiceAiHintShown', 'true');
+                    voiceAiToggle.removeEventListener('click', showHint);
+                }
+            };
+            voiceAiToggle.addEventListener('click', showHint);
+        }
+    }
 
     console.log('🚀 Portfolio with Voice AI loaded successfully!');
 });
