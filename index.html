@@ -350,13 +350,13 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 }
 
 .hero-description { 
-    max-width: 500px; 
-    margin-bottom: 20px; 
-    font-size: clamp(0.9rem, 2vw, 1rem); 
-    color: rgba(255, 255, 255, 0.7); 
+    max-width: 550px; 
+    margin-bottom: 24px; 
+    font-size: clamp(0.95rem, 2vw, 1.05rem); 
+    color: rgba(255, 255, 255, 0.85); 
     line-height: 1.8;
-    text-align: justify;
-    word-spacing: 0.05em;
+    letter-spacing: 0.02em;
+    word-spacing: 0.1em;
 }
 
 .hero-description strong {
@@ -562,7 +562,9 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
             <div class="hero-badge"><i class="fas fa-sparkles"></i> SELAMAT DATANG DI JURNAL SAYA</div>
             <h1 class="hero-title-main">Muhammad Fawwaz Rayyan Khalish</h1>
             <h2 class="hero-title-sub"><span class="rotating-text" id="rotatingText"></span></span></h2>
-            <p class="hero-description">Seorang <strong>Software Developer</strong> yang bersemangat dalam menciptakan solusi web yang efisien dan interaktif. Saya senang mengeksplorasi desain front-end yang menarik dan arsitektur back-end yang robust.</p>
+            <p class="hero-description">
+                Seorang <strong>Software Developer</strong> yang bersemangat dalam menciptakan solusi web yang efisien dan interaktif. Saya fokus pada pengembangan aplikasi modern dengan desain front-end yang menarik dan arsitektur back-end yang robust.
+            </p>
             <a href="#portfolio" class="hero-cta">
                 Lihat Portfolio
                 <i class="fas fa-arrow-right"></i>
@@ -1826,11 +1828,42 @@ textarea.form-input { resize: vertical; min-height: 120px; }
 .lightbox-close { position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); border: none; color: white; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
 /* FOOTER */
-footer { text-align: center; padding: 50px 20px; background: var(--card-bg); border-top: 1px solid var(--border-color); }
-.footer-quote { font-size: 1rem; color: var(--text-secondary); font-style: italic; margin-bottom: 20px; line-height: 1.6; max-width: 500px; margin-left: auto; margin-right: auto; }
-.footer-divider { width: 50px; height: 3px; background: var(--gradient-primary); margin: 20px auto; border-radius: var(--radius-full); }
-.footer-copy { color: var(--text-secondary); font-size: 13px; }
-.footer-copy .highlight { background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 600; }
+footer { 
+    text-align: center; 
+    padding: 70px 20px 60px; 
+    background: var(--card-bg); 
+    border-top: 1px solid var(--border-color);
+}
+.footer-quote { 
+    font-size: 1.1rem; 
+    color: var(--text-secondary); 
+    font-style: italic; 
+    margin: 0 auto 28px; 
+    line-height: 1.8; 
+    max-width: 650px;
+    letter-spacing: 0.02em;
+    padding: 0 20px;
+}
+.footer-divider { 
+    width: 70px; 
+    height: 4px; 
+    background: var(--gradient-primary); 
+    margin: 28px auto; 
+    border-radius: var(--radius-full);
+}
+.footer-copy { 
+    color: var(--text-secondary); 
+    font-size: 14px;
+    line-height: 2;
+    margin: 8px 0;
+}
+.footer-copy .highlight { 
+    background: var(--gradient-primary); 
+    -webkit-background-clip: text; 
+    background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    font-weight: 600;
+}
 
 /* PRELOADER */
 #preloader { position: fixed; inset: 0; background: linear-gradient(135deg, #fef3c7 0%, #fce7f3 50%, #ddd6fe 100%); z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s, visibility 0.5s; overflow: hidden; }
@@ -2071,11 +2104,16 @@ footer { text-align: center; padding: 50px 20px; background: var(--card-bg); bor
 </div>
 
 <footer>
-    <div class="footer-content">
-        <p class="footer-quote">"My commitment is to create digital solutions that are functional, scalable, and useful for users."</p>
-        <div class="footer-divider"></div>
-        <p class="footer-copy">© 2025 M.Fawwaz. All Rights Reserved.<br>Designed and Developed by <span class="highlight">Muhammad Fawwaz Rayyan Khalish</span></p>
-    </div>
+    <p class="footer-quote">
+        "My commitment is to create digital solutions that are functional, scalable, and useful for users."
+    </p>
+    <div class="footer-divider"></div>
+    <p class="footer-copy">
+        © 2025 M.Fawwaz. All Rights Reserved.
+    </p>
+    <p class="footer-copy">
+        Designed and Developed by <span class="highlight">Muhammad Fawwaz Rayyan Khalish</span>
+    </p>
 </footer>
 
 <style>
@@ -2157,7 +2195,7 @@ footer { text-align: center; padding: 50px 20px; background: var(--card-bg); bor
     .chat-toggle { width: 50px; height: 50px; font-size: 20px; }
     .chat-container { width: calc(100vw - 32px); height: 400px; bottom: 64px; }
     #scrollToTopBtn { bottom: 80px; right: 16px; width: 40px; height: 40px; }
-    footer { padding: 40px 16px; }
+    footer { padding: 50px 20px 40px; }
 }
 
 @media (max-width: 480px) {
@@ -2212,8 +2250,8 @@ footer { text-align: center; padding: 50px 20px; background: var(--card-bg); bor
     .chat-messages { padding: 12px; }
     .chat-input-area { padding: 10px; }
     .message-content { font-size: 12px; padding: 8px 12px; }
-    .footer-quote { font-size: 0.9rem; }
-    .footer-copy { font-size: 12px; }
+    .footer-quote { font-size: 1rem; line-height: 1.7; max-width: 90%; }
+    .footer-copy { font-size: 13px; line-height: 1.8; }
     .mobile-nav-item { padding: 12px 16px; }
     .mobile-nav-title { font-size: 13px; }
     .mobile-nav-desc { font-size: 10px; }
