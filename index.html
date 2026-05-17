@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -50,8 +50,17 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 
 /* NAVBAR */
 .navbar { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg-glass); padding: 12px 24px; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color); backdrop-filter: blur(20px); }
-.navbar-left { display: flex; align-items: center; gap: 16px; flex: 1; }
-.logo { font-size: 1.4em; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.navbar-left { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 0; }
+.logo { font-size: 1.4em; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; display: flex; align-items: center; gap: 8px; min-width: 0; flex-shrink: 1; }
+.logo-text-full,
+.logo-text-short {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.logo-text-full { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.logo-text-short { display: none; white-space: nowrap; }
 .search-container { position: relative; max-width: 200px; flex: 1; }
 .search-box { width: 100%; padding: 10px 14px 10px 38px; border: 2px solid transparent; border-radius: var(--radius-full); background: var(--search-bg); color: var(--text-primary); font-size: 13px; outline: none; transition: all 0.3s; }
 .search-box:focus { background: var(--card-bg); border-color: var(--main-color); }
@@ -143,7 +152,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 
 <nav class="navbar">
     <div class="navbar-left">
-        <a href="#home" class="logo"><i class="fas fa-code"></i> M.Fawwaz Rayyan K</a>
+        <a href="#home" class="logo"><i class="fas fa-code"></i><span class="logo-text-full">M.Fawwaz Rayyan K</span><span class="logo-text-short">Wazryn</span></a>
         <div class="search-container">
             <input type="text" class="search-box" placeholder="Search..." id="searchInput">
             <i class="fas fa-search search-icon"></i>
@@ -155,6 +164,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
         <a href="#about-education" class="nav-item"><i class="fas fa-user"></i> About</a>
         <a href="#skills" class="nav-item"><i class="fas fa-code"></i> Skills</a>
         <a href="#experience" class="nav-item"><i class="fas fa-briefcase"></i> Experience</a>
+        <a href="#services" class="nav-item"><i class="fas fa-handshake"></i> Services</a>
         <a href="#portfolio" class="nav-item"><i class="fas fa-folder-open"></i> Portfolio</a>
         <a href="#contact" class="nav-item"><i class="fas fa-envelope"></i> Contact</a>
     </div>
@@ -167,6 +177,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
         <a href="#about-education" class="mobile-nav-item"><i class="fas fa-user"></i><div class="mobile-nav-text"><span class="mobile-nav-title">About</span><span class="mobile-nav-desc">Education & background</span></div></a>
         <a href="#skills" class="mobile-nav-item"><i class="fas fa-code"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Skills</span><span class="mobile-nav-desc">Technical expertise</span></div></a>
         <a href="#experience" class="mobile-nav-item"><i class="fas fa-briefcase"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Experience</span><span class="mobile-nav-desc">Work history</span></div></a>
+        <a href="#services" class="mobile-nav-item"><i class="fas fa-handshake"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Services</span><span class="mobile-nav-desc">Layanan yang saya tawarkan</span></div></a>
         <a href="#portfolio" class="mobile-nav-item"><i class="fas fa-folder-open"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Portfolio</span><span class="mobile-nav-desc">My projects</span></div></a>
         <a href="#contact" class="mobile-nav-item"><i class="fas fa-envelope"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Contact</span><span class="mobile-nav-desc">Get in touch</span></div></a>
     </div>
@@ -214,6 +225,8 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 
 .hero-content { 
     text-align: left;
+    width: 100%;
+    min-width: 0;
 }
 
 .hero-badge { 
@@ -236,9 +249,11 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     font-family: 'Poppins', sans-serif;
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 800;
-    line-height: 1.1;
+    line-height: 1.15;
     margin-bottom: 16px;
     color: #ffffff;
+    word-break: normal;
+    overflow-wrap: break-word;
 }
 
 .hero-title-sub {
@@ -350,18 +365,30 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 }
 
 .hero-description { 
+    display: block;
+    width: 100%;
     max-width: 550px; 
-    margin-bottom: 24px; 
+    margin: 0 0 24px; 
     font-size: clamp(0.95rem, 2vw, 1.05rem); 
     color: rgba(255, 255, 255, 0.85); 
-    line-height: 1.8;
-    letter-spacing: 0.02em;
-    word-spacing: 0.1em;
+    line-height: 1.75;
+    letter-spacing: normal;
+    word-spacing: normal;
+    word-break: normal;
+    overflow-wrap: break-word;
+    text-align: left;
+    hyphens: none;
 }
 
 .hero-description strong {
     color: #ffffff;
     font-weight: 600;
+}
+
+.hero-description span {
+    display: inline;
+    opacity: 1;
+    transform: none;
 }
 
 .hero-cta {
@@ -514,11 +541,23 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     
     .hero-content {
         text-align: center;
+        padding: 0 8px;
+        box-sizing: border-box;
     }
     
     .hero-description {
         margin-left: auto;
         margin-right: auto;
+        text-align: center;
+        max-width: 100%;
+        width: 100%;
+        padding: 0 12px;
+        box-sizing: border-box;
+    }
+    
+    .hero-title-main {
+        text-align: center;
+        padding: 0 8px;
     }
     
     .social-links {
@@ -536,19 +575,88 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 
 @media (max-width: 768px) {
     .hero {
-        padding: 60px 16px;
+        padding: 60px 16px 48px;
+        min-height: auto;
+    }
+    
+    .hero-container {
+        gap: 32px;
     }
     
     .hero-title-main {
-        font-size: 2rem;
+        font-size: clamp(1.65rem, 6vw, 2rem);
     }
     
     .hero-title-sub {
-        font-size: 1.6rem;
+        font-size: clamp(1.25rem, 5vw, 1.6rem);
+        min-height: 48px;
+        justify-content: center;
+    }
+    
+    .hero-title-sub .rotating-text {
+        white-space: normal;
+        text-align: center;
+        padding: 6px 10px;
+    }
+    
+    .hero-badge {
+        font-size: 10px;
+        letter-spacing: 1px;
+        padding: 6px 12px;
+        max-width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+    
+    .hero-description {
+        font-size: 0.95rem;
+        line-height: 1.75;
+        text-align: center;
+        max-width: 100%;
+        padding: 0 4px;
+    }
+    
+    .hero-cta {
+        width: 100%;
+        justify-content: center;
+        max-width: 280px;
+        margin-left: auto;
+        margin-right: auto;
     }
     
     .hero-profile-wrapper {
-        max-width: 320px;
+        max-width: min(320px, 85vw);
+        margin: 0 auto;
+    }
+    
+    .shape-1 { width: 200px; height: 200px; }
+    .shape-2 { width: 150px; height: 150px; }
+    .shape-3 { width: 120px; height: 120px; }
+    
+    .scroll-indicator { display: none; }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 48px 12px 40px;
+    }
+    
+    .hero-title-main {
+        font-size: 1.45rem;
+    }
+    
+    .hero-title-sub {
+        font-size: 1.15rem;
+        min-height: 40px;
+    }
+    
+    .hero-profile-wrapper {
+        max-width: min(260px, 80vw);
+    }
+    
+    .social-links {
+        justify-content: center;
+        gap: 10px;
     }
 }
 </style>
@@ -561,7 +669,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
         <div class="hero-content">
             <div class="hero-badge"><i class="fas fa-sparkles"></i> SELAMAT DATANG DI JURNAL SAYA</div>
             <h1 class="hero-title-main">Muhammad Fawwaz Rayyan Khalish</h1>
-            <h2 class="hero-title-sub"><span class="rotating-text" id="rotatingText"></span></span></h2>
+            <h2 class="hero-title-sub"><span class="rotating-text" id="rotatingText"></span></h2>
             <p class="hero-description">
                 Seorang <strong>Software Developer</strong> yang bersemangat dalam menciptakan solusi web yang efisien dan interaktif. Saya fokus pada pengembangan aplikasi modern dengan desain front-end yang menarik dan arsitektur back-end yang robust.
             </p>
@@ -632,7 +740,9 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     color: var(--text-secondary); 
     max-width: 600px; 
     margin: 0 auto; 
-    line-height: 1.6;
+    line-height: 1.65;
+    word-break: normal;
+    overflow-wrap: break-word;
 }
 
 /* EDUCATION */
@@ -714,12 +824,32 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 .education-school { 
     font-size: 1.05rem; 
     font-weight: 600; 
-    background: var(--gradient-primary); 
-    -webkit-background-clip: text; 
-    background-clip: text; 
-    -webkit-text-fill-color: transparent; 
+    color: var(--main-color);
     margin: 0;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    background: rgba(99, 102, 241, 0.08);
+    transition: all 0.25s ease;
+    width: fit-content;
+    max-width: 100%;
+    text-align: center;
+}
+.education-school:hover {
+    background: rgba(99, 102, 241, 0.14);
+    border-color: rgba(99, 102, 241, 0.45);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.2);
+    color: var(--accent-color);
+}
+.education-school i {
+    font-size: 0.8em;
+    flex-shrink: 0;
 }
 .education-period { 
     display: inline-flex; 
@@ -758,7 +888,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
             </div>
             <div class="education-content">
                 <h3 class="education-degree">Bachelor of Informatics Engineering</h3>
-                <p class="education-school">Universitas Gunadarma</p>
+                <a href="https://www.gunadarma.ac.id" target="_blank" rel="noopener noreferrer" class="education-school" aria-label="Kunjungi website Universitas Gunadarma">Universitas Gunadarma <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
                 <span class="education-period"><i class="fas fa-calendar"></i> 2025 - 2029</span>
                 <p class="education-description">Focusing on software development, artificial intelligence, and distributed systems. Involved in several research projects in machine learning and modern web application development.</p>
             </div>
@@ -769,7 +899,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
             </div>
             <div class="education-content">
                 <h3 class="education-degree">Natural Science</h3>
-                <p class="education-school">SMA Muhammadiyah 8 Ciputat</p>
+                <a href="https://smamdelapan.sch.id/" target="_blank" rel="noopener noreferrer" class="education-school" aria-label="Kunjungi website SMA Muhammadiyah 8 Ciputat">SMA Muhammadiyah 8 Ciputat <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
                 <span class="education-period"><i class="fas fa-calendar"></i> 2023 - 2025</span>
                 <p class="education-description">Active in science club and computer olympiad. Developed deep interest in programming and technology from an early age.</p>
             </div>
@@ -1056,12 +1186,130 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 </section>
 
 <style>
+/* SERVICES */
+.services-intro { text-align: center; max-width: 720px; margin: 0 auto 48px; color: var(--text-secondary); font-size: 1rem; line-height: 1.75; }
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 24px; }
+.service-card { background: var(--card-bg); border-radius: var(--radius-xl); border: 1px solid var(--border-color); overflow: hidden; transition: transform 0.35s ease, box-shadow 0.35s ease; display: flex; flex-direction: column; }
+.service-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-xl); border-color: rgba(99, 102, 241, 0.25); }
+.service-image { position: relative; width: 100%; height: 200px; overflow: hidden; background: var(--hover-bg); }
+.service-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.service-card:hover .service-image img { transform: scale(1.06); }
+.service-image-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(15, 23, 42, 0.75) 100%); display: flex; align-items: flex-end; padding: 16px; }
+.service-icon-badge { width: 44px; height: 44px; border-radius: var(--radius-lg); background: var(--gradient-primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: var(--shadow-lg); }
+.service-body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
+.service-title { font-family: 'Poppins', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; line-height: 1.3; }
+.service-description { color: var(--text-secondary); font-size: 14px; line-height: 1.65; margin-bottom: 16px; flex: 1; word-break: normal; overflow-wrap: break-word; }
+.service-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+.service-tag { padding: 4px 10px; background: rgba(99, 102, 241, 0.1); border-radius: var(--radius-full); color: var(--main-color); font-size: 11px; font-weight: 600; }
+.service-cta { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 18px; background: var(--gradient-primary); color: white; text-decoration: none; border-radius: var(--radius-full); font-size: 13px; font-weight: 600; transition: transform 0.25s ease, box-shadow 0.25s ease; margin-top: auto; }
+.service-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35); color: white; }
+.service-cta-secondary { background: var(--hover-bg); color: var(--main-color); box-shadow: none; border: 1px solid var(--border-color); margin-top: 8px; }
+.service-cta-secondary:hover { background: rgba(99, 102, 241, 0.1); color: var(--main-color); }
+.service-cta-group { display: flex; flex-direction: column; gap: 0; }
+.services-cta-banner { margin-top: 48px; padding: 32px 28px; border-radius: var(--radius-xl); background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(236, 72, 153, 0.08) 100%); border: 1px solid var(--border-color); text-align: center; }
+.services-cta-banner h3 { font-family: 'Poppins', sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
+.services-cta-banner p { color: var(--text-secondary); margin-bottom: 20px; font-size: 0.95rem; line-height: 1.6; }
+.services-cta-banner .hero-cta { margin-top: 0; }
+</style>
+
+<section id="services" class="content-section">
+    <div class="section-header animate-on-scroll">
+        <span class="section-badge"><i class="fas fa-handshake"></i> Services</span>
+        <h2 class="section-title">Layanan yang Saya Tawarkan</h2>
+        <p class="section-subtitle">Solusi digital end-to-end untuk kebutuhan bisnis dan personal Anda</p>
+    </div>
+    <p class="services-intro animate-on-scroll">Saya menyediakan layanan profesional mulai dari pengembangan web, desain grafis, database, hingga pembuatan website siap deploy menggunakan Hostinger. Pesan dan data pengunjung tersimpan aman di database portfolio (Firebase Firestore).</p>
+    <div class="services-grid">
+        <article class="service-card animate-on-scroll">
+            <div class="service-image">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80" alt="Back End Developer">
+                <div class="service-image-overlay"><span class="service-icon-badge"><i class="fas fa-server"></i></span></div>
+            </div>
+            <div class="service-body">
+                <h3 class="service-title">Back End Developer</h3>
+                <p class="service-description">Membangun API, database, autentikasi, dan arsitektur server yang aman, scalable, dan mudah diintegrasikan dengan front-end maupun aplikasi mobile.</p>
+                <div class="service-tags"><span class="service-tag">Node.js</span><span class="service-tag">REST API</span><span class="service-tag">PostgreSQL</span><span class="service-tag">Firebase</span></div>
+                <a href="#contact" class="service-cta" data-service="back-end">Konsultasi Layanan <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </article>
+        <article class="service-card animate-on-scroll">
+            <div class="service-image">
+                <img src="https://i.ibb.co.com/cKT4sX2V/Screenshot-2026-02-02-135844.png" alt="Front End Developer">
+                <div class="service-image-overlay"><span class="service-icon-badge"><i class="fas fa-laptop-code"></i></span></div>
+            </div>
+            <div class="service-body">
+                <h3 class="service-title">Front End Developer</h3>
+                <p class="service-description">Mengembangkan antarmuka web yang responsif, interaktif, dan user-friendly dengan teknologi modern serta best practice UI/UX.</p>
+                <div class="service-tags"><span class="service-tag">React</span><span class="service-tag">HTML/CSS</span><span class="service-tag">JavaScript</span><span class="service-tag">Responsive UI</span></div>
+                <a href="#contact" class="service-cta" data-service="front-end">Konsultasi Layanan <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </article>
+        <article class="service-card animate-on-scroll">
+            <div class="service-image">
+                <img src="https://i.ibb.co.com/xtXwRTSw/Screenshot-2026-02-03-152436.png" alt="Graphic Design">
+                <div class="service-image-overlay"><span class="service-icon-badge"><i class="fas fa-palette"></i></span></div>
+            </div>
+            <div class="service-body">
+                <h3 class="service-title">Graphic Design</h3>
+                <p class="service-description">Desain visual untuk branding, media sosial, presentasi, dan materi promosi dengan gaya kreatif yang konsisten dan profesional.</p>
+                <div class="service-tags"><span class="service-tag">Branding</span><span class="service-tag">Social Media</span><span class="service-tag">Canva / Figma</span><span class="service-tag">Visual Identity</span></div>
+                <a href="#contact" class="service-cta" data-service="graphic-design">Konsultasi Layanan <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </article>
+        <article class="service-card animate-on-scroll">
+            <div class="service-image">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" alt="Dashboard Digital">
+                <div class="service-image-overlay"><span class="service-icon-badge"><i class="fas fa-chart-line"></i></span></div>
+            </div>
+            <div class="service-body">
+                <h3 class="service-title">Dashboard Digital</h3>
+                <p class="service-description">Membuat dashboard interaktif untuk monitoring data, laporan bisnis, dan visualisasi KPI secara real-time yang mudah dipahami.</p>
+                <div class="service-tags"><span class="service-tag">Chart.js</span><span class="service-tag">Data Viz</span><span class="service-tag">Admin Panel</span><span class="service-tag">Analytics</span></div>
+                <a href="#contact" class="service-cta" data-service="dashboard">Konsultasi Layanan <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </article>
+        <article class="service-card animate-on-scroll">
+            <div class="service-image">
+                <img src="https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=800&q=80" alt="Database Developer">
+                <div class="service-image-overlay"><span class="service-icon-badge"><i class="fas fa-database"></i></span></div>
+            </div>
+            <div class="service-body">
+                <h3 class="service-title">Database Developer</h3>
+                <p class="service-description">Perancangan, optimasi, dan maintenance database relasional & NoSQL—termasuk skema, query, backup, migrasi, dan integrasi dengan aplikasi web/mobile.</p>
+                <div class="service-tags"><span class="service-tag">PostgreSQL</span><span class="service-tag">MySQL</span><span class="service-tag">MongoDB</span><span class="service-tag">Firebase</span></div>
+                <a href="#contact" class="service-cta" data-service="database">Konsultasi Layanan <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </article>
+        <article class="service-card animate-on-scroll">
+            <div class="service-image">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="Web Developer menggunakan Hostinger">
+                <div class="service-image-overlay"><span class="service-icon-badge"><i class="fas fa-globe"></i></span></div>
+            </div>
+            <div class="service-body">
+                <h3 class="service-title">Web Developer Using Hostinger</h3>
+                <p class="service-description">Pembuatan website lengkap dari desain hingga publish di Hostinger—termasuk domain, hosting, SSL, dan optimasi agar siap online dengan cepat.</p>
+                <div class="service-tags"><span class="service-tag">Hostinger</span><span class="service-tag">WordPress</span><span class="service-tag">Deploy & DNS</span><span class="service-tag">Maintenance</span></div>
+                <div class="service-cta-group">
+                    <a href="https://www.hostinger.com" target="_blank" rel="noopener noreferrer" class="service-cta">Info Hostinger <i class="fas fa-external-link-alt"></i></a>
+                    <a href="#contact" class="service-cta service-cta-secondary" data-service="hostinger">Pesan Website <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </article>
+    </div>
+    <div class="services-cta-banner animate-on-scroll">
+        <h3>Butuh kombinasi beberapa layanan?</h3>
+        <p>Saya bisa membantu paket custom—misalnya website Hostinger + dashboard admin + desain branding dalam satu proyek.</p>
+        <a href="https://api.whatsapp.com/send?phone=6285719562762&text=Halo%20Fawwaz%2C%20saya%20tertarik%20dengan%20layanan%20Anda." target="_blank" rel="noopener noreferrer" class="hero-cta">Hubungi via WhatsApp <i class="fab fa-whatsapp"></i></a>
+    </div>
+</section>
+
+<style>
 /* PORTFOLIO */
 .filter-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
 .filter-btn { padding: 8px 20px; border: 2px solid var(--border-color); border-radius: var(--radius-full); background: var(--card-bg); color: var(--text-secondary); font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.3s; }
 .filter-btn:hover { border-color: var(--main-color); color: var(--main-color); }
 .filter-btn.active-filter { background: var(--gradient-primary); border-color: transparent; color: white; }
-.portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 24px; }
 .project-card { background: var(--card-bg); border-radius: var(--radius-xl); border: 1px solid var(--border-color); overflow: hidden; transition: all 0.4s; }
 .project-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-xl); }
 .project-image { position: relative; width: 100%; height: 180px; overflow: hidden; }
@@ -1166,7 +1414,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 .certificate-stat-icon { width: 50px; height: 50px; margin: 0 auto 12px; border-radius: var(--radius-lg); background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; color: white; font-size: 22px; }
 .certificate-stat-number { font-size: 2rem; font-weight: 700; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px; }
 .certificate-stat-label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
-.certificates-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+.certificates-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 24px; }
 .certificate-card { position: relative; background: var(--card-bg); border-radius: var(--radius-xl); border: 1px solid var(--border-color); overflow: hidden; transition: all 0.4s; cursor: pointer; }
 .certificate-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-xl); border-color: var(--main-color); }
 .certificate-image { position: relative; width: 100%; height: 200px; overflow: hidden; background: linear-gradient(135deg, var(--hover-bg) 0%, var(--card-bg) 100%); }
@@ -1779,6 +2027,10 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 /* CONTACT */
 .contact-wrapper { max-width: 550px; margin: 0 auto; }
 .contact-form { display: flex; flex-direction: column; gap: 16px; padding: 30px; background: var(--card-bg); border-radius: var(--radius-xl); border: 1px solid var(--border-color); }
+.form-db-hint { font-size: 12px; color: var(--text-secondary); text-align: center; margin: 0; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.form-db-hint.connected { color: #22c55e; }
+.form-db-hint.local { color: #f59e0b; }
+.contact-form select.form-input { cursor: pointer; appearance: auto; }
 .form-input { width: 100%; padding: 14px 18px; border: 2px solid var(--border-color); border-radius: var(--radius-lg); background: var(--bg-color); color: var(--text-primary); font-size: 14px; font-family: inherit; transition: all 0.3s; }
 .form-input:focus { outline: none; border-color: var(--main-color); background: var(--card-bg); }
 .form-input::placeholder { color: var(--text-secondary); }
@@ -1977,11 +2229,22 @@ footer {
     </div>
     <div class="contact-wrapper animate-on-scroll">
         <form class="contact-form" id="contact-form">
-            <input type="text" class="form-input" id="name" placeholder="Your Full Name" required>
-            <input type="email" class="form-input" id="email" placeholder="Your Email" required>
-            <input type="text" class="form-input" id="subject" placeholder="Subject" required>
-            <textarea class="form-input" id="message" placeholder="Your Message" required></textarea>
-            <button type="submit" class="submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+            <input type="text" class="form-input" id="name" placeholder="Nama Lengkap" required>
+            <input type="email" class="form-input" id="email" placeholder="Email" required>
+            <select class="form-input" id="contact-service" required>
+                <option value="" disabled selected>Pilih layanan</option>
+                <option value="back-end">Back End Developer</option>
+                <option value="front-end">Front End Developer</option>
+                <option value="graphic-design">Graphic Design</option>
+                <option value="dashboard">Dashboard Digital</option>
+                <option value="database">Database Developer</option>
+                <option value="hostinger">Web Developer (Hostinger)</option>
+                <option value="general">Lainnya / Konsultasi Umum</option>
+            </select>
+            <input type="text" class="form-input" id="subject" placeholder="Subjek pesan" required>
+            <textarea class="form-input" id="message" placeholder="Pesan Anda" required></textarea>
+            <button type="submit" class="submit-btn">Kirim Pesan <i class="fas fa-paper-plane"></i></button>
+            <p class="form-db-hint" id="dbStatusHint"><i class="fas fa-database"></i> Data tersimpan aman ke database portfolio</p>
         </form>
     </div>
 </section>
@@ -2126,17 +2389,19 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .navbar { padding: 10px 16px; flex-wrap: wrap; }
+    .navbar { padding: 10px 16px; flex-wrap: nowrap; position: sticky; }
     .navbar-center { display: none; }
-    .mobile-menu-toggle { display: block; }
-    .search-container { max-width: 150px; }
-    .hero { min-height: auto; padding: 70px 16px 50px; }
-    .hero h1 { font-size: 1.8rem; }
-    .profile-ring { width: 150px; height: 150px; }
-    #typing-text { font-size: 1.1rem; }
-    .hero-description { font-size: 0.95rem; }
+    .navbar-left { flex: 1; min-width: 0; }
+    .navbar-right { flex-shrink: 0; gap: 8px; }
+    .mobile-menu-toggle { display: flex; align-items: center; justify-content: center; }
+    .search-container { display: none; }
+    .logo { font-size: 1.15rem; max-width: 100%; }
+    .logo-text-full { display: none; }
+    .logo-text-short { display: inline; }
+    .hero-title-main { font-size: clamp(1.65rem, 6vw, 1.9rem); }
+    .hero-title-sub { font-size: clamp(1.2rem, 4.5vw, 1.5rem); }
+    .hero-description { font-size: 0.95rem; margin-left: auto; margin-right: auto; }
     .social-link { width: 44px; height: 44px; font-size: 16px; }
-    .scroll-indicator { display: none; }
     .content-section { padding: 50px 16px; }
     .section-header { margin-bottom: 40px; }
     .section-title { font-size: 1.75rem; }
@@ -2167,7 +2432,10 @@ footer {
         font-size: 1.1rem;
     }
     .education-school {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        padding: 9px 16px;
+        margin-left: auto;
+        margin-right: auto;
     }
     .education-period {
         margin: 4px auto 8px;
@@ -2186,33 +2454,38 @@ footer {
     .experience-header { flex-direction: column; text-align: center; gap: 12px; }
     .experience-company-logo { margin: 0 auto; }
     .experience-gallery { grid-template-columns: repeat(2, 1fr); }
-    .portfolio-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; gap: 20px; }
+    .service-image { height: 180px; }
+    .services-intro { font-size: 0.95rem; margin-bottom: 36px; padding: 0 8px; }
+    .services-cta-banner { padding: 24px 18px; margin-top: 36px; }
+    .portfolio-grid { grid-template-columns: 1fr; gap: 20px; }
+    .filter-container { gap: 8px; padding: 0 4px; }
+    .filter-btn { flex: 1 1 auto; min-width: 0; text-align: center; }
+    .certificates-grid { grid-template-columns: 1fr; }
     .project-header { padding: 16px; }
     .project-footer { padding: 12px 16px; }
     .project-card.expanded .project-details { padding: 14px 16px; }
     .contact-form { padding: 20px; gap: 14px; }
     .chat-widget { bottom: 16px; right: 16px; }
     .chat-toggle { width: 50px; height: 50px; font-size: 20px; }
-    .chat-container { width: calc(100vw - 32px); height: 400px; bottom: 64px; }
-    #scrollToTopBtn { bottom: 80px; right: 16px; width: 40px; height: 40px; }
+    .chat-container { width: min(340px, calc(100vw - 32px)); height: min(400px, 70vh); bottom: 64px; right: 0; }
+    #scrollToTopBtn { bottom: 148px; right: 16px; width: 40px; height: 40px; }
+    .voice-ai-widget { bottom: 88px; right: 16px; }
     footer { padding: 50px 20px 40px; }
+    .animals-container { gap: 16px; transform: scale(0.85); }
+    .loader-logo { font-size: 1.5rem; }
 }
 
 @media (max-width: 480px) {
     .navbar { padding: 8px 12px; }
-    .logo { font-size: 1.2rem; }
-    .search-container { max-width: 110px; }
-    .search-box { padding: 8px 10px 8px 30px; font-size: 12px; }
-    .search-icon { left: 10px; font-size: 11px; }
+    .logo { font-size: 1.1rem; }
     .icon-button { width: 36px; height: 36px; font-size: 14px; }
-    .mobile-menu-toggle { padding: 8px; font-size: 14px; }
-    .hero { padding: 60px 12px 40px; }
-    .hero h1 { font-size: 1.5rem; }
-    .profile-ring { width: 130px; height: 130px; }
-    .profile-status { width: 20px; height: 20px; bottom: 12px; right: 12px; }
-    .hero-badge { font-size: 11px; padding: 5px 12px; }
-    #typing-text { font-size: 1rem; }
-    .hero-description { font-size: 0.9rem; }
+    .mobile-menu-toggle { padding: 8px; font-size: 14px; min-width: 36px; min-height: 36px; }
+    .hero-title-main { font-size: 1.35rem; line-height: 1.25; }
+    .hero-title-sub { font-size: 1.1rem; }
+    .hero-badge { font-size: 9px; padding: 5px 10px; letter-spacing: 0.5px; }
+    .hero-description { font-size: 0.9rem; padding: 0 8px; line-height: 1.7; }
+    .education-school { font-size: 0.85rem; padding: 8px 14px; }
     .social-links { gap: 10px; }
     .social-link { width: 40px; height: 40px; font-size: 15px; }
     .content-section { padding: 40px 12px; }
@@ -2231,7 +2504,8 @@ footer {
     .skill-item { padding: 12px; }
     .skill-icon { width: 32px; height: 32px; font-size: 14px; }
     .skill-name { font-size: 12px; }
-    .filter-btn { padding: 6px 14px; font-size: 12px; }
+    .filter-btn { padding: 8px 12px; font-size: 11px; flex: 1 1 calc(50% - 6px); }
+    .filter-container { justify-content: stretch; }
     .project-image { height: 160px; }
     .project-title { font-size: 1rem; }
     .project-description { font-size: 0.85rem; }
@@ -2259,11 +2533,37 @@ footer {
 }
 
 @media (max-width: 360px) {
-    .hero h1 { font-size: 1.3rem; }
-    .profile-ring { width: 110px; height: 110px; }
-    .logo { font-size: 1.1rem; }
-    .search-container { max-width: 90px; }
+    .hero-title-main { font-size: 1.25rem; }
+    .hero-title-sub { font-size: 1rem; }
+    .logo { font-size: 1rem; }
     .section-title { font-size: 1.2rem; }
+    #scrollToTopBtn { bottom: 140px; right: 12px; width: 36px; height: 36px; }
+    .voice-ai-widget { bottom: 80px; right: 12px; }
+    .chat-widget { bottom: 12px; right: 12px; }
+}
+
+/* Mobile layout safeguards */
+@media (max-width: 768px) {
+    img, video, svg { max-width: 100%; height: auto; }
+    .portfolio-grid,
+    .services-grid,
+    .certificates-grid,
+    .instagram-grid {
+        grid-template-columns: 1fr;
+    }
+    .certificate-modal { padding: 12px; align-items: flex-end; }
+    .certificate-modal-content { max-height: 92vh; border-radius: var(--radius-xl) var(--radius-xl) 0 0; }
+    .experience-header { align-items: center; }
+    .experience-title,
+    .experience-company { overflow-wrap: break-word; word-break: normal; }
+    .section-title,
+    .section-subtitle,
+    .hero-description,
+    p { word-break: normal; overflow-wrap: break-word; }
+    .reveal-word { white-space: nowrap; }
+    .project-tags { gap: 4px; }
+    .tab-content { padding: 16px; }
+    .welcome-card { width: calc(100% - 24px); max-width: none; margin: 12px; box-sizing: border-box; }
 }
 
 /* ===== VOICE AI ASSISTANT STYLES ===== */
@@ -2688,7 +2988,7 @@ footer {
 /* Mobile Voice AI */
 @media (max-width: 768px) {
     .voice-ai-widget {
-        bottom: 140px;
+        bottom: 88px;
         right: 16px;
     }
     
@@ -2783,7 +3083,7 @@ footer {
 
 @media (max-width: 480px) {
     .voice-ai-widget {
-        bottom: 130px;
+        bottom: 80px;
         right: 12px;
     }
     
@@ -2967,8 +3267,32 @@ footer {
 }
 </style>
 
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="database.js"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    PortfolioDB.init();
+    const dbHint = document.getElementById('dbStatusHint');
+    if (dbHint) {
+        if (PortfolioDB.ready) {
+            dbHint.classList.add('connected');
+            dbHint.innerHTML = '<i class="fas fa-database"></i> Terhubung ke database (Firebase Firestore)';
+        } else {
+            dbHint.classList.add('local');
+            dbHint.innerHTML = '<i class="fas fa-database"></i> Mode offline — simpan lokal (atur firebase-config.js)';
+        }
+    }
+
+    document.querySelectorAll('.service-cta[data-service]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const sel = document.getElementById('contact-service');
+            if (sel) sel.value = btn.getAttribute('data-service');
+        });
+    });
+
     // PRELOADER
     const preloader = document.getElementById('preloader');
     setTimeout(() => { preloader.classList.add('hidden'); initTypingAnimation(); }, 2500);
@@ -3008,6 +3332,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchData = [
         { title: 'About Me', description: 'Education & Background', section: 'about-education' },
         { title: 'Skills', description: 'Technical expertise', section: 'skills' },
+        { title: 'Services', description: 'Layanan back-end, front-end, design, dashboard, Hostinger', section: 'services' },
+        { title: 'Back End Developer', description: 'API & server development', section: 'services' },
+        { title: 'Front End Developer', description: 'UI web development', section: 'services' },
+        { title: 'Graphic Design', description: 'Desain visual & branding', section: 'services' },
+        { title: 'Dashboard Digital', description: 'Dashboard & analytics', section: 'services' },
+        { title: 'Hostinger', description: 'Web developer using Hostinger', section: 'services' },
+        { title: 'Database Developer', description: 'PostgreSQL, MySQL, MongoDB, Firebase', section: 'services' },
         { title: 'Portfolio', description: 'My projects', section: 'portfolio' },
         { title: 'Contact', description: 'Get in touch', section: 'contact' },
         { title: 'React.js', description: 'Front-end development', section: 'skills' },
@@ -3096,12 +3427,33 @@ document.addEventListener('DOMContentLoaded', function() {
     themeToggle.addEventListener('click', () => { isDark = !isDark; document.body.classList.toggle('theme-dark', isDark); localStorage.setItem('theme', isDark ? 'dark' : 'light'); updateThemeIcon(); });
     function updateThemeIcon() { themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>'; }
 
-    // CONTACT FORM
-    document.getElementById('contact-form').addEventListener('submit', function(e) {
+    // CONTACT FORM → Database
+    document.getElementById('contact-form').addEventListener('submit', async function(e) {
         e.preventDefault();
         const btn = this.querySelector('.submit-btn');
-        btn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>'; btn.disabled = true;
-        setTimeout(() => { showNotification('Thank you! Your message has been sent.', 'success'); this.reset(); btn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>'; btn.disabled = false; }, 2000);
+        const form = this;
+        btn.innerHTML = 'Mengirim... <i class="fas fa-spinner fa-spin"></i>';
+        btn.disabled = true;
+        try {
+            const result = await PortfolioDB.saveContact({
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                subject: document.getElementById('subject').value.trim(),
+                message: document.getElementById('message').value.trim(),
+                service: document.getElementById('contact-service').value
+            });
+            const msg = result.storage === 'firestore'
+                ? 'Terima kasih! Pesan Anda sudah tersimpan di database.'
+                : 'Terima kasih! Pesan tersimpan (mode lokal — hubungkan Firebase untuk database cloud).';
+            showNotification(msg, 'success');
+            form.reset();
+        } catch (err) {
+            console.error(err);
+            showNotification('Gagal menyimpan pesan. Silakan coba lagi atau hubungi via WhatsApp.', 'error');
+        } finally {
+            btn.innerHTML = 'Kirim Pesan <i class="fas fa-paper-plane"></i>';
+            btn.disabled = false;
+        }
     });
     function showNotification(message, type) {
         const notification = document.createElement('div');
@@ -3256,6 +3608,7 @@ document.addEventListener('DOMContentLoaded', function() {
         education: "He's currently pursuing a Bachelor of Computer Science at Universitas Gunadarma (2025-2029), focusing on software development, artificial intelligence, and distributed systems. He completed Natural Science (IPA) at SMA Muhammadiyah 8 Ciputat (2023-2025).",
         contact: "You can reach Fawwaz through email, LinkedIn, GitHub, Instagram, WhatsApp, or TikTok. His GitHub is websoftindonesia, LinkedIn is m-fawwaz-rayyan-khalish, and Instagram is @wazrynn.",
         portfolio: "Fawwaz has worked on several impressive projects including an E-Commerce B2B Platform using React, Node.js, and PostgreSQL, a Fitness Tracker App with React Native and Firebase, and an Analytics Dashboard using Vue.js, Python, and Chart.js.",
+        services: "Fawwaz offers professional services: Back End Developer (API, database, server architecture), Front End Developer (responsive React/UI), Graphic Design (branding & social media), Dashboard Digital (analytics & admin panels), Database Developer (PostgreSQL, MySQL, MongoDB, Firebase design & optimization), and Web Developer Using Hostinger (full website setup with domain, hosting, and deployment). Contact him for a consultation!",
         certificates: "He has earned 6+ certificates including HMD Mathematics Certificate from University of Indonesia, HIMA Fisika Certificate from Gadjah Mada University, Introduction to Programming in HTML5 and CSS from MySkill, and Introduction to Software Engineer from RevoU."
     };
     
@@ -3385,6 +3738,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
             }, 1000);
         }
+        // Services
+        else if (lowerQuery.includes('service') || lowerQuery.includes('layanan') || lowerQuery.includes('hostinger') || lowerQuery.includes('freelance') || lowerQuery.includes('hire')) {
+            response = aiKnowledgeBase.services;
+            setTimeout(() => {
+                document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+        }
         // Portfolio
         else if (lowerQuery.includes('portfolio') || lowerQuery.includes('project') || lowerQuery.includes('work sample')) {
             response = aiKnowledgeBase.portfolio;
@@ -3410,6 +3770,9 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (lowerQuery.includes('experience')) {
                 document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' });
                 response = "Showing the experience section.";
+            } else if (lowerQuery.includes('service') || lowerQuery.includes('layanan')) {
+                document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+                response = "Showing the services section.";
             } else if (lowerQuery.includes('portfolio')) {
                 document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' });
                 response = "Showing the portfolio section.";
@@ -3846,7 +4209,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Card Tilt Effect (3D)
-    document.querySelectorAll('.project-card, .education-card, .certificate-card').forEach(card => {
+    document.querySelectorAll('.project-card, .education-card, .certificate-card, .service-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -3916,27 +4279,31 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     animateTrail();
     
-    // Text Reveal Animation on Scroll
-    const textElements = document.querySelectorAll('.section-title, .section-subtitle, .hero-description');
+    // Text Reveal Animation on Scroll (per-word — avoids mid-word line breaks)
+    const textElements = document.querySelectorAll('.section-title, .section-subtitle');
     textElements.forEach(element => {
-        const text = element.textContent;
+        const text = element.textContent.trim();
         element.innerHTML = '';
-        
-        text.split('').forEach((char, index) => {
+        const words = text.split(/\s+/).filter(Boolean);
+        words.forEach((word, index) => {
             const span = document.createElement('span');
-            span.textContent = char === ' ' ? '\u00A0' : char;
+            span.className = 'reveal-word';
+            span.textContent = word;
             span.style.opacity = '0';
             span.style.display = 'inline-block';
-            span.style.transition = `opacity 0.3s ease ${index * 0.02}s, transform 0.3s ease ${index * 0.02}s`;
-            span.style.transform = 'translateY(20px)';
+            span.style.transition = `opacity 0.35s ease ${index * 0.04}s, transform 0.35s ease ${index * 0.04}s`;
+            span.style.transform = 'translateY(12px)';
             element.appendChild(span);
+            if (index < words.length - 1) {
+                element.appendChild(document.createTextNode(' '));
+            }
         });
     });
     
     const textObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.querySelectorAll('span').forEach(span => {
+                entry.target.querySelectorAll('.reveal-word').forEach(span => {
                     span.style.opacity = '1';
                     span.style.transform = 'translateY(0)';
                 });
@@ -5167,18 +5534,22 @@ function showGreetingAnimation(name) {
 }
 
 // Welcome Form Submit
-document.getElementById('welcomeForm').addEventListener('submit', function(e) {
+document.getElementById('welcomeForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
     visitorData = {
-        name: document.getElementById('visitorName').value,
-        email: document.getElementById('visitorEmail').value,
+        name: document.getElementById('visitorName').value.trim(),
+        email: document.getElementById('visitorEmail').value.trim(),
         purpose: document.getElementById('visitorPurpose').value,
         visitedAt: new Date().toISOString()
     };
     
-    // Save to localStorage
-    localStorage.setItem('portfolioVisitor', JSON.stringify(visitorData));
+    try {
+        await PortfolioDB.saveVisitor(visitorData);
+    } catch (err) {
+        console.error('[Visitor]', err);
+        localStorage.setItem('portfolioVisitor', JSON.stringify(visitorData));
+    }
     
     // Hide welcome screen
     document.getElementById('welcomeScreen').classList.add('hidden');
