@@ -2387,6 +2387,39 @@ footer {
         "My commitment is to create digital solutions that are functional, scalable, and useful for users."
     </p>
     <div class="footer-divider"></div>
+
+    <div class="footer-social" aria-label="Social media links">
+        <a href="https://github.com/websoftindonesia" target="_blank" rel="noopener noreferrer" class="footer-social-link" title="GitHub" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/m-fawwaz-rayyan-khalish-982b3832b/" target="_blank" rel="noopener noreferrer" class="footer-social-link" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com/wazryndev/" target="_blank" rel="noopener noreferrer" class="footer-social-link" title="Instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://api.whatsapp.com/send?phone=6285719562762" target="_blank" rel="noopener noreferrer" class="footer-social-link" title="WhatsApp" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.tiktok.com/@wazryn_" target="_blank" rel="noopener noreferrer" class="footer-social-link" title="TikTok" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+    </div>
+
+    <style>
+        .footer-social { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin: 18px 0 10px; }
+        .footer-social-link { 
+            width: 44px; height: 44px; border-radius: var(--radius); 
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.18);
+            color: var(--main-color);
+            display: inline-flex; align-items: center; justify-content: center;
+            text-decoration: none; transition: all 0.25s ease; font-size: 18px;
+        }
+        .footer-social-link:hover { 
+            background: var(--gradient-primary);
+            border-color: transparent;
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
+        }
+
+        @media (max-width: 480px) {
+            .footer-social-link { width: 40px; height: 40px; font-size: 16px; }
+        }
+    </style>
+
+
     <p class="footer-copy">
         © 2025 M.Fawwaz. All Rights Reserved.
     </p>
