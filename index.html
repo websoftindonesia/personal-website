@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -92,7 +92,13 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 <script src="interactive-features.js"></script>
 <body>
 <div id="preloader">
+    <div class="loader-bg-anim" aria-hidden="true"></div>
+    <div class="loader-sheen" aria-hidden="true"></div>
+    <div class="loader-orb orb-1" aria-hidden="true"></div>
+    <div class="loader-orb orb-2" aria-hidden="true"></div>
+    <div class="loader-orb orb-3" aria-hidden="true"></div>
     <div class="loader-content">
+
         <div class="animals-container">
             <!-- Kucing -->
             <div class="animal cat">
@@ -166,8 +172,12 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
         <a href="#experience" class="nav-item"><i class="fas fa-briefcase"></i> Experience</a>
         <a href="#services" class="nav-item"><i class="fas fa-handshake"></i> Services</a>
         <a href="#portfolio" class="nav-item"><i class="fas fa-folder-open"></i> Portfolio</a>
+        <a href="#testimonials" class="nav-item"><i class="fas fa-quote-right"></i> Testimoni</a>
+
         <a href="#contact" class="nav-item"><i class="fas fa-envelope"></i> Contact</a>
+
     </div>
+
     <div class="navbar-right">
         <button class="mobile-menu-toggle" id="mobileMenuToggle"><i class="fas fa-bars"></i></button>
         <button class="icon-button theme-toggle" id="themeToggle" title="Toggle Theme"><i class="fas fa-moon"></i></button>
@@ -179,7 +189,9 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
         <a href="#experience" class="mobile-nav-item"><i class="fas fa-briefcase"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Experience</span><span class="mobile-nav-desc">Work history</span></div></a>
         <a href="#services" class="mobile-nav-item"><i class="fas fa-handshake"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Services</span><span class="mobile-nav-desc">Layanan yang saya tawarkan</span></div></a>
         <a href="#portfolio" class="mobile-nav-item"><i class="fas fa-folder-open"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Portfolio</span><span class="mobile-nav-desc">My projects</span></div></a>
+        <a href="#testimonials" class="mobile-nav-item"><i class="fas fa-quote-right"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Testimoni</span><span class="mobile-nav-desc">Kata mereka</span></div></a>
         <a href="#contact" class="mobile-nav-item"><i class="fas fa-envelope"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Contact</span><span class="mobile-nav-desc">Get in touch</span></div></a>
+
     </div>
 </nav>
 
@@ -1366,7 +1378,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     <div class="portfolio-grid">
         <div class="project-card animate-on-scroll web">
             <div class="project-image">
-                <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop" alt="E-Commerce Platform">
+                <img src="https://i.ibb.co.com/d4FTj5GT/b2b-e-commerce-supply-chain-flow-and-effective-strategies-to-build-customer-base-in-b2b-slide01.jpg" alt="E-Commerce Platform">
                 <div class="project-image-overlay"><span class="project-category">Web App</span></div>
             </div>
             <div class="project-header">
@@ -1383,7 +1395,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
         </div>
         <div class="project-card animate-on-scroll mobile">
             <div class="project-image">
-                <img src="https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?w=600&h=400&fit=crop" alt="Fitness Tracker App">
+                <img src="https://i.ibb.co.com/PGmGNX0m/fitness-tracker-2048px-garmin-app.jpg" alt="Fitness Tracker App">
                 <div class="project-image-overlay"><span class="project-category">Mobile App</span></div>
             </div>
             <div class="project-header">
@@ -1400,7 +1412,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
         </div>
         <div class="project-card animate-on-scroll tool">
             <div class="project-image">
-                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop" alt="Analytics Dashboard">
+                <img src="https://i.ibb.co.com/bRMs9L5d/analytics-home-dashbboard-new.jpg" alt="Analytics Dashboard">
                 <div class="project-image-overlay"><span class="project-category">Tools</span></div>
             </div>
             <div class="project-header">
@@ -2135,6 +2147,16 @@ footer {
 
 /* PRELOADER */
 #preloader { position: fixed; inset: 0; background: linear-gradient(135deg, #fef3c7 0%, #fce7f3 50%, #ddd6fe 100%); z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s, visibility 0.5s; overflow: hidden; }
+#preloader .loader-bg-anim { position: absolute; inset: -20%; background: conic-gradient(from 180deg, rgba(99,102,241,.35), rgba(139,92,246,.30), rgba(236,72,153,.30), rgba(245,158,11,.25), rgba(99,102,241,.35)); filter: blur(30px); opacity: .6; animation: preloaderSpin 3.8s linear infinite; }
+@keyframes preloaderSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+#preloader .loader-sheen { position: absolute; top: -40%; left: -50%; width: 200%; height: 200%; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.28) 50%, transparent 100%); transform: rotate(20deg); animation: preloaderSheen 2.2s ease-in-out infinite; }
+@keyframes preloaderSheen { 0% { opacity: .0; transform: translateX(-25%) rotate(20deg); } 20% { opacity: .9; } 60% { opacity: .4; } 100% { opacity: 0; transform: translateX(25%) rotate(20deg); } }
+#preloader .loader-orb { position: absolute; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(99,102,241,.35), transparent 60%), radial-gradient(circle at 70% 70%, rgba(236,72,153,.30), transparent 60%); filter: blur(10px); opacity: .8; animation: preloaderOrb 2.4s ease-in-out infinite; }
+@keyframes preloaderOrb { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(60px,-30px) scale(1.06); } }
+#preloader .loader-orb.orb-1 { left: -60px; bottom: -90px; animation-delay: .1s; }
+#preloader .loader-orb.orb-2 { right: -80px; top: -90px; animation-delay: .3s; }
+#preloader .loader-orb.orb-3 { left: 35%; top: -120px; width: 180px; height: 180px; opacity: .7; animation-delay: .6s; }
+
 #preloader.hidden { opacity: 0; visibility: hidden; }
 .loader-content { text-align: center; }
 .animals-container { display: flex; justify-content: center; align-items: flex-end; gap: 30px; margin-bottom: 30px; height: 120px; }
@@ -2237,7 +2259,179 @@ footer {
 .stagger-animation.visible > * { opacity: 1; transform: translateY(0); }
 </style>
 
+<section id="testimonials" class="content-section">
+    <div class="section-header animate-on-scroll">
+        <span class="section-badge"><i class="fas fa-quote-right"></i> Testimoni</span>
+        <h2 class="section-title">Kata Mereka</h2>
+        <p class="section-subtitle">Cerita singkat dari klien & kolaborator tentang kerja sama</p>
+    </div>
+
+    <div class="testimonials-wrapper animate-on-scroll">
+        <div class="testimonials-grid">
+            <article class="testimonial-card">
+                <div class="testimonial-top">
+                    <div class="testimonial-avatar" aria-hidden="true">AL</div>
+                    <div class="testimonial-meta">
+                        <div class="testimonial-name">Alya Putri</div>
+                        <div class="testimonial-role">Founder • UMKM Kuliner</div>
+                    </div>
+                </div>
+                <p class="testimonial-text">“Hasil website rapi, cepat, dan gampang diupdate. Proses komunikasinya juga enak banget, responnya cepat.”</p>
+                <div class="testimonial-rating" aria-label="Rating 5 dari 5">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+            </article>
+
+            <article class="testimonial-card">
+                <div class="testimonial-top">
+                    <div class="testimonial-avatar" aria-hidden="true">MR</div>
+                    <div class="testimonial-meta">
+                        <div class="testimonial-name">Muhammad Rafi</div>
+                        <div class="testimonial-role">Project Owner • Startup</div>
+                    </div>
+                </div>
+                <p class="testimonial-text">“Front-end-nya interaktif dan performanya bagus. Timing delivery sesuai, dan dokumentasinya jelas.”</p>
+                <div class="testimonial-rating" aria-label="Rating 5 dari 5">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+            </article>
+
+            <article class="testimonial-card">
+                <div class="testimonial-top">
+                    <div class="testimonial-avatar" aria-hidden="true">DS</div>
+                    <div class="testimonial-meta">
+                        <div class="testimonial-name">Dewi Salsabila</div>
+                        <div class="testimonial-role">Operations • Komunitas Tech</div>
+                    </div>
+                </div>
+                <p class="testimonial-text">“Konsultasinya detail, saran teknisnya masuk akal, dan hasilnya sesuai kebutuhan tim kami.”</p>
+                <div class="testimonial-rating" aria-label="Rating 5 dari 5">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+            </article>
+
+            <article class="testimonial-card">
+                <div class="testimonial-top">
+                    <div class="testimonial-avatar" aria-hidden="true">KS</div>
+                    <div class="testimonial-meta">
+                        <div class="testimonial-name">Kevin Santoso</div>
+                        <div class="testimonial-role">Coordinator • Program Volunteers</div>
+                    </div>
+                </div>
+                <p class="testimonial-text">“Design-nya menarik dan tetap fokus pada user experience. Proyek terasa rapi dari awal sampai akhir.”</p>
+                <div class="testimonial-rating" aria-label="Rating 5 dari 5">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+            </article>
+
+            <article class="testimonial-card testimonial-highlight">
+                <div class="testimonial-top">
+                    <div class="testimonial-avatar" aria-hidden="true">YA</div>
+                    <div class="testimonial-meta">
+                        <div class="testimonial-name">Yusuf A.</div>
+                        <div class="testimonial-role">Client • Dashboard & API</div>
+                    </div>
+                </div>
+                <p class="testimonial-text">“Backend-nya stabil dan api-nya enak dipakai. Dashboard-nya responsif dan mudah dipahami.”</p>
+                <div class="testimonial-rating" aria-label="Rating 5 dari 5">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <div class="testimonial-badge"><i class="fas fa-gem"></i> Top Feedback</div>
+            </article>
+
+            <article class="testimonial-card">
+                <div class="testimonial-top">
+                    <div class="testimonial-avatar" aria-hidden="true">NZ</div>
+                    <div class="testimonial-meta">
+                        <div class="testimonial-name">Nadia Zahra</div>
+                        <div class="testimonial-role">Designer • UI Collaboration</div>
+                    </div>
+                </div>
+                <p class="testimonial-text">“Kolaborasinya smooth. Hasil implementasi sesuai mockup, dan detail kecilnya diperhatikan.”</p>
+                <div class="testimonial-rating" aria-label="Rating 5 dari 5">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <style>
+    /* TESTIMONIALS */
+    .testimonials-wrapper { max-width: 1100px; margin: 0 auto; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .testimonial-card {
+        position: relative;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-xl);
+        padding: 18px 18px 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+        transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+        overflow: hidden;
+    }
+    .testimonial-card::before {
+        content: '';
+        position: absolute;
+        inset: -2px;
+        background: radial-gradient(600px 200px at 20% 0%, rgba(99,102,241,0.22), transparent 60%),
+                    radial-gradient(420px 200px at 90% 10%, rgba(236,72,153,0.18), transparent 55%);
+        opacity: 0;
+        transition: opacity 0.35s ease;
+        pointer-events: none;
+    }
+    .testimonial-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(99,102,241,0.30);
+        box-shadow: var(--shadow-xl);
+    }
+    .testimonial-card:hover::before { opacity: 1; }
+
+    .testimonial-highlight {
+        border-color: rgba(99,102,241,0.35);
+    }
+
+    .testimonial-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .testimonial-avatar {
+        width: 44px; height: 44px; border-radius: 14px;
+        background: var(--gradient-primary);
+        color: white; font-weight: 800;
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: var(--shadow-lg);
+        flex-shrink: 0;
+    }
+    .testimonial-meta { min-width: 0; }
+    .testimonial-name { font-weight: 800; color: var(--text-primary); font-size: 14px; margin-bottom: 2px; }
+    .testimonial-role { color: var(--text-secondary); font-size: 12px; font-weight: 600; }
+    .testimonial-text { color: var(--text-primary); font-size: 13.5px; line-height: 1.7; margin: 0 0 12px; }
+    .testimonial-rating { display: flex; gap: 4px; color: #fbbf24; }
+    .testimonial-rating i { font-size: 12.5px; }
+
+    .testimonial-badge {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        padding: 7px 12px;
+        background: var(--gradient-primary);
+        border-radius: var(--radius-full);
+        color: white;
+        font-weight: 800;
+        font-size: 11px;
+        display: inline-flex;
+        gap: 6px;
+        align-items: center;
+        box-shadow: var(--shadow-lg);
+        transform: rotate(-2deg);
+    }
+
+    @media (max-width: 768px) {
+        .testimonials-grid { grid-template-columns: 1fr; }
+    }
+    </style>
+
+</section>
+
 <section id="contact" class="content-section">
+
     <div class="section-header animate-on-scroll">
         <span class="section-badge"><i class="fas fa-paper-plane"></i> Contact</span>
         <h2 class="section-title">Get In Touch</h2>
