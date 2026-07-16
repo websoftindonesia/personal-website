@@ -1,35 +1,31 @@
 /**
- * Konfigurasi Firebase — ganti nilai di bawah dengan data proyek Anda.
- * Cara setup: https://console.firebase.google.com → Create project → Web app → copy config
- * Aktifkan Firestore: Build → Firestore Database → Create database (mode test/production)
- */
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-    apiKey: "AIzaSyAWWXiI5ReyoRndPtzSZL0-2WMtjlJ6svo",
-    authDomain: "wazryndev.firebaseapp.com",
-    projectId: "wazryndev",
-    storageBucket: "wazryndev.firebasestorage.app",
-    messagingSenderId: "899758384389",
-    appId: "1:899758384389:web:aa370adffd41d877dd436c",
-    measurementId: "G-QFV2VT5RRH"
-  };
-
-/** Set true setelah semua field di atas sudah diisi (bukan placeholder) */
-const FIREBASE_ENABLED =
-    firebaseConfig.apiKey &&
-    !firebaseConfig.apiKey.includes("ISI_") &&
-    firebaseConfig.projectId &&
-    !firebaseConfig.projectId.includes("ISI_");
-
-/**
- * Firestore Security Rules (tempel di Firebase Console → Firestore → Rules):
+ * Firebase Configuration
+ * -----------------------------------------------------------------
+ * File sebelumnya rusak (berisi salinan index.html lama, bukan
+ * JavaScript config), sehingga Firebase tidak pernah benar-benar
+ * menyala dan semua data (visitor, pesan kontak) diam-diam hanya
+ * tersimpan di localStorage browser masing-masing pengunjung.
  *
- * rules_version = '2';
- * service cloud.firestore {
- *   match /databases/{database}/documents {
- *     match /visitors/{id} { allow create: if true; allow read, update, delete: if false; }
- *     match /contacts/{id} { allow create: if true; allow read, update, delete: if false; }
- *     match /service_inquiries/{id} { allow create: if true; allow read, update, delete: if false; }
- *   }
- * }
+ * Cara mengaktifkan Firestore yang sesungguhnya:
+ * 1. Buka https://console.firebase.google.com -> buat/ pilih project.
+ * 2. Project settings -> General -> "Your apps" -> Web app -> copy
+ *    objek firebaseConfig yang diberikan Firebase ke bawah ini.
+ * 3. Aktifkan Firestore Database di menu Build -> Firestore Database.
+ * 4. Ubah FIREBASE_ENABLED menjadi true.
+ *
+ * Selama FIREBASE_ENABLED masih false, database.js otomatis
+ * memakai localStorage sebagai fallback — situs tetap berjalan
+ * normal, hanya datanya tidak tersinkron ke cloud.
+ * -----------------------------------------------------------------
  */
+
+const FIREBASE_ENABLED = false; // ubah ke true setelah mengisi config asli di bawah
+
+const firebaseConfig = {
+    apiKey: "GANTI_DENGAN_API_KEY_ANDA",
+    authDomain: "GANTI.firebaseapp.com",
+    projectId: "GANTI_PROJECT_ID",
+    storageBucket: "GANTI.appspot.com",
+    messagingSenderId: "GANTI_SENDER_ID",
+    appId: "GANTI_APP_ID"
+};

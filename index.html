@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -76,6 +76,16 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 .navbar-right { display: flex; align-items: center; gap: 10px; flex: 1; justify-content: flex-end; }
 .icon-button { width: 40px; height: 40px; border-radius: var(--radius-full); background: var(--hover-bg); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-primary); font-size: 16px; transition: all 0.3s; }
 .icon-button:hover { background: rgba(99, 102, 241, 0.1); color: var(--main-color); }
+.music-player { position: relative; }
+.music-toggle.playing { background: var(--gradient-primary); color: #fff; animation: musicPulse 1.8s ease-in-out infinite; }
+.music-popover { position: absolute; top: calc(100% + 10px); right: 0; width: 220px; padding: 13px; border: 1px solid var(--border-color); border-radius: var(--radius); background: var(--card-bg); box-shadow: var(--shadow-xl); color: var(--text-primary); opacity: 0; transform: translateY(-6px); visibility: hidden; transition: 0.2s ease; z-index: 1002; }
+.music-player:hover .music-popover, .music-player:focus-within .music-popover, .music-popover.visible { opacity: 1; transform: translateY(0); visibility: visible; }
+.music-popover-title { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+.music-popover-title i { color: var(--main-color); }
+.music-volume { display: flex; align-items: center; gap: 10px; color: var(--text-secondary); font-size: 12px; }
+.music-volume input { accent-color: var(--main-color); flex: 1; }
+.music-popover small { display: block; margin-top: 10px; color: var(--text-secondary); font-size: 11px; }
+@keyframes musicPulse { 50% { box-shadow: 0 0 0 7px rgba(99, 102, 241, 0.16); } }
 .theme-toggle { background: var(--gradient-primary); color: white; }
 .mobile-menu-toggle { display: none; background: var(--hover-bg); border: none; padding: 10px; border-radius: var(--radius); cursor: pointer; color: var(--text-primary); font-size: 16px; }
 .mobile-nav { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--card-bg-glass); backdrop-filter: blur(20px); border-top: 1px solid var(--border-color); box-shadow: var(--shadow-xl); z-index: 999; }
@@ -179,6 +189,21 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     </div>
 
     <div class="navbar-right">
+        <div class="music-player" id="musicPlayer">
+            <button class="icon-button music-toggle" id="musicToggle" type="button" title="Putar musik latar" aria-label="Putar musik latar" aria-pressed="false">
+                <i class="fas fa-music"></i>
+            </button>
+            <div class="music-popover" id="musicPopover" aria-hidden="true">
+                <div class="music-popover-title"><i class="fas fa-headphones"></i> Musik latar</div>
+                <label class="music-volume" for="musicVolume">Volume
+                    <input id="musicVolume" type="range" min="0" max="100" value="35">
+                </label>
+                <small id="musicStatus">Klik ikon musik untuk memutar</small>
+            </div>
+            <audio id="backgroundMusic" loop preload="metadata">
+                <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_94648e1785.mp3" type="audio/mpeg">
+            </audio>
+        </div>
         <button class="mobile-menu-toggle" id="mobileMenuToggle"><i class="fas fa-bars"></i></button>
         <button class="icon-button theme-toggle" id="themeToggle" title="Toggle Theme"><i class="fas fa-moon"></i></button>
     </div>
@@ -2260,6 +2285,7 @@ footer {
 </style>
 
 <section id="testimonials" class="content-section">
+
     <div class="section-header animate-on-scroll">
         <span class="section-badge"><i class="fas fa-quote-right"></i> Testimoni</span>
         <h2 class="section-title">Kata Mereka</h2>
@@ -2267,168 +2293,837 @@ footer {
     </div>
 
     <div class="testimonials-wrapper animate-on-scroll">
-        <div class="testimonials-grid">
-            <article class="testimonial-card">
-                <div class="testimonial-top">
-                    <div class="testimonial-avatar" aria-hidden="true">AL</div>
-                    <div class="testimonial-meta">
-                        <div class="testimonial-name">Alya Putri</div>
-                        <div class="testimonial-role">Founder • UMKM Kuliner</div>
-                    </div>
-                </div>
-                <p class="testimonial-text">“Hasil website rapi, cepat, dan gampang diupdate. Proses komunikasinya juga enak banget, responnya cepat.”</p>
-                <div class="testimonial-rating" aria-label="Rating 5 dari 5">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
-            </article>
 
-            <article class="testimonial-card">
-                <div class="testimonial-top">
-                    <div class="testimonial-avatar" aria-hidden="true">MR</div>
-                    <div class="testimonial-meta">
-                        <div class="testimonial-name">Muhammad Rafi</div>
-                        <div class="testimonial-role">Project Owner • Startup</div>
-                    </div>
-                </div>
-                <p class="testimonial-text">“Front-end-nya interaktif dan performanya bagus. Timing delivery sesuai, dan dokumentasinya jelas.”</p>
-                <div class="testimonial-rating" aria-label="Rating 5 dari 5">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
-            </article>
+        <!-- STATS -->
+        <div class="testi-stats" id="testiStats">
+            <div class="testi-stat">
+                <span class="testi-stat-number" id="testiStatRating" data-count="4.9" data-decimals="1">0</span>
+                <span class="testi-stat-label"><i class="fas fa-star"></i> Rata-rata Rating</span>
+            </div>
+            <div class="testi-stat-divider" aria-hidden="true"></div>
+            <div class="testi-stat">
+                <span class="testi-stat-number" id="testiStatTotal" data-count="6" data-decimals="0">0</span>
+                <span class="testi-stat-label"><i class="fas fa-comment-dots"></i> Total Testimoni</span>
+            </div>
+            <div class="testi-stat-divider" aria-hidden="true"></div>
+            <div class="testi-stat">
+                <span class="testi-stat-number" id="testiStatSatisfaction" data-count="100" data-decimals="0">0</span><span class="testi-stat-suffix">%</span>
+                <span class="testi-stat-label"><i class="fas fa-thumbs-up"></i> Klien Puas</span>
+            </div>
+        </div>
 
-            <article class="testimonial-card">
-                <div class="testimonial-top">
-                    <div class="testimonial-avatar" aria-hidden="true">DS</div>
-                    <div class="testimonial-meta">
-                        <div class="testimonial-name">Dewi Salsabila</div>
-                        <div class="testimonial-role">Operations • Komunitas Tech</div>
-                    </div>
-                </div>
-                <p class="testimonial-text">“Konsultasinya detail, saran teknisnya masuk akal, dan hasilnya sesuai kebutuhan tim kami.”</p>
-                <div class="testimonial-rating" aria-label="Rating 5 dari 5">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
-            </article>
+        <!-- SPOTLIGHT CAROUSEL -->
+        <div class="testi-spotlight" id="testiSpotlight" role="region" aria-roledescription="carousel" aria-label="Testimoni unggulan">
+            <i class="fas fa-quote-left testi-spotlight-icon" aria-hidden="true"></i>
 
-            <article class="testimonial-card">
-                <div class="testimonial-top">
-                    <div class="testimonial-avatar" aria-hidden="true">KS</div>
-                    <div class="testimonial-meta">
-                        <div class="testimonial-name">Kevin Santoso</div>
-                        <div class="testimonial-role">Coordinator • Program Volunteers</div>
-                    </div>
-                </div>
-                <p class="testimonial-text">“Design-nya menarik dan tetap fokus pada user experience. Proyek terasa rapi dari awal sampai akhir.”</p>
-                <div class="testimonial-rating" aria-label="Rating 5 dari 5">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
-            </article>
+            <button class="testi-nav-btn testi-nav-prev" id="testiPrev" aria-label="Testimoni sebelumnya" type="button">
+                <i class="fas fa-chevron-left"></i>
+            </button>
 
-            <article class="testimonial-card testimonial-highlight">
-                <div class="testimonial-top">
-                    <div class="testimonial-avatar" aria-hidden="true">YA</div>
-                    <div class="testimonial-meta">
-                        <div class="testimonial-name">Yusuf A.</div>
-                        <div class="testimonial-role">Client • Dashboard & API</div>
-                    </div>
-                </div>
-                <p class="testimonial-text">“Backend-nya stabil dan api-nya enak dipakai. Dashboard-nya responsif dan mudah dipahami.”</p>
-                <div class="testimonial-rating" aria-label="Rating 5 dari 5">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
-                <div class="testimonial-badge"><i class="fas fa-gem"></i> Top Feedback</div>
-            </article>
+            <div class="testi-spotlight-viewport">
+                <div class="testi-spotlight-track" id="testiTrack" aria-live="polite"></div>
+            </div>
 
-            <article class="testimonial-card">
-                <div class="testimonial-top">
-                    <div class="testimonial-avatar" aria-hidden="true">NZ</div>
-                    <div class="testimonial-meta">
-                        <div class="testimonial-name">Nadia Zahra</div>
-                        <div class="testimonial-role">Designer • UI Collaboration</div>
+            <button class="testi-nav-btn testi-nav-next" id="testiNext" aria-label="Testimoni berikutnya" type="button">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+
+            <div class="testi-progress-track" aria-hidden="true"><div class="testi-progress-bar" id="testiProgressBar"></div></div>
+            <div class="testi-dots" id="testiDots" role="tablist" aria-label="Pilih testimoni"></div>
+        </div>
+
+        <!-- FILTERS -->
+        <div class="testi-toolbar" id="testiFilters">
+            <div class="testi-filter-group" role="group" aria-label="Filter testimoni">
+                <button class="testi-filter-chip active" data-filter="all" type="button">Semua</button>
+                <button class="testi-filter-chip" data-filter="5star" type="button"><i class="fas fa-star"></i> Rating 5</button>
+                <button class="testi-filter-chip" data-filter="highlight" type="button"><i class="fas fa-gem"></i> Unggulan</button>
+            </div>
+            <button class="testi-write-btn" id="testiWriteBtn" type="button"><i class="fas fa-pen"></i> Tulis Testimoni</button>
+        </div>
+
+        <!-- GRID -->
+        <div class="testimonials-grid animate-on-scroll stagger-animation" id="testiGrid" aria-live="polite"></div>
+
+        <p class="testi-empty" id="testiEmpty" hidden>Belum ada testimoni untuk filter ini.</p>
+    </div>
+
+    <!-- WRITE TESTIMONIAL MODAL -->
+    <div class="testi-modal-overlay" id="testiModalOverlay" aria-hidden="true">
+        <div class="testi-modal" role="dialog" aria-modal="true" aria-labelledby="testiModalTitle">
+            <button class="testi-modal-close" id="testiModalClose" type="button" aria-label="Tutup"><i class="fas fa-times"></i></button>
+            <h3 id="testiModalTitle"><i class="fas fa-pen-fancy"></i> Tulis Testimoni</h3>
+            <p class="testi-modal-sub">Bagikan pengalamanmu bekerja sama denganku. Testimonimu akan langsung tampil di halaman ini.</p>
+            <form id="testiForm" novalidate>
+                <div class="testi-field">
+                    <label for="testiInputName">Nama</label>
+                    <input id="testiInputName" name="name" type="text" placeholder="Nama kamu" maxlength="40" required>
+                </div>
+                <div class="testi-field">
+                    <label for="testiInputRole">Peran / Perusahaan</label>
+                    <input id="testiInputRole" name="role" type="text" placeholder="Contoh: Founder • Startup" maxlength="50" required>
+                </div>
+                <div class="testi-field">
+                    <label>Rating</label>
+                    <div class="testi-star-picker" id="testiStarPicker" role="radiogroup" aria-label="Pilih rating">
+                        <button type="button" class="testi-star-btn" data-value="1" aria-label="1 bintang"><i class="fas fa-star"></i></button>
+                        <button type="button" class="testi-star-btn" data-value="2" aria-label="2 bintang"><i class="fas fa-star"></i></button>
+                        <button type="button" class="testi-star-btn" data-value="3" aria-label="3 bintang"><i class="fas fa-star"></i></button>
+                        <button type="button" class="testi-star-btn" data-value="4" aria-label="4 bintang"><i class="fas fa-star"></i></button>
+                        <button type="button" class="testi-star-btn" data-value="5" aria-label="5 bintang"><i class="fas fa-star"></i></button>
                     </div>
+                    <input type="hidden" id="testiInputRating" value="0">
                 </div>
-                <p class="testimonial-text">“Kolaborasinya smooth. Hasil implementasi sesuai mockup, dan detail kecilnya diperhatikan.”</p>
-                <div class="testimonial-rating" aria-label="Rating 5 dari 5">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <div class="testi-field">
+                    <label for="testiInputText">Testimoni</label>
+                    <textarea id="testiInputText" name="text" rows="4" maxlength="240" placeholder="Ceritakan pengalamanmu bekerja sama..." required></textarea>
+                    <span class="testi-char-count" id="testiCharCount">0 / 240</span>
                 </div>
-            </article>
+                <button type="submit" class="testi-submit-btn"><i class="fas fa-paper-plane"></i> Kirim Testimoni</button>
+            </form>
         </div>
     </div>
 
-    <style>
-    /* TESTIMONIALS */
-    .testimonials-wrapper { max-width: 1100px; margin: 0 auto; }
-    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-    .testimonial-card {
-        position: relative;
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-xl);
-        padding: 18px 18px 16px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-        transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-        overflow: hidden;
-    }
-    .testimonial-card::before {
-        content: '';
-        position: absolute;
-        inset: -2px;
-        background: radial-gradient(600px 200px at 20% 0%, rgba(99,102,241,0.22), transparent 60%),
-                    radial-gradient(420px 200px at 90% 10%, rgba(236,72,153,0.18), transparent 55%);
-        opacity: 0;
-        transition: opacity 0.35s ease;
-        pointer-events: none;
-    }
-    .testimonial-card:hover {
-        transform: translateY(-8px);
-        border-color: rgba(99,102,241,0.30);
-        box-shadow: var(--shadow-xl);
-    }
-    .testimonial-card:hover::before { opacity: 1; }
-
-    .testimonial-highlight {
-        border-color: rgba(99,102,241,0.35);
-    }
-
-    .testimonial-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-    .testimonial-avatar {
-        width: 44px; height: 44px; border-radius: 14px;
-        background: var(--gradient-primary);
-        color: white; font-weight: 800;
-        display: flex; align-items: center; justify-content: center;
-        box-shadow: var(--shadow-lg);
-        flex-shrink: 0;
-    }
-    .testimonial-meta { min-width: 0; }
-    .testimonial-name { font-weight: 800; color: var(--text-primary); font-size: 14px; margin-bottom: 2px; }
-    .testimonial-role { color: var(--text-secondary); font-size: 12px; font-weight: 600; }
-    .testimonial-text { color: var(--text-primary); font-size: 13.5px; line-height: 1.7; margin: 0 0 12px; }
-    .testimonial-rating { display: flex; gap: 4px; color: #fbbf24; }
-    .testimonial-rating i { font-size: 12.5px; }
-
-    .testimonial-badge {
-        position: absolute;
-        top: 14px;
-        right: 14px;
-        padding: 7px 12px;
-        background: var(--gradient-primary);
-        border-radius: var(--radius-full);
-        color: white;
-        font-weight: 800;
-        font-size: 11px;
-        display: inline-flex;
-        gap: 6px;
-        align-items: center;
-        box-shadow: var(--shadow-lg);
-        transform: rotate(-2deg);
-    }
-
-    @media (max-width: 768px) {
-        .testimonials-grid { grid-template-columns: 1fr; }
-    }
-    </style>
-
 </section>
+<style>
+/* ===== TESTIMONIALS — REDESIGN ===== */
+.testimonials-wrapper { max-width: 1100px; margin: 0 auto; }
+
+/* --- Stats bar --- */
+.testi-stats {
+    display: flex; align-items: center; justify-content: center;
+    gap: 28px; flex-wrap: wrap;
+    margin: 0 auto 32px; padding: 20px 28px;
+    background: var(--card-bg-glass);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow);
+}
+.testi-stat { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 110px; }
+.testi-stat-number {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem; font-weight: 800; line-height: 1;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.testi-stat-suffix { font-size: 1.4rem; font-weight: 800; color: var(--main-color); margin-left: 1px; }
+.testi-stat-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); display: flex; align-items: center; gap: 5px; }
+.testi-stat-label i { color: #fbbf24; font-size: 11px; }
+.testi-stat-divider { width: 1px; height: 40px; background: var(--border-color); }
+@media (max-width: 640px) { .testi-stat-divider { display: none; } .testi-stats { gap: 18px 26px; } }
+
+/* --- Spotlight carousel --- */
+.testi-spotlight {
+    position: relative;
+    max-width: 780px; margin: 0 auto 30px;
+    padding: 44px 64px 34px;
+    border-radius: var(--radius-xl);
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-glow), var(--shadow-xl);
+    overflow: hidden;
+    min-height: 240px;
+}
+.testi-spotlight::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(500px 260px at 15% -10%, rgba(255,255,255,0.18), transparent 60%);
+    pointer-events: none;
+}
+.testi-spotlight-icon {
+    position: absolute; top: 20px; left: 24px;
+    font-size: 26px; color: rgba(255,255,255,0.35);
+}
+.testi-spotlight-viewport { overflow: hidden; }
+.testi-spotlight-track { position: relative; min-height: 168px; }
+.testi-slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    gap: 14px; color: #fff;
+    opacity: 0; transform: translateX(24px) scale(0.98);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    pointer-events: none;
+}
+.testi-slide.active { opacity: 1; transform: translateX(0) scale(1); pointer-events: auto; position: relative; }
+.testi-slide.leaving-prev { transform: translateX(24px) scale(0.98); }
+.testi-slide.leaving-next { transform: translateX(-24px) scale(0.98); }
+.testi-slide-avatar {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: rgba(255,255,255,0.22);
+    border: 2px solid rgba(255,255,255,0.5);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 16px; letter-spacing: 0.5px;
+    backdrop-filter: blur(4px);
+}
+.testi-slide-text { font-size: 1.08rem; font-weight: 500; line-height: 1.7; max-width: 560px; }
+.testi-slide-rating { display: flex; gap: 3px; color: #fde68a; font-size: 13px; }
+.testi-slide-name { font-weight: 800; font-size: 15px; }
+.testi-slide-role { font-size: 12px; opacity: 0.85; font-weight: 500; margin-top: -8px; }
+
+.testi-nav-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35);
+    color: #fff; font-size: 14px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.25s ease, transform 0.25s ease;
+    z-index: 2;
+}
+.testi-nav-btn:hover { background: rgba(255,255,255,0.32); transform: translateY(-50%) scale(1.08); }
+.testi-nav-btn:active { transform: translateY(-50%) scale(0.94); }
+.testi-nav-prev { left: 14px; }
+.testi-nav-next { right: 14px; }
+
+.testi-progress-track {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: rgba(255,255,255,0.2);
+}
+.testi-progress-bar { height: 100%; width: 0%; background: #fff; }
+.testi-progress-bar.animating { transition: width linear; }
+
+.testi-dots { display: flex; justify-content: center; gap: 8px; margin-top: 20px; position: relative; z-index: 2; }
+.testi-dots button {
+    width: 8px; height: 8px; border-radius: 50%; border: none; padding: 0;
+    background: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.3s ease;
+}
+.testi-dots button.active { width: 22px; border-radius: 5px; background: #fff; }
+
+/* --- Toolbar: filters + write button --- */
+.testi-toolbar {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+    gap: 14px; margin-bottom: 22px;
+}
+.testi-filter-group { display: flex; gap: 8px; flex-wrap: wrap; }
+.testi-filter-chip {
+    padding: 8px 16px; border-radius: var(--radius-full);
+    border: 1px solid var(--border-color); background: var(--card-bg);
+    color: var(--text-secondary); font-size: 12.5px; font-weight: 600; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: all 0.25s ease;
+}
+.testi-filter-chip i { font-size: 11px; color: #fbbf24; }
+.testi-filter-chip:hover { border-color: var(--main-color); color: var(--main-color); }
+.testi-filter-chip.active { background: var(--gradient-primary); color: #fff; border-color: transparent; box-shadow: var(--shadow); }
+.testi-filter-chip.active i { color: #fff; }
+.testi-write-btn {
+    padding: 9px 18px; border-radius: var(--radius-full); border: none; cursor: pointer;
+    background: var(--card-bg); color: var(--main-color); border: 2px solid var(--main-color);
+    font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 7px;
+    transition: all 0.25s ease;
+}
+.testi-write-btn:hover { background: var(--gradient-primary); color: #fff; border-color: transparent; transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+/* --- Grid & cards --- */
+.testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.testi-empty { text-align: center; color: var(--text-secondary); font-size: 13.5px; padding: 30px 0; }
+
+.testimonial-card {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    padding: 20px 20px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    animation: testiCardIn 0.5s ease both;
+}
+@keyframes testiCardIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.testimonial-card::before {
+    content: '';
+    position: absolute; inset: -2px;
+    background: radial-gradient(600px 200px at 20% 0%, rgba(99,102,241,0.22), transparent 60%),
+                radial-gradient(420px 200px at 90% 10%, rgba(236,72,153,0.18), transparent 55%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+}
+.testimonial-card:hover { transform: translateY(-8px); border-color: rgba(99,102,241,0.30); box-shadow: var(--shadow-xl); }
+.testimonial-card:hover::before { opacity: 1; }
+.testimonial-card.new-entry { animation: testiNewGlow 1.6s ease; }
+@keyframes testiNewGlow {
+    0% { box-shadow: 0 0 0 4px rgba(99,102,241,0.35), var(--shadow-xl); }
+    100% { box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
+}
+
+.testimonial-highlight { border-color: rgba(99,102,241,0.35); }
+.testi-quote-icon { position: absolute; top: 16px; right: 18px; font-size: 22px; color: var(--border-color); }
+
+.testimonial-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.testimonial-avatar {
+    width: 44px; height: 44px; border-radius: 14px;
+    background: var(--gradient-primary);
+    color: white; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow-lg);
+    flex-shrink: 0;
+}
+.testimonial-meta { min-width: 0; }
+.testimonial-name { font-weight: 800; color: var(--text-primary); font-size: 14px; margin-bottom: 2px; }
+.testimonial-role { color: var(--text-secondary); font-size: 12px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.testimonial-text { color: var(--text-primary); font-size: 13.5px; line-height: 1.7; margin: 0 0 12px; flex-grow: 1; }
+.testimonial-text.clamped { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.testi-read-more {
+    background: none; border: none; cursor: pointer; padding: 0 0 12px;
+    color: var(--main-color); font-weight: 700; font-size: 12px; text-align: left;
+}
+.testi-read-more:hover { text-decoration: underline; }
+.testimonial-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+.testimonial-rating { display: flex; gap: 4px; color: #fbbf24; }
+.testimonial-rating i { font-size: 12.5px; }
+
+.testimonial-badge {
+    position: absolute; top: 14px; right: 14px;
+    padding: 7px 12px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-full);
+    color: white; font-weight: 800; font-size: 11px;
+    display: inline-flex; gap: 6px; align-items: center;
+    box-shadow: var(--shadow-lg);
+    transform: rotate(-2deg);
+}
+
+/* --- Write testimonial modal --- */
+.testi-modal-overlay {
+    position: fixed; inset: 0; z-index: 10010;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.testi-modal-overlay.active { opacity: 1; pointer-events: auto; }
+.testi-modal {
+    background: var(--card-bg); border-radius: var(--radius-xl);
+    padding: 28px 26px 26px; width: 100%; max-width: 440px;
+    box-shadow: var(--shadow-xl);
+    position: relative;
+    transform: translateY(16px) scale(0.97); opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease;
+    max-height: 88vh; overflow-y: auto;
+}
+.testi-modal-overlay.active .testi-modal { transform: translateY(0) scale(1); opacity: 1; }
+.testi-modal h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; color: var(--text-primary); }
+.testi-modal h3 i { color: var(--main-color); }
+.testi-modal-sub { font-size: 12.5px; color: var(--text-secondary); margin-bottom: 18px; line-height: 1.6; }
+.testi-modal-close {
+    position: absolute; top: 16px; right: 16px;
+    width: 32px; height: 32px; border-radius: 50%; border: none;
+    background: var(--hover-bg); color: var(--text-secondary); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s ease;
+}
+.testi-modal-close:hover { background: var(--main-color); color: #fff; transform: rotate(90deg); }
+.testi-field { margin-bottom: 16px; }
+.testi-field label { display: block; font-size: 12.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+.testi-field input[type="text"], .testi-field textarea {
+    width: 100%; padding: 11px 14px; border-radius: var(--radius); border: 2px solid var(--border-color);
+    background: var(--search-bg); color: var(--text-primary); font-family: inherit; font-size: 13px;
+    outline: none; transition: border-color 0.25s ease; resize: vertical;
+}
+.testi-field input[type="text"]:focus, .testi-field textarea:focus { border-color: var(--main-color); }
+.testi-char-count { display: block; text-align: right; font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
+.testi-star-picker { display: flex; gap: 6px; }
+.testi-star-btn {
+    background: none; border: none; cursor: pointer; font-size: 22px; color: var(--border-color);
+    transition: transform 0.15s ease, color 0.15s ease; padding: 2px;
+}
+.testi-star-btn:hover { transform: scale(1.15); }
+.testi-star-btn.filled { color: #fbbf24; }
+.testi-submit-btn {
+    width: 100%; padding: 13px; border: none; border-radius: var(--radius);
+    background: var(--gradient-primary); color: #fff; font-weight: 700; font-size: 13.5px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: all 0.25s ease; margin-top: 4px;
+}
+.testi-submit-btn:hover { filter: brightness(1.08); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.testi-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.testi-field.shake { animation: testiShake 0.4s ease; }
+@keyframes testiShake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-6px);} 75%{transform:translateX(6px);} }
+
+.testi-toast {
+    position: fixed; top: 20px; right: 20px; z-index: 10020;
+    padding: 14px 22px; border-radius: 12px; color: #fff; font-weight: 600; font-size: 13.5px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    display: flex; align-items: center; gap: 10px;
+    animation: testiToastIn 0.4s ease, testiToastOut 0.4s ease 3.1s forwards;
+}
+@keyframes testiToastIn { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes testiToastOut { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(40px); } }
+
+@media (prefers-reduced-motion: reduce) {
+    .testi-slide, .testimonial-card, .testi-modal, .testi-modal-overlay, .testi-nav-btn, .testi-dots button { transition: none !important; animation: none !important; }
+}
+
+@media (max-width: 768px) {
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .testi-spotlight { padding: 40px 50px 30px; }
+    .testi-nav-prev { left: 6px; } .testi-nav-next { right: 6px; }
+    .testi-toolbar { flex-direction: column; align-items: stretch; }
+    .testi-write-btn { justify-content: center; }
+}
+@media (max-width: 480px) {
+    .testi-spotlight { padding: 46px 20px 26px; }
+    .testi-nav-btn { width: 34px; height: 34px; position: static; transform: none; }
+    .testi-spotlight { display: flex; flex-direction: column; }
+    .testi-spotlight-viewport { order: 1; }
+}
+</style>
+<script>
+(function () {
+    'use strict';
+
+    /* ---------- Data ---------- */
+    var defaultTestimonials = [
+        { id: 't1', initials: 'AL', name: 'Alya Putri', role: 'Founder • UMKM Kuliner', text: 'Hasil website rapi, cepat, dan gampang diupdate. Proses komunikasinya juga enak banget, responnya cepat.', rating: 5, highlight: false },
+        { id: 't2', initials: 'MR', name: 'Muhammad Rafi', role: 'Project Owner • Startup', text: 'Front-end-nya interaktif dan performanya bagus. Timing delivery sesuai, dan dokumentasinya jelas.', rating: 5, highlight: false },
+        { id: 't3', initials: 'DS', name: 'Dewi Salsabila', role: 'Operations • Komunitas Tech', text: 'Konsultasinya detail, saran teknisnya masuk akal, dan hasilnya sesuai kebutuhan tim kami.', rating: 5, highlight: false },
+        { id: 't4', initials: 'KS', name: 'Kevin Santoso', role: 'Coordinator • Program Volunteers', text: 'Design-nya menarik dan tetap fokus pada user experience. Proyek terasa rapi dari awal sampai akhir.', rating: 5, highlight: false },
+        { id: 't5', initials: 'YA', name: 'Yusuf A.', role: 'Client • Dashboard & API', text: 'Backend-nya stabil dan api-nya enak dipakai. Dashboard-nya responsif dan mudah dipahami.', rating: 5, highlight: true },
+        { id: 't6', initials: 'NZ', name: 'Nadia Zahra', role: 'Designer • UI Collaboration', text: 'Kolaborasinya smooth. Hasil implementasi sesuai mockup, dan detail kecilnya diperhatikan.', rating: 5, highlight: false }
+    ];
+
+    var STORAGE_KEY = 'portfolioTestimonialsExtra';
+    var AUTOPLAY_MS = 6000;
+    var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function loadTestimonials() {
+        var extra = [];
+        try {
+            var saved = localStorage.getItem(STORAGE_KEY);
+            if (saved) extra = JSON.parse(saved) || [];
+        } catch (e) { extra = []; }
+        return defaultTestimonials.concat(extra);
+    }
+
+    function saveExtra(item) {
+        try {
+            var saved = [];
+            var raw = localStorage.getItem(STORAGE_KEY);
+            if (raw) saved = JSON.parse(raw) || [];
+            saved.push(item);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(saved));
+        } catch (e) { /* storage unavailable, ignore silently */ }
+    }
+
+    function escapeHTML(str) {
+        var div = document.createElement('div');
+        div.textContent = String(str == null ? '' : str);
+        return div.innerHTML;
+    }
+
+    function initials(name) {
+        var parts = String(name).trim().split(/\s+/).filter(Boolean);
+        if (!parts.length) return '?';
+        if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+        return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+
+    /* ---------- State ---------- */
+    var state = {
+        items: loadTestimonials(),
+        filter: 'all',
+        spotlightIndex: 0,
+        autoplayTimer: null,
+        progressStart: null,
+        newestId: null
+    };
+
+    /* ---------- Elements ---------- */
+    var els = {};
+
+    function cacheEls() {
+        els.section = document.getElementById('testimonials');
+        if (!els.section) return false;
+        els.track = document.getElementById('testiTrack');
+        els.dots = document.getElementById('testiDots');
+        els.prev = document.getElementById('testiPrev');
+        els.next = document.getElementById('testiNext');
+        els.progressBar = document.getElementById('testiProgressBar');
+        els.spotlight = document.getElementById('testiSpotlight');
+        els.grid = document.getElementById('testiGrid');
+        els.empty = document.getElementById('testiEmpty');
+        els.filters = document.getElementById('testiFilters');
+        els.writeBtn = document.getElementById('testiWriteBtn');
+        els.modalOverlay = document.getElementById('testiModalOverlay');
+        els.modalClose = document.getElementById('testiModalClose');
+        els.form = document.getElementById('testiForm');
+        els.inputName = document.getElementById('testiInputName');
+        els.inputRole = document.getElementById('testiInputRole');
+        els.inputText = document.getElementById('testiInputText');
+        els.inputRating = document.getElementById('testiInputRating');
+        els.starPicker = document.getElementById('testiStarPicker');
+        els.charCount = document.getElementById('testiCharCount');
+        els.stats = document.getElementById('testiStats');
+        return true;
+    }
+
+    /* ---------- Spotlight (only rating >=4, showcasing best feedback) ---------- */
+    function spotlightItems() {
+        var items = state.items.filter(function (t) { return t.rating >= 4; });
+        return items.length ? items : state.items;
+    }
+
+    function renderSpotlight() {
+        var items = spotlightItems();
+        if (state.spotlightIndex >= items.length) state.spotlightIndex = 0;
+
+        els.track.innerHTML = items.map(function (t, i) {
+            return '' +
+                '<div class="testi-slide' + (i === state.spotlightIndex ? ' active' : '') + '" data-index="' + i + '">' +
+                    '<div class="testi-slide-avatar" aria-hidden="true">' + escapeHTML(t.initials || initials(t.name)) + '</div>' +
+                    '<p class="testi-slide-text">&ldquo;' + escapeHTML(t.text) + '&rdquo;</p>' +
+                    '<div class="testi-slide-rating" aria-hidden="true">' + starIcons(t.rating) + '</div>' +
+                    '<div class="testi-slide-name">' + escapeHTML(t.name) + '</div>' +
+                    '<div class="testi-slide-role">' + escapeHTML(t.role) + '</div>' +
+                '</div>';
+        }).join('');
+
+        els.dots.innerHTML = items.map(function (_, i) {
+            return '<button type="button" role="tab" aria-label="Testimoni ke-' + (i + 1) + '" class="' + (i === state.spotlightIndex ? 'active' : '') + '" data-index="' + i + '" aria-selected="' + (i === state.spotlightIndex) + '"></button>';
+        }).join('');
+    }
+
+    function goToSlide(index, restart) {
+        var items = spotlightItems();
+        if (!items.length) return;
+        var count = items.length;
+        state.spotlightIndex = ((index % count) + count) % count;
+        renderSpotlight();
+        if (restart !== false) startAutoplay();
+    }
+
+    function nextSlide() { goToSlide(state.spotlightIndex + 1); }
+    function prevSlide() { goToSlide(state.spotlightIndex - 1); }
+
+    function startAutoplay() {
+        stopAutoplay();
+        if (prefersReducedMotion) return;
+        els.progressBar.classList.remove('animating');
+        els.progressBar.style.width = '0%';
+        // force reflow so the transition restarts
+        void els.progressBar.offsetWidth;
+        els.progressBar.classList.add('animating');
+        els.progressBar.style.transitionDuration = AUTOPLAY_MS + 'ms';
+        els.progressBar.style.width = '100%';
+        state.autoplayTimer = setTimeout(function () {
+            goToSlide(state.spotlightIndex + 1);
+        }, AUTOPLAY_MS);
+    }
+
+    function stopAutoplay() {
+        if (state.autoplayTimer) {
+            clearTimeout(state.autoplayTimer);
+            state.autoplayTimer = null;
+        }
+        els.progressBar.classList.remove('animating');
+    }
+
+    function pauseAutoplayVisual() {
+        // freeze current width instead of resetting, then stop
+        var computed = getComputedStyle(els.progressBar).width;
+        els.progressBar.style.width = computed;
+        stopAutoplay();
+    }
+
+    /* ---------- Star icons ---------- */
+    function starIcons(rating) {
+        var html = '';
+        for (var i = 0; i < 5; i++) {
+            html += '<i class="fa-star ' + (i < rating ? 'fas' : 'far') + '"></i>';
+        }
+        return html;
+    }
+
+    /* ---------- Grid ---------- */
+    var CLAMP_LENGTH = 120;
+
+    function filteredItems() {
+        return state.items.filter(function (t) {
+            if (state.filter === '5star') return t.rating === 5;
+            if (state.filter === 'highlight') return !!t.highlight;
+            return true;
+        });
+    }
+
+    function renderGrid() {
+        var items = filteredItems();
+        els.empty.hidden = items.length > 0;
+        els.grid.innerHTML = items.map(function (t, i) {
+            var isLong = t.text.length > CLAMP_LENGTH;
+            var isNew = t.id === state.newestId;
+            return '' +
+                '<article class="testimonial-card' + (t.highlight ? ' testimonial-highlight' : '') + (isNew ? ' new-entry' : '') + '" data-id="' + escapeHTML(t.id) + '" style="animation-delay:' + Math.min(i * 0.06, 0.4) + 's">' +
+                    '<i class="fas fa-quote-right testi-quote-icon" aria-hidden="true"></i>' +
+                    '<div class="testimonial-top">' +
+                        '<div class="testimonial-avatar" aria-hidden="true">' + escapeHTML(t.initials || initials(t.name)) + '</div>' +
+                        '<div class="testimonial-meta">' +
+                            '<div class="testimonial-name">' + escapeHTML(t.name) + '</div>' +
+                            '<div class="testimonial-role">' + escapeHTML(t.role) + '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<p class="testimonial-text' + (isLong ? ' clamped' : '') + '" data-full="' + escapeHTML(t.text) + '">' + escapeHTML(t.text) + '</p>' +
+                    (isLong ? '<button type="button" class="testi-read-more">Baca selengkapnya</button>' : '') +
+                    '<div class="testimonial-bottom">' +
+                        '<div class="testimonial-rating" aria-label="Rating ' + t.rating + ' dari 5">' + starIcons(t.rating) + '</div>' +
+                    '</div>' +
+                    (t.highlight ? '<div class="testimonial-badge"><i class="fas fa-gem"></i> Top Feedback</div>' : '') +
+                '</article>';
+        }).join('');
+    }
+
+    function onGridClick(e) {
+        var btn = e.target.closest('.testi-read-more');
+        if (!btn) return;
+        var card = btn.closest('.testimonial-card');
+        var p = card.querySelector('.testimonial-text');
+        var collapsed = p.classList.toggle('clamped');
+        btn.textContent = collapsed ? 'Baca selengkapnya' : 'Tutup';
+    }
+
+    /* ---------- Filters ---------- */
+    function onFilterClick(e) {
+        var chip = e.target.closest('.testi-filter-chip');
+        if (!chip) return;
+        Array.prototype.forEach.call(els.filters.querySelectorAll('.testi-filter-chip'), function (c) {
+            c.classList.toggle('active', c === chip);
+        });
+        state.filter = chip.getAttribute('data-filter');
+        renderGrid();
+    }
+
+    /* ---------- Stats counter ---------- */
+    function animateCount(el, target, decimals, duration) {
+        var start = 0;
+        var startTime = null;
+        function step(ts) {
+            if (!startTime) startTime = ts;
+            var progress = Math.min((ts - startTime) / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            var value = start + (target - start) * eased;
+            el.textContent = decimals > 0 ? value.toFixed(decimals) : Math.round(value);
+            if (progress < 1) requestAnimationFrame(step);
+            else el.textContent = decimals > 0 ? target.toFixed(decimals) : target;
+        }
+        requestAnimationFrame(step);
+    }
+
+    function computeStats() {
+        var items = state.items;
+        var total = items.length;
+        var avg = total ? items.reduce(function (s, t) { return s + t.rating; }, 0) / total : 0;
+        var satisfied = total ? Math.round((items.filter(function (t) { return t.rating >= 4; }).length / total) * 100) : 100;
+        return { avg: avg, total: total, satisfied: satisfied };
+    }
+
+    var statsAnimated = false;
+    function initStatsObserver() {
+        if (!('IntersectionObserver' in window)) {
+            triggerStats();
+            return;
+        }
+        var obs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting && !statsAnimated) {
+                    statsAnimated = true;
+                    triggerStats();
+                    obs.disconnect();
+                }
+            });
+        }, { threshold: 0.4 });
+        obs.observe(els.stats);
+    }
+
+    function triggerStats() {
+        var s = computeStats();
+        var ratingEl = document.getElementById('testiStatRating');
+        var totalEl = document.getElementById('testiStatTotal');
+        var satEl = document.getElementById('testiStatSatisfaction');
+        animateCount(ratingEl, Math.round(s.avg * 10) / 10, 1, 1200);
+        animateCount(totalEl, s.total, 0, 1000);
+        animateCount(satEl, s.satisfied, 0, 1400);
+    }
+
+    /* ---------- Write testimonial modal ---------- */
+    var selectedRating = 0;
+
+    function openModal() {
+        els.modalOverlay.classList.add('active');
+        els.modalOverlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        setTimeout(function () { els.inputName.focus(); }, 200);
+        pauseAutoplayVisual();
+    }
+
+    function closeModal() {
+        els.modalOverlay.classList.remove('active');
+        els.modalOverlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        resetForm();
+        startAutoplay();
+    }
+
+    function resetForm() {
+        els.form.reset();
+        selectedRating = 0;
+        updateStarUI();
+        els.charCount.textContent = '0 / 240';
+        var submitBtn = els.form.querySelector('.testi-submit-btn');
+        if (submitBtn) submitBtn.disabled = false;
+    }
+
+    function updateStarUI() {
+        var btns = els.starPicker.querySelectorAll('.testi-star-btn');
+        btns.forEach(function (b) {
+            var v = parseInt(b.getAttribute('data-value'), 10);
+            b.classList.toggle('filled', v <= selectedRating);
+        });
+        els.inputRating.value = selectedRating;
+    }
+
+    function onStarClick(e) {
+        var btn = e.target.closest('.testi-star-btn');
+        if (!btn) return;
+        selectedRating = parseInt(btn.getAttribute('data-value'), 10);
+        updateStarUI();
+    }
+
+    function shakeField(field) {
+        field.classList.remove('shake');
+        void field.offsetWidth;
+        field.classList.add('shake');
+    }
+
+    function onFormSubmit(e) {
+        e.preventDefault();
+        var name = els.inputName.value.trim();
+        var role = els.inputRole.value.trim();
+        var text = els.inputText.value.trim();
+
+        if (!name) { shakeField(els.inputName.closest('.testi-field')); els.inputName.focus(); return; }
+        if (!role) { shakeField(els.inputRole.closest('.testi-field')); els.inputRole.focus(); return; }
+        if (!text) { shakeField(els.inputText.closest('.testi-field')); els.inputText.focus(); return; }
+        if (!selectedRating) { shakeField(els.starPicker); return; }
+
+        var submitBtn = els.form.querySelector('.testi-submit-btn');
+        submitBtn.disabled = true;
+
+        var newItem = {
+            id: 't_' + Date.now(),
+            initials: initials(name),
+            name: name,
+            role: role,
+            text: text,
+            rating: selectedRating,
+            highlight: false
+        };
+
+        state.items.push(newItem);
+        state.newestId = newItem.id;
+        saveExtra(newItem);
+
+        renderGrid();
+        renderSpotlight();
+        statsAnimated = false;
+        triggerStats();
+
+        closeModal();
+        showToast('Terima kasih! Testimonimu sudah ditambahkan.');
+
+        setTimeout(function () {
+            var card = els.grid.querySelector('[data-id="' + newItem.id + '"]');
+            if (card) card.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'center' });
+        }, 350);
+    }
+
+    function showToast(message) {
+        var toast = document.createElement('div');
+        toast.className = 'testi-toast';
+        toast.innerHTML = '<i class="fas fa-check-circle"></i><span></span>';
+        toast.querySelector('span').textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(function () { toast.remove(); }, 3600);
+    }
+
+    /* ---------- Swipe support ---------- */
+    function initSwipe() {
+        var startX = null;
+        els.spotlight.addEventListener('touchstart', function (e) {
+            startX = e.touches[0].clientX;
+            pauseAutoplayVisual();
+        }, { passive: true });
+        els.spotlight.addEventListener('touchend', function (e) {
+            if (startX === null) return;
+            var deltaX = e.changedTouches[0].clientX - startX;
+            if (Math.abs(deltaX) > 40) {
+                if (deltaX < 0) nextSlide(); else prevSlide();
+            } else {
+                startAutoplay();
+            }
+            startX = null;
+        }, { passive: true });
+    }
+
+    /* ---------- Wire up events ---------- */
+    function bindEvents() {
+        els.prev.addEventListener('click', function () { prevSlide(); });
+        els.next.addEventListener('click', function () { nextSlide(); });
+        els.dots.addEventListener('click', function (e) {
+            var dot = e.target.closest('button[data-index]');
+            if (!dot) return;
+            goToSlide(parseInt(dot.getAttribute('data-index'), 10));
+        });
+        els.spotlight.addEventListener('mouseenter', pauseAutoplayVisual);
+        els.spotlight.addEventListener('mouseleave', function () { startAutoplay(); });
+        els.spotlight.addEventListener('focusin', pauseAutoplayVisual);
+        els.spotlight.addEventListener('focusout', function () { startAutoplay(); });
+        els.spotlight.setAttribute('tabindex', '0');
+        els.spotlight.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowLeft') { prevSlide(); }
+            if (e.key === 'ArrowRight') { nextSlide(); }
+        });
+
+        els.grid.addEventListener('click', onGridClick);
+        els.filters.addEventListener('click', onFilterClick);
+
+        els.writeBtn.addEventListener('click', openModal);
+        els.modalClose.addEventListener('click', closeModal);
+        els.modalOverlay.addEventListener('click', function (e) {
+            if (e.target === els.modalOverlay) closeModal();
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && els.modalOverlay.classList.contains('active')) closeModal();
+        });
+
+        els.starPicker.addEventListener('click', onStarClick);
+        els.form.addEventListener('submit', onFormSubmit);
+        els.inputText.addEventListener('input', function () {
+            els.charCount.textContent = els.inputText.value.length + ' / 240';
+        });
+
+        initSwipe();
+    }
+
+    /* ---------- Init ---------- */
+    function init() {
+        if (!cacheEls()) return;
+        renderSpotlight();
+        renderGrid();
+        bindEvents();
+        initStatsObserver();
+        startAutoplay();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+</script>
 
 <section id="contact" class="content-section">
 
@@ -3861,7 +4556,7 @@ document.addEventListener('DOMContentLoaded', function() {
         voiceAiRecognition = new SpeechRecognition();
         voiceAiRecognition.continuous = false;
         voiceAiRecognition.interimResults = true;
-        voiceAiRecognition.lang = 'en-US';
+        voiceAiRecognition.lang = 'id-ID';
         
         voiceAiRecognition.onstart = () => {
             isVoiceAiListening = true;
@@ -3945,7 +4640,7 @@ document.addEventListener('DOMContentLoaded', function() {
         utterance.rate = 0.9;
         utterance.pitch = 1;
         utterance.volume = 1;
-        utterance.lang = 'en-US';
+        utterance.lang = 'id-ID';
         
         speechSynthesis.speak(utterance);
     }
@@ -3955,11 +4650,11 @@ document.addEventListener('DOMContentLoaded', function() {
         let response = '';
         
         // Greeting
-        if (lowerQuery.includes('hello') || lowerQuery.includes('hi') || lowerQuery.includes('hey')) {
+        if (lowerQuery.includes('hello') || lowerQuery.includes('hi') || lowerQuery.includes('hey') || lowerQuery.includes('halo') || lowerQuery.includes('hai')) {
             response = "Hello! I'm Fawwaz's AI assistant. I can tell you about his skills, experience, education, portfolio, or contact information. What would you like to know?";
         }
         // About
-        else if (lowerQuery.includes('about') || lowerQuery.includes('who is') || lowerQuery.includes('tell me about')) {
+        else if (lowerQuery.includes('about') || lowerQuery.includes('who is') || lowerQuery.includes('tell me about') || lowerQuery.includes('tentang') || lowerQuery.includes('siapa')) {
             response = aiKnowledgeBase.about;
         }
         // Skills
@@ -3967,15 +4662,15 @@ document.addEventListener('DOMContentLoaded', function() {
             response = aiKnowledgeBase.skills;
         }
         // Experience
-        else if (lowerQuery.includes('experience') || lowerQuery.includes('work') || lowerQuery.includes('job')) {
+        else if (lowerQuery.includes('experience') || lowerQuery.includes('work') || lowerQuery.includes('job') || lowerQuery.includes('pengalaman') || lowerQuery.includes('kerja')) {
             response = aiKnowledgeBase.experience;
         }
         // Education
-        else if (lowerQuery.includes('education') || lowerQuery.includes('study') || lowerQuery.includes('university')) {
+        else if (lowerQuery.includes('education') || lowerQuery.includes('study') || lowerQuery.includes('university') || lowerQuery.includes('pendidikan') || lowerQuery.includes('kuliah')) {
             response = aiKnowledgeBase.education;
         }
         // Contact
-        else if (lowerQuery.includes('contact') || lowerQuery.includes('reach') || lowerQuery.includes('email')) {
+        else if (lowerQuery.includes('contact') || lowerQuery.includes('reach') || lowerQuery.includes('email') || lowerQuery.includes('kontak') || lowerQuery.includes('hubungi')) {
             response = aiKnowledgeBase.contact;
             setTimeout(() => {
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
@@ -3989,14 +4684,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 1000);
         }
         // Portfolio
-        else if (lowerQuery.includes('portfolio') || lowerQuery.includes('project') || lowerQuery.includes('work sample')) {
+        else if (lowerQuery.includes('portfolio') || lowerQuery.includes('project') || lowerQuery.includes('work sample') || lowerQuery.includes('portofolio') || lowerQuery.includes('proyek')) {
             response = aiKnowledgeBase.portfolio;
             setTimeout(() => {
                 document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' });
             }, 1000);
         }
         // Certificates
-        else if (lowerQuery.includes('certificate') || lowerQuery.includes('certification') || lowerQuery.includes('achievement')) {
+        else if (lowerQuery.includes('certificate') || lowerQuery.includes('certification') || lowerQuery.includes('achievement') || lowerQuery.includes('sertifikat') || lowerQuery.includes('prestasi')) {
             response = aiKnowledgeBase.certificates;
             setTimeout(() => {
                 document.getElementById('certificates')?.scrollIntoView({ behavior: 'smooth' });
@@ -5877,6 +6572,54 @@ function showNotification(message, type) {
         setTimeout(() => notification.remove(), 400);
     }, 3500);
 }
+
+// ===== BACKGROUND MUSIC =====
+// Browser hanya mengizinkan audio diputar setelah aksi pengunjung.
+(() => {
+    const music = document.getElementById('backgroundMusic');
+    const toggle = document.getElementById('musicToggle');
+    const player = document.getElementById('musicPlayer');
+    const popover = document.getElementById('musicPopover');
+    const volume = document.getElementById('musicVolume');
+    const status = document.getElementById('musicStatus');
+    if (!music || !toggle || !volume || !status) return;
+
+    const savedVolume = Number(localStorage.getItem('portfolioMusicVolume'));
+    music.volume = Number.isFinite(savedVolume) ? Math.min(1, Math.max(0, savedVolume)) : 0.35;
+    volume.value = Math.round(music.volume * 100);
+
+    const setState = (playing, message) => {
+        toggle.classList.toggle('playing', playing);
+        toggle.setAttribute('aria-pressed', String(playing));
+        toggle.setAttribute('title', playing ? 'Jeda musik latar' : 'Putar musik latar');
+        toggle.innerHTML = `<i class="fas fa-${playing ? 'pause' : 'music'}"></i>`;
+        status.textContent = message;
+    };
+
+    toggle.addEventListener('click', async () => {
+        if (music.paused) {
+            try {
+                await music.play();
+                setState(true, 'Musik sedang diputar');
+            } catch (error) {
+                setState(false, 'Tidak dapat memutar musik. Coba lagi.');
+            }
+        } else {
+            music.pause();
+        }
+    });
+
+    music.addEventListener('play', () => setState(true, 'Musik sedang diputar'));
+    music.addEventListener('pause', () => setState(false, 'Musik dijeda'));
+    music.addEventListener('error', () => setState(false, 'Sumber musik tidak tersedia'));
+    volume.addEventListener('input', () => {
+        music.volume = Number(volume.value) / 100;
+        localStorage.setItem('portfolioMusicVolume', String(music.volume));
+    });
+
+    player?.addEventListener('mouseleave', () => popover?.classList.remove('visible'));
+    toggle.addEventListener('focus', () => popover?.classList.add('visible'));
+})();
 
 </script>
 </body>
