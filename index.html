@@ -6,6 +6,10 @@
     <title>Muhammad Fawwaz Rayyan Khalish</title>
     <link rel="stylesheet" href="interactive-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = { corePlugins: { preflight: false } };
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
 :root {
@@ -73,6 +77,11 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 .navbar-center { display: flex; gap: 4px; flex: 1; justify-content: center; }
 .nav-item { padding: 10px 16px; border-radius: var(--radius); color: var(--text-secondary); text-decoration: none; font-weight: 500; font-size: 13px; transition: all 0.3s; display: flex; align-items: center; gap: 6px; }
 .nav-item:hover, .nav-item.active { color: var(--main-color); background: rgba(99, 102, 241, 0.1); }
+.nav-item-testi { position: relative; }
+.nav-item-testi i { transition: transform 0.3s ease; }
+.nav-item-testi:hover i { transform: rotate(-10deg) scale(1.15); }
+.nav-item-testi::after { content: ''; position: absolute; bottom: 3px; left: 50%; width: 0; height: 2px; border-radius: 2px; background: var(--gradient-primary); transition: all 0.3s ease; transform: translateX(-50%); }
+.nav-item-testi:hover::after { width: 60%; }
 .navbar-right { display: flex; align-items: center; gap: 10px; flex: 1; justify-content: flex-end; }
 .icon-button { width: 40px; height: 40px; border-radius: var(--radius-full); background: var(--hover-bg); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-primary); font-size: 16px; transition: all 0.3s; }
 .icon-button:hover { background: rgba(99, 102, 241, 0.1); color: var(--main-color); }
@@ -182,7 +191,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
         <a href="#experience" class="nav-item"><i class="fas fa-briefcase"></i> Experience</a>
         <a href="#services" class="nav-item"><i class="fas fa-handshake"></i> Services</a>
         <a href="#portfolio" class="nav-item"><i class="fas fa-folder-open"></i> Portfolio</a>
-        <a href="#testimonials" class="nav-item"><i class="fas fa-quote-right"></i> Testimoni</a>
+        <a href="#testimonials" class="nav-item nav-item-testi"><i class="fas fa-quote-right"></i> Testimoni</a>
 
         <a href="#contact" class="nav-item"><i class="fas fa-envelope"></i> Contact</a>
 
@@ -2284,10 +2293,15 @@ footer {
 .stagger-animation.visible > * { opacity: 1; transform: translateY(0); }
 </style>
 
-<section id="testimonials" class="content-section">
+<section id="testimonials" class="content-section testi-section">
+
+    <div class="testi-bg-decor" aria-hidden="true">
+        <span class="testi-blob testi-blob-1"></span>
+        <span class="testi-blob testi-blob-2"></span>
+    </div>
 
     <div class="section-header animate-on-scroll">
-        <span class="section-badge"><i class="fas fa-quote-right"></i> Testimoni</span>
+        <span class="section-badge testi-badge-live"><span class="testi-badge-dot"></span><i class="fas fa-quote-right"></i> Testimoni</span>
         <h2 class="section-title">Kata Mereka</h2>
         <p class="section-subtitle">Cerita singkat dari klien & kolaborator tentang kerja sama</p>
     </div>
@@ -2297,23 +2311,34 @@ footer {
         <!-- STATS -->
         <div class="testi-stats" id="testiStats">
             <div class="testi-stat">
-                <span class="testi-stat-number" id="testiStatRating" data-count="4.9" data-decimals="1">0</span>
-                <span class="testi-stat-label"><i class="fas fa-star"></i> Rata-rata Rating</span>
+                <span class="testi-stat-icon"><i class="fas fa-star"></i></span>
+                <div class="testi-stat-info">
+                    <span class="testi-stat-number" id="testiStatRating" data-count="4.9" data-decimals="1">0</span>
+                    <span class="testi-stat-label">Rata-rata Rating</span>
+                </div>
             </div>
             <div class="testi-stat-divider" aria-hidden="true"></div>
             <div class="testi-stat">
-                <span class="testi-stat-number" id="testiStatTotal" data-count="6" data-decimals="0">0</span>
-                <span class="testi-stat-label"><i class="fas fa-comment-dots"></i> Total Testimoni</span>
+                <span class="testi-stat-icon"><i class="fas fa-comment-dots"></i></span>
+                <div class="testi-stat-info">
+                    <span class="testi-stat-number" id="testiStatTotal" data-count="6" data-decimals="0">0</span>
+                    <span class="testi-stat-label">Total Testimoni</span>
+                </div>
             </div>
             <div class="testi-stat-divider" aria-hidden="true"></div>
             <div class="testi-stat">
-                <span class="testi-stat-number" id="testiStatSatisfaction" data-count="100" data-decimals="0">0</span><span class="testi-stat-suffix">%</span>
-                <span class="testi-stat-label"><i class="fas fa-thumbs-up"></i> Klien Puas</span>
+                <span class="testi-stat-icon"><i class="fas fa-thumbs-up"></i></span>
+                <div class="testi-stat-info">
+                    <span class="testi-stat-number" id="testiStatSatisfaction" data-count="100" data-decimals="0">0</span><span class="testi-stat-suffix">%</span>
+                    <span class="testi-stat-label">Klien Puas</span>
+                </div>
             </div>
         </div>
 
         <!-- SPOTLIGHT CAROUSEL -->
         <div class="testi-spotlight" id="testiSpotlight" role="region" aria-roledescription="carousel" aria-label="Testimoni unggulan">
+            <span class="testi-spotlight-orb orb-a" aria-hidden="true"></span>
+            <span class="testi-spotlight-orb orb-b" aria-hidden="true"></span>
             <i class="fas fa-quote-left testi-spotlight-icon" aria-hidden="true"></i>
 
             <button class="testi-nav-btn testi-nav-prev" id="testiPrev" aria-label="Testimoni sebelumnya" type="button">
@@ -2352,7 +2377,7 @@ footer {
     <div class="testi-modal-overlay" id="testiModalOverlay" aria-hidden="true">
         <div class="testi-modal" role="dialog" aria-modal="true" aria-labelledby="testiModalTitle">
             <button class="testi-modal-close" id="testiModalClose" type="button" aria-label="Tutup"><i class="fas fa-times"></i></button>
-            <h3 id="testiModalTitle"><i class="fas fa-pen-fancy"></i> Tulis Testimoni</h3>
+            <h3 id="testiModalTitle"><span class="testi-modal-icon"><i class="fas fa-pen-fancy"></i></span> Tulis Testimoni</h3>
             <p class="testi-modal-sub">Bagikan pengalamanmu bekerja sama denganku. Testimonimu akan langsung tampil di halaman ini.</p>
             <form id="testiForm" novalidate>
                 <div class="testi-field">
@@ -2387,31 +2412,54 @@ footer {
 </section>
 <style>
 /* ===== TESTIMONIALS — REDESIGN ===== */
+.testi-section { position: relative; overflow: hidden; }
+.testi-bg-decor { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.testi-blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.28; }
+.testi-blob-1 { width: 360px; height: 360px; top: -120px; left: -100px; background: var(--gradient-primary); animation: testiBlobFloat 12s ease-in-out infinite; }
+.testi-blob-2 { width: 300px; height: 300px; bottom: -100px; right: -80px; background: var(--gradient-secondary); animation: testiBlobFloat 14s ease-in-out infinite reverse; }
+@keyframes testiBlobFloat { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(30px, -20px) scale(1.08); } }
+.testi-section .section-header, .testi-section .testimonials-wrapper { position: relative; z-index: 1; }
+
+.testi-badge-live { position: relative; }
+.testi-badge-dot { position: relative; width: 7px; height: 7px; border-radius: 50%; background: #22c55e; display: inline-block; margin-right: 2px; box-shadow: 0 0 0 rgba(34,197,94,0.6); animation: testiPulseDot 1.8s ease-in-out infinite; }
+@keyframes testiPulseDot { 0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.55); } 70% { box-shadow: 0 0 0 8px rgba(34,197,94,0); } 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); } }
+
 .testimonials-wrapper { max-width: 1100px; margin: 0 auto; }
 
 /* --- Stats bar --- */
 .testi-stats {
     display: flex; align-items: center; justify-content: center;
     gap: 28px; flex-wrap: wrap;
-    margin: 0 auto 32px; padding: 20px 28px;
+    margin: 0 auto 32px; padding: 22px 32px;
     background: var(--card-bg-glass);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-xl);
     backdrop-filter: blur(12px);
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    transition: box-shadow 0.35s ease, transform 0.35s ease;
 }
-.testi-stat { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 110px; }
+.testi-stats:hover { box-shadow: var(--shadow-glow), var(--shadow-xl); }
+.testi-stat { display: flex; align-items: center; gap: 12px; min-width: 130px; }
+.testi-stat-icon {
+    width: 42px; height: 42px; flex-shrink: 0; border-radius: 12px;
+    background: var(--gradient-primary); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; box-shadow: var(--shadow-lg);
+    transition: transform 0.3s ease;
+}
+.testi-stat:hover .testi-stat-icon { transform: rotate(-8deg) scale(1.08); }
+.testi-stat-info { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; }
 .testi-stat-number {
     font-family: 'Poppins', sans-serif;
-    font-size: 2rem; font-weight: 800; line-height: 1;
+    font-size: 1.9rem; font-weight: 800; line-height: 1;
     background: var(--gradient-primary);
     -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
-.testi-stat-suffix { font-size: 1.4rem; font-weight: 800; color: var(--main-color); margin-left: 1px; }
-.testi-stat-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); display: flex; align-items: center; gap: 5px; }
-.testi-stat-label i { color: #fbbf24; font-size: 11px; }
+.testi-stat-suffix { font-size: 1.3rem; font-weight: 800; color: var(--main-color); margin-left: 1px; }
+.testi-stat-label { font-size: 11.5px; font-weight: 600; color: var(--text-secondary); }
 .testi-stat-divider { width: 1px; height: 40px; background: var(--border-color); }
-@media (max-width: 640px) { .testi-stat-divider { display: none; } .testi-stats { gap: 18px 26px; } }
+@media (max-width: 640px) { .testi-stat-divider { display: none; } .testi-stats { gap: 18px 22px; padding: 18px 20px; } .testi-stat { min-width: 0; } }
 
 /* --- Spotlight carousel --- */
 .testi-spotlight {
@@ -2423,13 +2471,19 @@ footer {
     box-shadow: var(--shadow-glow), var(--shadow-xl);
     overflow: hidden;
     min-height: 240px;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
 }
+.testi-spotlight:hover { box-shadow: 0 0 60px rgba(99,102,241,0.45), var(--shadow-xl); transform: translateY(-2px); }
 .testi-spotlight::after {
     content: '';
     position: absolute; inset: 0;
     background: radial-gradient(500px 260px at 15% -10%, rgba(255,255,255,0.18), transparent 60%);
     pointer-events: none;
 }
+.testi-spotlight-orb { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.16); filter: blur(30px); pointer-events: none; }
+.testi-spotlight-orb.orb-a { width: 140px; height: 140px; top: -50px; right: -30px; animation: testiBlobFloat 9s ease-in-out infinite; }
+.testi-spotlight-orb.orb-b { width: 100px; height: 100px; bottom: -40px; left: 30%; animation: testiBlobFloat 11s ease-in-out infinite reverse; }
 .testi-spotlight-icon {
     position: absolute; top: 20px; left: 24px;
     font-size: 26px; color: rgba(255,255,255,0.35);
@@ -2448,12 +2502,13 @@ footer {
 .testi-slide.leaving-prev { transform: translateX(24px) scale(0.98); }
 .testi-slide.leaving-next { transform: translateX(-24px) scale(0.98); }
 .testi-slide-avatar {
-    width: 56px; height: 56px; border-radius: 50%;
+    width: 60px; height: 60px; border-radius: 50%;
     background: rgba(255,255,255,0.22);
-    border: 2px solid rgba(255,255,255,0.5);
+    border: 2px solid rgba(255,255,255,0.55);
     display: flex; align-items: center; justify-content: center;
-    font-weight: 800; font-size: 16px; letter-spacing: 0.5px;
+    font-weight: 800; font-size: 17px; letter-spacing: 0.5px;
     backdrop-filter: blur(4px);
+    box-shadow: 0 0 0 6px rgba(255,255,255,0.08), var(--shadow-lg);
 }
 .testi-slide-text { font-size: 1.08rem; font-weight: 500; line-height: 1.7; max-width: 560px; }
 .testi-slide-rating { display: flex; gap: 3px; color: #fde68a; font-size: 13px; }
@@ -2502,16 +2557,18 @@ footer {
     transition: all 0.25s ease;
 }
 .testi-filter-chip i { font-size: 11px; color: #fbbf24; }
-.testi-filter-chip:hover { border-color: var(--main-color); color: var(--main-color); }
-.testi-filter-chip.active { background: var(--gradient-primary); color: #fff; border-color: transparent; box-shadow: var(--shadow); }
+.testi-filter-chip:hover { border-color: var(--main-color); color: var(--main-color); transform: translateY(-2px); }
+.testi-filter-chip.active { background: var(--gradient-primary); color: #fff; border-color: transparent; box-shadow: var(--shadow-lg); }
 .testi-filter-chip.active i { color: #fff; }
 .testi-write-btn {
     padding: 9px 18px; border-radius: var(--radius-full); border: none; cursor: pointer;
     background: var(--card-bg); color: var(--main-color); border: 2px solid var(--main-color);
     font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 7px;
-    transition: all 0.25s ease;
+    transition: all 0.25s ease; position: relative; overflow: hidden;
 }
-.testi-write-btn:hover { background: var(--gradient-primary); color: #fff; border-color: transparent; transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.testi-write-btn:hover { background: var(--gradient-primary); color: #fff; border-color: transparent; transform: translateY(-2px) scale(1.03); box-shadow: var(--shadow-glow), var(--shadow-lg); }
+.testi-write-btn i { transition: transform 0.3s ease; }
+.testi-write-btn:hover i { transform: rotate(-14deg) scale(1.15); }
 
 /* --- Grid & cards --- */
 .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
@@ -2522,7 +2579,7 @@ footer {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-xl);
-    padding: 20px 20px 18px;
+    padding: 22px 20px 18px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.04);
     transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
     overflow: hidden;
@@ -2539,26 +2596,37 @@ footer {
     transition: opacity 0.35s ease;
     pointer-events: none;
 }
+.testimonial-card::after {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: var(--gradient-primary);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+}
 .testimonial-card:hover { transform: translateY(-8px); border-color: rgba(99,102,241,0.30); box-shadow: var(--shadow-xl); }
 .testimonial-card:hover::before { opacity: 1; }
+.testimonial-card:hover::after { transform: scaleX(1); }
 .testimonial-card.new-entry { animation: testiNewGlow 1.6s ease; }
 @keyframes testiNewGlow {
     0% { box-shadow: 0 0 0 4px rgba(99,102,241,0.35), var(--shadow-xl); }
     100% { box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
 }
 
-.testimonial-highlight { border-color: rgba(99,102,241,0.35); }
-.testi-quote-icon { position: absolute; top: 16px; right: 18px; font-size: 22px; color: var(--border-color); }
+.testimonial-highlight { border-color: rgba(99,102,241,0.35); box-shadow: 0 0 0 1px rgba(99,102,241,0.15), 0 10px 30px rgba(99,102,241,0.12); }
+.testi-quote-icon { position: absolute; top: 16px; right: 18px; font-size: 26px; color: var(--border-color); opacity: 0.7; transition: transform 0.35s ease, opacity 0.35s ease; }
+.testimonial-card:hover .testi-quote-icon { transform: scale(1.15) rotate(-6deg); opacity: 1; color: rgba(99,102,241,0.35); }
 
 .testimonial-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
 .testimonial-avatar {
-    width: 44px; height: 44px; border-radius: 14px;
+    width: 46px; height: 46px; border-radius: 14px;
     background: var(--gradient-primary);
     color: white; font-weight: 800;
     display: flex; align-items: center; justify-content: center;
     box-shadow: var(--shadow-lg);
     flex-shrink: 0;
+    transition: transform 0.3s ease, border-radius 0.3s ease;
 }
+.testimonial-card:hover .testimonial-avatar { transform: scale(1.08) rotate(-4deg); border-radius: 50%; }
 .testimonial-meta { min-width: 0; }
 .testimonial-name { font-weight: 800; color: var(--text-primary); font-size: 14px; margin-bottom: 2px; }
 .testimonial-role { color: var(--text-secondary); font-size: 12px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -2569,7 +2637,7 @@ footer {
     color: var(--main-color); font-weight: 700; font-size: 12px; text-align: left;
 }
 .testi-read-more:hover { text-decoration: underline; }
-.testimonial-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+.testimonial-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 10px; border-top: 1px dashed var(--border-color); }
 .testimonial-rating { display: flex; gap: 4px; color: #fbbf24; }
 .testimonial-rating i { font-size: 12.5px; }
 
@@ -2582,7 +2650,9 @@ footer {
     display: inline-flex; gap: 6px; align-items: center;
     box-shadow: var(--shadow-lg);
     transform: rotate(-2deg);
+    transition: transform 0.3s ease;
 }
+.testimonial-card:hover .testimonial-badge { transform: rotate(0deg) scale(1.05); }
 
 /* --- Write testimonial modal --- */
 .testi-modal-overlay {
@@ -2605,8 +2675,13 @@ footer {
     max-height: 88vh; overflow-y: auto;
 }
 .testi-modal-overlay.active .testi-modal { transform: translateY(0) scale(1); opacity: 1; }
-.testi-modal h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; color: var(--text-primary); }
-.testi-modal h3 i { color: var(--main-color); }
+.testi-modal h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; color: var(--text-primary); }
+.testi-modal h3 i { color: #fff; font-size: 14px; }
+.testi-modal-icon {
+    width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
+    background: var(--gradient-primary); display: inline-flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow-lg);
+}
 .testi-modal-sub { font-size: 12.5px; color: var(--text-secondary); margin-bottom: 18px; line-height: 1.6; }
 .testi-modal-close {
     position: absolute; top: 16px; right: 16px;
@@ -2623,7 +2698,7 @@ footer {
     background: var(--search-bg); color: var(--text-primary); font-family: inherit; font-size: 13px;
     outline: none; transition: border-color 0.25s ease; resize: vertical;
 }
-.testi-field input[type="text"]:focus, .testi-field textarea:focus { border-color: var(--main-color); }
+.testi-field input[type="text"]:focus, .testi-field textarea:focus { border-color: var(--main-color); box-shadow: 0 0 0 4px rgba(99,102,241,0.12); }
 .testi-char-count { display: block; text-align: right; font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
 .testi-star-picker { display: flex; gap: 6px; }
 .testi-star-btn {
