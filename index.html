@@ -471,36 +471,160 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     align-items: center;
 }
 
-.hero-profile-wrapper {
+.hero-photo-frame {
     position: relative;
     width: 100%;
-    max-width: 500px;
+    max-width: 520px;
+    padding: 30px 10px 50px;
 }
 
-.hero-profile-bg {
+.hero-photo-glow {
     position: absolute;
-    inset: -20px;
-    background: linear-gradient(135deg, rgba(255, 107, 53, 0.2) 0%, rgba(99, 102, 241, 0.15) 100%);
-    border-radius: 20px;
-    filter: blur(40px);
+    inset: 10px 40px 40px;
+    background: linear-gradient(135deg, rgba(99,102,241,0.35) 0%, rgba(236,72,153,0.25) 100%);
+    border-radius: 30px;
+    filter: blur(50px);
     z-index: 0;
 }
 
-.hero-profile-image {
-    position: relative;
-    width: 100%;
-    height: auto;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    z-index: 1;
+.hero-photo-cloud {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    filter: blur(2px);
+    opacity: 0.8;
+    z-index: 3;
+    pointer-events: none;
 }
 
-.hero-profile-image img {
+.hero-photo-cloud.cloud-1 { width: 90px; height: 90px; top: 6px; left: -6px; }
+.hero-photo-cloud.cloud-2 { width: 60px; height: 60px; bottom: 34px; right: -4px; opacity: 0.6; }
+
+.hero-photo-tag {
+    position: absolute;
+    top: 6px;
+    right: 4px;
+    z-index: 4;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: var(--shadow-lg);
+}
+
+.hero-photo-tag i {
+    color: var(--main-color);
+}
+
+/* Laptop Mockup */
+.laptop-mockup {
+    position: relative;
+    z-index: 2;
     width: 100%;
-    height: auto;
+}
+
+.laptop-screen {
+    position: relative;
+    background: #16162a;
+    border-radius: 18px;
+    padding: 14px 14px 10px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+}
+
+.laptop-camera {
+    display: block;
+    width: 6px;
+    height: 6px;
+    margin: 0 auto 10px;
+    border-radius: 50%;
+    background: #3f3f5c;
+}
+
+.laptop-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 2px 8px;
+}
+
+.laptop-toolbar span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.laptop-toolbar span:nth-child(1) { background: #ff5f57; }
+.laptop-toolbar span:nth-child(2) { background: #febc2e; }
+.laptop-toolbar span:nth-child(3) { background: #28c840; }
+
+.laptop-display {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: 8px;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(99,102,241,0.25), rgba(236,72,153,0.2));
+}
+
+.laptop-display img {
+    width: 100%;
+    height: 100%;
     display: block;
     object-fit: cover;
+    object-position: center 18%;
+}
+
+.laptop-display::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 70%, rgba(0,0,0,0.35) 100%);
+    pointer-events: none;
+}
+
+.laptop-base {
+    position: relative;
+    height: 16px;
+    margin: 0 -14px;
+    background: linear-gradient(180deg, #2a2a45 0%, #1c1c33 100%);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+}
+
+.laptop-base::before,
+.laptop-base::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-top: 16px solid #1c1c33;
+}
+
+.laptop-base::before { left: -14px; border-left: 14px solid transparent; }
+.laptop-base::after { right: -14px; border-right: 14px solid transparent; }
+
+.laptop-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: 5px;
+    background: #0f0f22;
+    border-radius: 0 0 6px 6px;
+}
+
+.laptop-shadow {
+    width: 78%;
+    height: 18px;
+    margin: 14px auto 0;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 75%);
 }
 
 .social-links { 
@@ -614,7 +738,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
         order: -1;
     }
     
-    .hero-profile-wrapper {
+    .hero-photo-frame {
         max-width: 400px;
     }
 }
@@ -670,7 +794,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
         margin-right: auto;
     }
     
-    .hero-profile-wrapper {
+    .hero-photo-frame {
         max-width: min(320px, 85vw);
         margin: 0 auto;
     }
@@ -696,7 +820,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
         min-height: 40px;
     }
     
-    .hero-profile-wrapper {
+    .hero-photo-frame {
         max-width: min(260px, 80vw);
     }
     
@@ -733,10 +857,21 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
         </div>
         
         <div class="hero-image-section">
-            <div class="hero-profile-wrapper">
-                <div class="hero-profile-bg"></div>
-                <div class="hero-profile-image">
-                    <img src="https://i.ibb.co.com/7PSFRm1/Whats-App-Image-2025-05-04-at-09-27-12-49eba719.jpg" alt="Muhammad Fawwaz Rayyan Khalish">
+            <div class="hero-photo-frame">
+                <div class="hero-photo-glow"></div>
+                <div class="hero-photo-cloud cloud-1"></div>
+                <div class="hero-photo-cloud cloud-2"></div>
+                <div class="hero-photo-tag"><i class="fas fa-code"></i> Software Developer</div>
+                <div class="laptop-mockup">
+                    <div class="laptop-screen">
+                        <span class="laptop-camera"></span>
+                        <div class="laptop-toolbar"><span></span><span></span><span></span></div>
+                        <div class="laptop-display">
+                            <img src="https://i.ibb.co.com/0VGwBGJr/1775354505949.png" alt="Muhammad Fawwaz Rayyan Khalish">
+                        </div>
+                    </div>
+                    <div class="laptop-base"><div class="laptop-notch"></div></div>
+                    <div class="laptop-shadow"></div>
                 </div>
             </div>
         </div>
@@ -1465,7 +1600,6 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 </section>
 
 <!-- ===== CERTIFICATES SECTION ===== -->
-<!-- Tambahkan CSS ini di bagian <style> setelah Instagram section CSS -->
 
 <style>
 /* CERTIFICATES */
@@ -1530,7 +1664,6 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 }
 </style>
 
-<!-- Tambahkan HTML ini setelah Instagram section dan sebelum Contact section -->
 
 <section id="certificates" class="content-section certificates-section">
     <div class="section-header animate-on-scroll">
@@ -5595,223 +5728,6 @@ document.addEventListener('DOMContentLoaded', function() {
     color: #6366f1 !important;
 }
 </style>
-<!-- TAMBAHKAN CSS INI SETELAH .theme-dark { ... } -->
-<style>
-/* ===== WELCOME SCREEN (Before Loading) ===== */
-.welcome-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 10001;
-    transition: opacity 0.6s, visibility 0.6s;
-}
-.welcome-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-
-.welcome-particles {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-}
-.welcome-particle {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: rgba(255,255,255,0.3);
-    border-radius: 50%;
-    animation: particleFloat 8s ease-in-out infinite;
-}
-.welcome-particle:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
-.welcome-particle:nth-child(2) { top: 60%; left: 20%; animation-delay: 1s; }
-.welcome-particle:nth-child(3) { top: 30%; right: 15%; animation-delay: 2s; }
-.welcome-particle:nth-child(4) { top: 70%; right: 25%; animation-delay: 3s; }
-.welcome-particle:nth-child(5) { top: 40%; left: 40%; animation-delay: 4s; }
-.welcome-particle:nth-child(6) { top: 80%; left: 60%; animation-delay: 5s; }
-@keyframes particleFloat {
-    0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
-    50% { transform: translateY(-30px) scale(1.5); opacity: 0.8; }
-}
-
-.welcome-card {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    padding: 45px 40px;
-    border-radius: 24px;
-    box-shadow: 0 25px 80px rgba(0,0,0,0.4), 0 0 60px rgba(99, 102, 241, 0.3);
-    max-width: 420px;
-    width: 90%;
-    text-align: center;
-    animation: welcomeSlide 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
-    position: relative;
-    z-index: 1;
-}
-@keyframes welcomeSlide {
-    from { opacity: 0; transform: translateY(40px) scale(0.9); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-.welcome-avatar {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    margin: 0 auto 20px;
-    padding: 4px;
-    background: var(--gradient-primary);
-    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
-}
-.welcome-avatar img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid white;
-}
-
-.welcome-card h2 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 8px;
-}
-.welcome-card .welcome-subtitle {
-    color: #64748b;
-    font-size: 0.95rem;
-    margin-bottom: 28px;
-}
-
-.welcome-form { text-align: left; }
-.welcome-form .form-group {
-    margin-bottom: 18px;
-}
-.welcome-form .form-group label {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #1e293b;
-    margin-bottom: 6px;
-}
-.welcome-form .form-group input,
-.welcome-form .form-group select {
-    width: 100%;
-    padding: 14px 16px;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    font-family: inherit;
-    font-size: 0.95rem;
-    color: #1e293b;
-    background: #f8fafc;
-    transition: all 0.3s;
-}
-.welcome-form .form-group input:focus,
-.welcome-form .form-group select:focus {
-    outline: none;
-    border-color: #6366f1;
-    background: white;
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-}
-.welcome-form .form-group input::placeholder {
-    color: #94a3b8;
-}
-
-.welcome-btn {
-    width: 100%;
-    padding: 15px 28px;
-    background: var(--gradient-primary);
-    border: none;
-    border-radius: 12px;
-    color: white;
-    font-size: 1rem;
-    font-weight: 600;
-    font-family: inherit;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: all 0.3s;
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.35);
-    margin-top: 10px;
-}
-.welcome-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(99, 102, 241, 0.45);
-}
-.welcome-btn i {
-    font-size: 1.1rem;
-}
-
-.welcome-features {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 25px;
-    padding-top: 25px;
-    border-top: 1px solid #e2e8f0;
-}
-.welcome-feature {
-    text-align: center;
-}
-.welcome-feature i {
-    font-size: 1.4rem;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 6px;
-    display: block;
-}
-.welcome-feature span {
-    font-size: 0.7rem;
-    color: #64748b;
-    font-weight: 500;
-}
-
-.welcome-skip {
-    margin-top: 20px;
-    background: none;
-    border: none;
-    color: #94a3b8;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-.welcome-skip:hover {
-    color: #6366f1;
-}
-
-/* Mobile Welcome Screen */
-@media (max-width: 480px) {
-    .welcome-card {
-        padding: 30px 24px;
-        margin: 16px;
-    }
-    .welcome-avatar {
-        width: 70px;
-        height: 70px;
-    }
-    .welcome-card h2 {
-        font-size: 1.3rem;
-    }
-    .welcome-features {
-        gap: 20px;
-    }
-    .welcome-feature i {
-        font-size: 1.2rem;
-    }
-}
-</style>
-
-
-<!-- TAMBAHKAN CSS INI SETELAH .theme-dark { ... } -->
 <style>
 /* ===== WELCOME SCREEN (Before Loading) ===== */
 .welcome-screen {
@@ -6380,7 +6296,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </style>
 
 
-<!-- TAMBAHKAN HTML INI SEBELUM <div id="preloader"> -->
 
 <!-- Greeting Animation Screen (Elegant Version) -->
 <div class="greeting-screen" id="greetingScreen">
@@ -6447,7 +6362,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="welcome-card">
         <div class="welcome-avatar">
-            <img src="https://i.ibb.co.com/PGymRgqv/Whats-App-Image-2026-02-02-at-20-56-57.jpg" alt="Fawwaz">
+            <img src="https://i.ibb.co.com/hRHLN9sC/Whats-App-Image-2026-06-22-at-08-50-13.jpg" alt="Fawwaz">
         </div>
         <h2>Selamat Datang! 👋</h2>
         <p class="welcome-subtitle">Kenalan dulu yuk sebelum explore portfolio saya</p>
@@ -6494,7 +6409,6 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 </div>
 
-<!-- TAMBAHKAN JAVASCRIPT INI DI BAGIAN <script> -->
 <script>
 // ===== WELCOME SCREEN & GREETING HANDLER =====
 // Tambahkan di awal DOMContentLoaded
@@ -6587,42 +6501,6 @@ document.getElementById('skipWelcome').addEventListener('click', function() {
     document.getElementById('welcomeScreen').classList.add('hidden');
     sessionStorage.setItem('welcomeSkipped', 'true');
 });
-
-// ===== PRELOADER INTEGRATION =====
-// Ganti kode preloader yang lama dengan ini:
-/*
-const preloader = document.getElementById('preloader');
-const welcomeScreen = document.getElementById('welcomeScreen');
-const greetingScreen = document.getElementById('greetingScreen');
-
-function startPreloader() {
-    const welcomeHidden = welcomeScreen.classList.contains('hidden');
-    const greetingHidden = !greetingScreen.classList.contains('active');
-    
-    if (welcomeHidden && greetingHidden) {
-        setTimeout(() => {
-            preloader.classList.add('hidden');
-            initTypingAnimation();
-        }, 2500);
-    }
-}
-
-// Observer for greeting screen
-const greetingObserver = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-        if (mutation.target.classList.contains('hidden')) {
-            startPreloader();
-            greetingObserver.disconnect();
-        }
-    });
-});
-
-if (savedVisitor || sessionStorage.getItem('welcomeSkipped')) {
-    startPreloader();
-} else {
-    greetingObserver.observe(greetingScreen, { attributes: true, attributeFilter: ['class'] });
-}
-*/
 
 // Notification function
 function showNotification(message, type) {
