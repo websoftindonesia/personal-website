@@ -137,15 +137,124 @@ footer {
 .navbar-right { display: flex; align-items: center; gap: 10px; flex: 1; justify-content: flex-end; }
 .icon-button { width: 40px; height: 40px; border-radius: var(--radius-full); background: var(--hover-bg); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-primary); font-size: 16px; transition: all 0.3s; }
 .icon-button:hover { background: rgba(99, 102, 241, 0.1); color: var(--main-color); }
-.music-player { position: relative; }
+.music-player { position: relative; flex-shrink: 0; }
 .music-toggle.playing { background: var(--gradient-primary); color: #fff; animation: musicPulse 1.8s ease-in-out infinite; }
-.music-popover { position: absolute; top: calc(100% + 10px); right: 0; width: 220px; padding: 13px; border: 1px solid var(--border-color); border-radius: var(--radius); background: var(--card-bg); box-shadow: var(--shadow-xl); color: var(--text-primary); opacity: 0; transform: translateY(-6px); visibility: hidden; transition: 0.2s ease; z-index: 1002; }
-.music-player:hover .music-popover, .music-player:focus-within .music-popover, .music-popover.visible { opacity: 1; transform: translateY(0); visibility: visible; }
-.music-popover-title { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; margin-bottom: 10px; }
-.music-popover-title i { color: var(--main-color); }
-.music-volume { display: flex; align-items: center; gap: 10px; color: var(--text-secondary); font-size: 12px; }
-.music-volume input { accent-color: var(--main-color); flex: 1; }
-.music-popover small { display: block; margin-top: 10px; color: var(--text-secondary); font-size: 11px; }
+.music-popover {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 280px;
+    min-width: 280px;
+    max-width: calc(100vw - 24px);
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    background: var(--card-bg);
+    box-shadow: var(--shadow-xl);
+    color: var(--text-primary);
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+    visibility: hidden;
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+    z-index: 1002;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.music-player:hover .music-popover,
+.music-player:focus-within .music-popover,
+.music-popover.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+}
+.music-popover-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+.music-popover-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: rgba(99, 102, 241, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--main-color);
+    font-size: 18px;
+}
+.music-popover-info { flex: 1; min-width: 0; }
+.music-popover-title {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.music-popover-track {
+    display: block;
+    margin-top: 2px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.music-popover-badge {
+    flex-shrink: 0;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 5px 9px;
+    border-radius: 999px;
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--main-color);
+    white-space: nowrap;
+}
+.music-popover-badge.playing {
+    background: rgba(34, 197, 94, 0.12);
+    color: #16a34a;
+}
+.music-popover-badge.paused {
+    background: rgba(245, 158, 11, 0.12);
+    color: #d97706;
+}
+.music-volume-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+.music-volume-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+.music-volume-wrap input[type="range"] {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    accent-color: var(--main-color);
+    cursor: pointer;
+}
+.music-popover-status {
+    margin: 12px 0 0;
+    padding-top: 10px;
+    border-top: 1px solid var(--border-color);
+    font-size: 11px;
+    line-height: 1.45;
+    color: var(--text-secondary);
+    text-align: center;
+}
 @keyframes musicPulse { 50% { box-shadow: 0 0 0 7px rgba(99, 102, 241, 0.16); } }
 .theme-toggle { background: var(--gradient-primary); color: white; }
 .mobile-menu-toggle { display: none; background: var(--hover-bg); border: none; padding: 10px; border-radius: var(--radius); cursor: pointer; color: var(--text-primary); font-size: 16px; }
@@ -257,11 +366,22 @@ footer {
                 <i class="fas fa-music"></i>
             </button>
             <div class="music-popover" id="musicPopover" aria-hidden="true">
-                <div class="music-popover-title"><i class="fas fa-headphones"></i> Musik latar</div>
-                <label class="music-volume" for="musicVolume">Volume
-                    <input id="musicVolume" type="range" min="0" max="100" value="35">
-                </label>
-                <small id="musicStatus">Klik ikon musik ini untuk memutar</small>
+                <div class="music-popover-header">
+                    <div class="music-popover-icon"><i class="fas fa-headphones"></i></div>
+                    <div class="music-popover-info">
+                        <span class="music-popover-title">Musik Latar</span>
+                        <span class="music-popover-track">Blank Space</span>
+                    </div>
+                    <span class="music-popover-badge" id="musicStatusBadge">Siap</span>
+                </div>
+                <div class="music-volume-wrap">
+                    <div class="music-volume-label">
+                        <span>Volume</span>
+                        <span id="musicVolumeValue">35%</span>
+                    </div>
+                    <input id="musicVolume" type="range" min="0" max="100" value="35" aria-label="Volume musik latar">
+                </div>
+                <p class="music-popover-status" id="musicStatus">Klik ikon musik untuk memutar</p>
             </div>
             <audio id="backgroundMusic" loop preload="metadata">
                 <source src="Blank Space.mp3" type="audio/mpeg">
@@ -4158,6 +4278,14 @@ html::after, html::before {
         height: 38px;
         font-size: 15px;
     }
+    .music-popover {
+        position: fixed;
+        top: 62px;
+        right: 12px;
+        left: auto;
+        width: min(280px, calc(100vw - 24px));
+        min-width: 0;
+    }
     .hero-title-main { font-size: clamp(1.65rem, 6vw, 1.9rem); }
     .hero-title-sub { font-size: clamp(1.2rem, 4.5vw, 1.5rem); }
     .hero-description { font-size: 0.95rem; margin-left: auto; margin-right: auto; padding: 0 8px; }
@@ -7304,12 +7432,28 @@ function showNotification(message, type) {
     const player = document.getElementById('musicPlayer');
     const popover = document.getElementById('musicPopover');
     const volume = document.getElementById('musicVolume');
+    const volumeValue = document.getElementById('musicVolumeValue');
     const status = document.getElementById('musicStatus');
+    const badge = document.getElementById('musicStatusBadge');
     if (!music || !toggle || !volume || !status) return;
+
+    const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+    let popoverOpen = false;
 
     const savedVolume = Number(localStorage.getItem('portfolioMusicVolume'));
     music.volume = Number.isFinite(savedVolume) ? Math.min(1, Math.max(0, savedVolume)) : 0.35;
     volume.value = Math.round(music.volume * 100);
+
+    const updateVolumeLabel = () => {
+        if (volumeValue) volumeValue.textContent = `${volume.value}%`;
+    };
+    updateVolumeLabel();
+
+    const setPopoverVisible = (visible) => {
+        popoverOpen = visible;
+        popover?.classList.toggle('visible', visible);
+        popover?.setAttribute('aria-hidden', String(!visible));
+    };
 
     const setState = (playing, message) => {
         toggle.classList.toggle('playing', playing);
@@ -7317,9 +7461,17 @@ function showNotification(message, type) {
         toggle.setAttribute('title', playing ? 'Jeda musik latar' : 'Putar musik latar');
         toggle.innerHTML = `<i class="fas fa-${playing ? 'pause' : 'music'}"></i>`;
         status.textContent = message;
+        if (badge) {
+            badge.textContent = playing ? 'Putar' : 'Jeda';
+            badge.classList.toggle('playing', playing);
+            badge.classList.toggle('paused', !playing);
+        }
+        if (playing && isMobile()) setPopoverVisible(true);
     };
 
-    toggle.addEventListener('click', async () => {
+    toggle.addEventListener('click', async (event) => {
+        event.stopPropagation();
+
         if (music.paused) {
             try {
                 await music.play();
@@ -7338,10 +7490,14 @@ function showNotification(message, type) {
     volume.addEventListener('input', () => {
         music.volume = Number(volume.value) / 100;
         localStorage.setItem('portfolioMusicVolume', String(music.volume));
+        updateVolumeLabel();
     });
 
-    player?.addEventListener('mouseleave', () => popover?.classList.remove('visible'));
-    toggle.addEventListener('focus', () => popover?.classList.add('visible'));
+    player?.addEventListener('mouseenter', () => { if (!isMobile()) setPopoverVisible(true); });
+    player?.addEventListener('mouseleave', () => { if (!isMobile()) setPopoverVisible(false); });
+    document.addEventListener('click', (event) => {
+        if (!player?.contains(event.target)) setPopoverVisible(false);
+    });
 })();
 
 </script>
