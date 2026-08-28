@@ -50,11 +50,62 @@
     --search-bg: #334155;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; transition: background 0.4s, color 0.4s; }
+html { 
+    scroll-behavior: smooth; 
+    height: 100vh;
+    max-height: 100vh;
+    margin: 0 !important; 
+    padding: 0 !important; 
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+body { 
+    font-family: 'Inter', sans-serif; 
+    background: var(--bg-color); 
+    color: var(--text-primary); 
+    line-height: 1.6; 
+    overflow-x: hidden; 
+    transition: background 0.4s, color 0.4s; 
+    min-height: 100vh;
+    height: auto; 
+    margin: 0; 
+    padding: 0; 
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex: 1 0 auto;
+}
+footer {
+    flex-shrink: 0;
+    margin-top: auto;
+    margin-bottom: 0;
+    padding-bottom: 30px;
+}
 
 /* NAVBAR */
-.navbar { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg-glass); padding: 12px 24px; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color); backdrop-filter: blur(20px); }
+.navbar { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background: var(--card-bg-glass); 
+    padding: 12px 24px; 
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    right: 0;
+    z-index: 1000; 
+    border-bottom: 1px solid var(--border-color); 
+    backdrop-filter: blur(20px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform: translateY(0);
+}
+.navbar.navbar-hidden {
+    transform: translateY(-100%);
+}
+.navbar.navbar-scrolled {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 .navbar-left { display: flex; align-items: center; gap: 16px; flex: 1; min-width: 0; }
 .logo { font-size: 1.4em; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; display: flex; align-items: center; gap: 8px; min-width: 0; flex-shrink: 1; }
 .logo-text-full,
@@ -193,6 +244,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
         <a href="#experience" class="nav-item"><i class="fas fa-briefcase"></i> Experience</a>
         <a href="#services" class="nav-item"><i class="fas fa-handshake"></i> Services</a>
         <a href="#portfolio" class="nav-item"><i class="fas fa-folder-open"></i> Portfolio</a>
+        <a href="#certificates" class="nav-item"><i class="fas fa-certificate"></i> Certifications</a>
         <a href="#scholarship-partners" class="nav-item"><i class="fas fa-award"></i> Partnership</a>
         <a href="#testimonials" class="nav-item nav-item-testi"><i class="fas fa-quote-right"></i> Testimoni</a>
         <a href="#contact" class="nav-item"><i class="fas fa-envelope"></i> Contact</a>
@@ -225,6 +277,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
         <a href="#experience" class="mobile-nav-item"><i class="fas fa-briefcase"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Experience</span><span class="mobile-nav-desc">Work history</span></div></a>
         <a href="#services" class="mobile-nav-item"><i class="fas fa-handshake"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Services</span><span class="mobile-nav-desc">Layanan yang saya tawarkan</span></div></a>
         <a href="#portfolio" class="mobile-nav-item"><i class="fas fa-folder-open"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Portfolio</span><span class="mobile-nav-desc">My projects</span></div></a>
+        <a href="#certificates" class="mobile-nav-item"><i class="fas fa-certificate"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Certifications</span><span class="mobile-nav-desc">My achievements</span></div></a>
         <a href="#testimonials" class="mobile-nav-item"><i class="fas fa-quote-right"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Testimoni</span><span class="mobile-nav-desc">Kata mereka</span></div></a>
         <a href="#scholarship-partners" class="mobile-nav-item"><i class="fas fa-award"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Partnership</span><span class="mobile-nav-desc">Mitra beasiswa</span></div></a>
         <a href="#contact" class="mobile-nav-item"><i class="fas fa-envelope"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Contact</span><span class="mobile-nav-desc">Get in touch</span></div></a>
@@ -232,10 +285,10 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     </div>
 </nav>
 
-<main>
+<main style="padding-top: 0;">
 
 <style>
-/* HERO - Modern Dark Design */
+/* HERO - Modern Design with Theme Support */
 .hero { 
     position: relative; 
     min-height: 100vh; 
@@ -243,6 +296,10 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     align-items: center; 
     padding: 80px 20px; 
     overflow: hidden; 
+    background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 50%, #ddd6fe 100%);
+    transition: background 0.4s ease;
+}
+.theme-dark .hero {
     background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
 }
 .hero-bg-gradient { 
@@ -255,9 +312,12 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 }
 .floating-shapes { position: absolute; width: 100%; height: 100%; overflow: hidden; z-index: 0; }
 .shape { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; animation: float 25s ease-in-out infinite; }
-.shape-1 { width: 400px; height: 400px; background: rgba(255, 107, 53, 0.15); top: -150px; right: -100px; }
-.shape-2 { width: 300px; height: 300px; background: rgba(99, 102, 241, 0.12); bottom: -100px; left: -80px; animation-delay: -8s; }
-.shape-3 { width: 250px; height: 250px; background: rgba(236, 72, 153, 0.1); top: 40%; left: 40%; animation-delay: -15s; }
+.shape-1 { width: 400px; height: 400px; background: rgba(99, 102, 241, 0.1); top: -150px; right: -100px; }
+.shape-2 { width: 300px; height: 300px; background: rgba(139, 92, 246, 0.08); bottom: -100px; left: -80px; animation-delay: -8s; }
+.shape-3 { width: 250px; height: 250px; background: rgba(236, 72, 153, 0.06); top: 40%; left: 40%; animation-delay: -15s; }
+.theme-dark .shape-1 { background: rgba(255, 107, 53, 0.15); }
+.theme-dark .shape-2 { background: rgba(99, 102, 241, 0.12); }
+.theme-dark .shape-3 { background: rgba(236, 72, 153, 0.1); }
 @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-30px, 30px) scale(0.85); } }
 
 .hero-container { 
@@ -300,9 +360,13 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     font-weight: 800;
     line-height: 1.15;
     margin-bottom: 16px;
-    color: #ffffff;
+    color: #1e293b;
     word-break: normal;
     overflow-wrap: break-word;
+    transition: color 0.4s ease;
+}
+.theme-dark .hero-title-main {
+    color: #ffffff;
 }
 
 .hero-title-sub {
@@ -419,7 +483,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     max-width: 550px; 
     margin: 0 0 24px; 
     font-size: clamp(0.95rem, 2vw, 1.05rem); 
-    color: rgba(255, 255, 255, 0.85); 
+    color: #475569; 
     line-height: 1.75;
     letter-spacing: normal;
     word-spacing: normal;
@@ -427,6 +491,19 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     overflow-wrap: break-word;
     text-align: left;
     hyphens: none;
+    transition: color 0.4s ease;
+}
+.theme-dark .hero-description {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.hero-strong-text {
+    color: #1e293b !important;
+    font-weight: 800 !important;
+    transition: color 0.4s ease;
+}
+.theme-dark .hero-strong-text {
+    color: #ffffff !important;
 }
 
 .hero-description strong {
@@ -504,15 +581,20 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     width: 44px; 
     height: 44px; 
     border-radius: 10px; 
-    background: rgba(255, 255, 255, 0.05); 
-    border: 1px solid rgba(255, 255, 255, 0.1); 
-    color: rgba(255, 255, 255, 0.7); 
+    background: rgba(99, 102, 241, 0.08); 
+    border: 1px solid rgba(99, 102, 241, 0.2); 
+    color: #6366f1; 
     display: flex; 
     align-items: center; 
     justify-content: center; 
     font-size: 18px; 
     text-decoration: none; 
     transition: all 0.3s; 
+}
+.theme-dark .social-link {
+    background: rgba(255, 255, 255, 0.05); 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .social-link:hover { 
@@ -532,7 +614,11 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     flex-direction: column; 
     align-items: center; 
     gap: 8px; 
-    color: rgba(255, 255, 255, 0.5); 
+    color: #94a3b8; 
+    transition: color 0.4s ease;
+}
+.theme-dark .scroll-indicator {
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .scroll-indicator span { 
@@ -545,9 +631,13 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 .scroll-mouse { 
     width: 22px; 
     height: 36px; 
-    border: 2px solid rgba(255, 255, 255, 0.3); 
+    border: 2px solid #cbd5e1; 
     border-radius: 11px; 
     position: relative; 
+    transition: border-color 0.4s ease;
+}
+.theme-dark .scroll-mouse {
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .scroll-wheel { 
@@ -707,7 +797,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
             <h1 class="hero-title-main">Muhammad Fawwaz Rayyan Khalish</h1>
             <h2 class="hero-title-sub"><span class="rotating-text" id="rotatingText"></span></h2>
             <p class="hero-description">
-                Seorang <strong>Software Developer</strong> yang bersemangat dalam menciptakan solusi web yang efisien dan interaktif. Saya fokus pada pengembangan aplikasi modern dengan desain front-end yang menarik dan arsitektur back-end yang robust.
+                Seorang <strong class="hero-strong-text">Software Developer</strong> yang bersemangat dalam menciptakan solusi web yang efisien dan interaktif. Saya fokus pada pengembangan aplikasi modern dengan desain front-end yang menarik dan arsitektur back-end yang robust.
             </p>
             <a href="#portfolio" class="hero-cta">
                 Lihat Portfolio
@@ -1170,22 +1260,22 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
                 <div class="experience-header">
                     <div class="experience-company-logo"><img src="https://i.ibb.co.com/vvV2vmZB/1641618515116-e-1780531200-v-beta-t-k-O8cgfch-Ck9-ZXD2-Ycj-Ft-U1-TQx-n-qw-Il-Ez-RS5n4-ZAu-Y.jpg" alt="Gerakan Mengajar Desa"></div>
                     <div class="experience-info">
-                        <h3 class="experience-title">Tutor Inspiratif Batch 2</h3>
+                        <h3 class="experience-title">Coordinator of Publication & Creative Media</h3>
                         <p class="experience-company">Gerakan Mengajar Desa</p>
                         <span class="experience-period"><i class="fas fa-calendar-alt"></i> May 2026 - Aug 2026</span>
                     </div>
                 </div>
                 <div class="experience-body">
-                    <p class="experience-description">Served as an Inspirational Tutor in Kepulauan Seribu, Jakarta, dedicating a week to teaching and mentoring local school children. In this role, I facilitated creative educational activities to spark academic curiosity, empowered youth in remote island communities, and collaborated with a dynamic team to deliver impactful learning experiences under unique local conditions.</p>
+                    <p class="experience-description">Led the Publication, Decoration, and Documentation (PDD) division for the Community Teaching Program at Kepulauan Seribu and executed a content strategy that increased social media engagement by 50% compared to previous project cycles.</p>
                   <div class="experience-gallery">
-                        <div class="gallery-item"><img src="" alt="CA"></div>
-                        <div class="gallery-item"><a href="https://www.instagram.com/p/DVPnpXOElbi/" target="_blank" rel="noopener noreferrer"></a><img src="" alt="Office"></div>
-                        <div class="gallery-item"><img src="" alt="Work Progress"></div>
+                        <div class="gallery-item"><img src="https://i.ibb.co.com/kgmHgSZF/1787624088257-e-1788512400-v-beta-t-oz-TPf-Rf-SLg-Fm-Krwcuz-NOmg1o-Ox-ZRxn-zypw9-QQktz-Q.jpg" alt="CA"></div>
+                        <div class="gallery-item"><a href="https://www.instagram.com/p/DVPnpXOElbi/" target="_blank" rel="noopener noreferrer"></a><img src="https://i.ibb.co.com/GQXjpN6Z/1787624090512-e-1788512400-v-beta-t-Fgvh2-QAVq-K05-M-K5-S-kwe76-RPh-X8-Nn-Jniaod-IKMO2-PM.jpg" alt="Office"></div>
+                        <div class="gallery-item"><img src="https://i.ibb.co.com/DPzQkmfj/1787624099918-e-1788512400-v-beta-t-91d-KArj-K0wb-ER7-ZOYt4595vz120j-PVRwpxta-UQi-A8-Xs.jpg" alt="Work Progress"></div>
                     </div>
                     <ul class="experience-highlights">
-                        <li><i class="fas fa-check"></i> Facilitated creative educational activities for 30+ students in remote island communities</li>
-                        <li><i class="fas fa-check"></i> Developed and delivered engaging lesson plans to spark academic curiosity and learning motivation</li>
-                        <li><i class="fas fa-check"></i> Collaborated with a dynamic team to provide impactful mentoring experiences under challenging local conditions</li>
+                        <li><i class="fas fa-check"></i> Designed and executed creative concepts, visual branding, and publication strategies to elevate awareness for community-based educational outreach programs in rural areas</li>
+                        <li><i class="fas fa-check"></i> Managed media teams to capture high-impact photos and videos of teaching sessions, community interactions, and on-ground project milestones for reports and campaigns</li>
+                        <li><i class="fas fa-check"></i> Oversaw official social media channels to publish program updates, engage with the public, and build stronger visibility among partners and supporters</li>
                     </ul>
                 </div>
             </div>
@@ -1637,12 +1727,12 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     <div class="certificates-stats animate-on-scroll">
         <div class="certificate-stat">
             <div class="certificate-stat-icon"><i class="fas fa-certificate"></i></div>
-            <div class="certificate-stat-number">6+</div>
+            <div class="certificate-stat-number">9+</div>
             <div class="certificate-stat-label">Total Certificates</div>
         </div>
         <div class="certificate-stat">
             <div class="certificate-stat-icon"><i class="fas fa-graduation-cap"></i></div>
-            <div class="certificate-stat-number">4</div>
+            <div class="certificate-stat-number">7</div>
             <div class="certificate-stat-label">Online Courses</div>
         </div>
         <div class="certificate-stat">
@@ -1850,6 +1940,105 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
                 </div>
             </div>
         </div>
+
+        <!-- Certificate 7 -->
+        <div class="certificate-card animate-on-scroll" data-certificate="8">
+            <div class="certificate-image">
+                <img src="https://i.ibb.co.com/q3ZDn6V1/1778697478001-e-1788519600-v-beta-t-FS8-Dhj-N1-WNj-Be63q1-Clw-JPv-B93-LP50-Kpv1u97wev-E8k.jpg" alt="Certificate">
+                <div class="certificate-verified"><i class="fas fa-check"></i></div>
+                <div class="certificate-badge"><i class="fas fa-trophy"></i> Achievement</div>
+            </div>
+            <div class="certificate-content">
+                <div class="certificate-issuer">
+                    <div class="certificate-issuer-logo">
+                        <img src="https://i.ibb.co.com/4gw1pTvh/0ecccc80caed7d3013433880e099e4fb.png" alt="Node.js">
+                    </div>
+                    <div class="certificate-issuer-info">
+                        <div class="certificate-issuer-name">Dicoding Indonesia</div>
+                        <div class="certificate-date"><i class="fas fa-calendar"></i> Apr 2026</div>
+                    </div>
+                </div>
+                <h3 class="certificate-title">Web Programming Fundamentals</h3>
+                <p class="certificate-description">This certification demonstrates proficiency in core web development competencies including frontend interface design, backend logic implementation, database management, and deployment workflows.</p>
+                <div class="certificate-skills">
+                    <span class="certificate-skill">Front End</span>
+                    <span class="certificate-skill">Back End</span>
+                    <span class="certificate-skill">REST API</span>
+                </div>
+                <div class="certificate-footer">
+                    <span class="certificate-id">ID: GRX5WW033Z0M</span>
+                    <div class="certificate-actions">
+                        <button class="certificate-btn certificate-btn-primary"><i class="fas fa-eye"></i> View</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certificate 8 -->
+        <div class="certificate-card animate-on-scroll" data-certificate="9">
+            <div class="certificate-image">
+                <img src="https://i.ibb.co.com/MywcFtzq/1779281410328-e-1788519600-v-beta-t-XF1-Bm3nm-K-ojd-MIIVQcvlgz-6-Q8-Q9-P5r-Dw20-FLXFeo-E.jpg" alt="Certificate">
+                <div class="certificate-verified"><i class="fas fa-check"></i></div>
+                <div class="certificate-badge"><i class="fas fa-star"></i> Verified</div>
+            </div>
+            <div class="certificate-content">
+                <div class="certificate-issuer">
+                    <div class="certificate-issuer-logo">
+                        <img src="https://i.ibb.co.com/XfxX9ZJB/generation-girl-logo-e-1789603200-v-beta-t-Eu-A1-TTFQ9r-LZP9-Iq6-IFn-O2-Pb-FU93x-Cu-R7-Di-Wih-P7-Pu-I.jpg" alt="Docker">
+                    </div>
+                    <div class="certificate-issuer-info">
+                        <div class="certificate-issuer-name">Yayasan Generasi Maju Berkarya</div>
+                        <div class="certificate-date"><i class="fas fa-calendar"></i> May 2026</div>
+                    </div>
+                </div>
+                <h3 class="certificate-title">Artificial Intelligence Training</h3>
+                <p class="certificate-description">This certification demonstrates proficiency in core AI training competencies including large language model evaluation, prompt engineering, data annotation, and reinforcement learning from human feedback.</p>
+                <div class="certificate-skills">
+                    <span class="certificate-skill">Automation</span>
+                    <span class="certificate-skill">Prompt Engineer</span>
+                    <span class="certificate-skill">large language model</span>
+                </div>
+                <div class="certificate-footer">
+                    <span class="certificate-id">ID: YGMB/CERT/2026/5/0257</span>
+                    <div class="certificate-actions">
+                        <button class="certificate-btn certificate-btn-primary"><i class="fas fa-eye"></i> View</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certificate 9 -->
+        <div class="certificate-card animate-on-scroll" data-certificate="7">
+            <div class="certificate-image">
+                <img src="https://i.ibb.co.com/FbMC9RpK/1780727512063-e-1788519600-v-beta-t-j-v9-IO3-Xpv-OS0x-S4x-PS9-DZ1j6x-Iy-Dn-LMEES5-Xk-WPUh-I.jpg" alt="Certificate">
+                <div class="certificate-verified"><i class="fas fa-check"></i></div>
+                <div class="certificate-badge"><i class="fas fa-star"></i> Verified</div>
+            </div>
+            <div class="certificate-content">
+                <div class="certificate-issuer">
+                    <div class="certificate-issuer-logo">
+                        <img src="https://i.ibb.co.com/4gw1pTvh/0ecccc80caed7d3013433880e099e4fb.png" alt="React">
+                    </div>
+                    <div class="certificate-issuer-info">
+                        <div class="certificate-issuer-name">Dicoding Indonesia</div>
+                        <div class="certificate-date"><i class="fas fa-calendar"></i> June 2026</div>
+                    </div>
+                </div>
+                <h3 class="certificate-title">Fundamentals of JavaScript Programming</h3>
+                <p class="certificate-description">This certification demonstrates proficiency in advanced JavaScript concepts including closures, asynchronous programming, prototypes, performance optimization, and modern ES6+ features.</p>
+                <div class="certificate-skills">
+                    <span class="certificate-skill">Variable</span>
+                    <span class="certificate-skill">Function</span>
+                    <span class="certificate-skill">JavaScript ES6+</span>
+                </div>
+                <div class="certificate-footer">
+                    <span class="certificate-id">ID: 72ZDJ6MWLZYW</span>
+                    <div class="certificate-actions">
+                        <button class="certificate-btn certificate-btn-primary"><i class="fas fa-eye"></i> View</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -1887,10 +2076,14 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
 <style>
 /* SCHOLARSHIP PARTNER */
 .scholarship-partners-section {
-    background: linear-gradient(160deg, #1e293b 0%, #0f172a 100%);
+    background: var(--bg-color);
     padding: 80px 24px;
     position: relative;
     overflow: hidden;
+    transition: background 0.4s ease;
+}
+.theme-dark .scholarship-partners-section {
+    background: linear-gradient(160deg, #1e293b 0%, #0f172a 100%);
 }
 .sp-header {
     text-align: center;
@@ -1912,14 +2105,14 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     margin-bottom: 16px;
 }
 .sp-title {
-    color: #ffffff;
+    color: var(--text-primary);
     font-family: 'Poppins', sans-serif;
     font-weight: 800;
     font-size: clamp(1.8rem, 4vw, 2.6rem);
     margin-bottom: 18px;
 }
 .sp-subtitle {
-    color: rgba(226, 232, 240, 0.65);
+    color: var(--text-secondary);
     font-size: 15px;
     line-height: 1.8;
 }
@@ -1941,8 +2134,8 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     height: 120px;
     padding: 24px;
     border-radius: var(--radius-lg);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     transition: all 0.35s ease;
     position: relative;
     overflow: hidden;
@@ -1959,7 +2152,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     opacity: 1;
 }
 .sp-item:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--hover-bg);
     border-color: rgba(var(--main-color-rgb), 0.4);
     box-shadow: var(--shadow-glow);
     transform: translateY(-8px) scale(1.02);
@@ -1970,14 +2163,19 @@ body { font-family: 'Inter', sans-serif; background: var(--bg-color); color: var
     width: auto;
     height: auto;
     object-fit: contain;
-    filter: brightness(0) invert(1) opacity(0.7);
     transition: all 0.35s ease;
     position: relative;
     z-index: 1;
 }
+.theme-dark .sp-logo {
+    filter: brightness(0) invert(1) opacity(0.7);
+}
 .sp-item:hover .sp-logo {
     filter: brightness(1) invert(0) opacity(1);
     transform: scale(1.05);
+}
+.theme-dark .sp-item:hover .sp-logo {
+    filter: brightness(1) invert(0) opacity(1);
 }
 
 @media (max-width: 768px) {
@@ -2361,38 +2559,244 @@ textarea.form-input { resize: vertical; min-height: 120px; }
 .submit-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
 
 /* CHAT WIDGET */
-.chat-widget { position: fixed; bottom: 20px; right: 20px; z-index: 1500; }
-.chat-toggle { width: 56px; height: 56px; border-radius: var(--radius-full); background: var(--gradient-primary); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 22px; color: white; box-shadow: var(--shadow-lg), var(--shadow-glow); transition: all 0.3s; }
-.chat-toggle:hover { transform: scale(1.1); }
-.chat-container { position: absolute; bottom: 70px; right: 0; width: 340px; height: 450px; background: var(--card-bg); border-radius: var(--radius-xl); border: 1px solid var(--border-color); box-shadow: var(--shadow-xl); display: none; flex-direction: column; overflow: hidden; }
-.chat-container.active { display: flex; animation: chatSlideUp 0.3s ease; }
+.chat-widget { 
+    position: fixed; 
+    bottom: 20px; 
+    right: 20px; 
+    z-index: 1500; 
+}
+.chat-toggle { 
+    width: 60px; 
+    height: 60px; 
+    border-radius: 50%; 
+    background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); 
+    border: none; 
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 24px; 
+    color: white; 
+    box-shadow: 0 4px 20px rgba(236, 72, 153, 0.4); 
+    transition: all 0.3s; 
+}
+.chat-toggle:hover { 
+    transform: scale(1.1); 
+    box-shadow: 0 8px 30px rgba(236, 72, 153, 0.6); 
+}
+.chat-container { 
+    position: fixed; 
+    bottom: 90px; 
+    right: 20px; 
+    width: 380px; 
+    height: 500px; 
+    background: var(--card-bg); 
+    border-radius: 20px; 
+    border: 1px solid var(--border-color); 
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25); 
+    display: none; 
+    flex-direction: column; 
+    overflow: hidden; 
+}
+.chat-container.active { 
+    display: flex; 
+    animation: chatSlideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); 
+}
 @keyframes chatSlideUp { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
-.chat-header { background: var(--gradient-primary); padding: 16px; display: flex; align-items: center; justify-content: space-between; }
-.chat-header-info { display: flex; align-items: center; gap: 10px; }
-.chat-avatar { width: 36px; height: 36px; border-radius: var(--radius-full); background: rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; }
-.chat-info .chat-name { color: white; font-weight: 600; font-size: 14px; }
-.chat-info .chat-status { display: flex; align-items: center; gap: 5px; color: rgba(255, 255, 255, 0.9); font-size: 11px; }
-.online-dot { width: 7px; height: 7px; background: #22c55e; border-radius: 50%; animation: pulse 2s infinite; }
-@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
-.chat-close { background: rgba(255, 255, 255, 0.1); border: none; color: white; width: 30px; height: 30px; border-radius: var(--radius-full); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
-.chat-close:hover { background: rgba(255, 255, 255, 0.2); }
-.chat-messages { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
-.message { display: flex; gap: 8px; animation: messageSlide 0.3s ease; }
-@keyframes messageSlide { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-.message.user { flex-direction: row-reverse; }
-.message-avatar { width: 28px; height: 28px; border-radius: var(--radius-full); background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; flex-shrink: 0; }
-.message.user .message-avatar { background: var(--text-secondary); }
-.message-content { max-width: 70%; padding: 10px 14px; border-radius: var(--radius-lg); background: var(--hover-bg); color: var(--text-primary); font-size: 13px; line-height: 1.5; }
-.message.user .message-content { background: var(--gradient-primary); color: white; }
-.chat-input-area { padding: 14px; border-top: 1px solid var(--border-color); display: flex; gap: 10px; align-items: flex-end; }
-.chat-input { flex: 1; padding: 10px 14px; border: 2px solid var(--border-color); border-radius: var(--radius-lg); background: var(--bg-color); color: var(--text-primary); font-size: 13px; font-family: inherit; resize: none; max-height: 70px; transition: border-color 0.3s; }
-.chat-input:focus { outline: none; border-color: var(--main-color); }
-.chat-send { width: 40px; height: 40px; border-radius: var(--radius-full); background: var(--gradient-primary); border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.3s; flex-shrink: 0; }
-.chat-send:hover { transform: scale(1.05); }
+.chat-header { 
+    background: var(--gradient-primary); 
+    padding: 18px 20px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.chat-header-info { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+}
+.chat-avatar { 
+    width: 42px; 
+    height: 42px; 
+    border-radius: 50%; 
+    background: rgba(255, 255, 255, 0.25); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    color: white; 
+    font-size: 20px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.chat-info .chat-name { 
+    color: white; 
+    font-weight: 700; 
+    font-size: 15px; 
+    margin-bottom: 4px;
+}
+.chat-info .chat-status { 
+    display: flex; 
+    align-items: center; 
+    gap: 6px; 
+    color: rgba(255, 255, 255, 0.9); 
+    font-size: 12px; 
+    font-weight: 500;
+}
+.online-dot { 
+    width: 8px; 
+    height: 8px; 
+    background: #22c55e; 
+    border-radius: 50%; 
+    animation: pulse 2s infinite; 
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+}
+@keyframes pulse { 
+    0%, 100% { transform: scale(1); opacity: 1; } 
+    50% { transform: scale(1.2); opacity: 0.8; } 
+}
+.chat-close { 
+    background: rgba(255, 255, 255, 0.15); 
+    border: none; 
+    color: white; 
+    width: 36px; 
+    height: 36px; 
+    border-radius: 50%; 
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    transition: all 0.2s; 
+    font-size: 18px;
+}
+.chat-close:hover { 
+    background: rgba(255, 255, 255, 0.25); 
+    transform: scale(1.1);
+}
+.chat-messages { 
+    flex: 1; 
+    padding: 16px; 
+    overflow-y: auto; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 14px; 
+    background: var(--bg-color);
+}
+.message { 
+    display: flex; 
+    gap: 8px; 
+    animation: messageSlide 0.3s ease; 
+    align-items: flex-start;
+}
+@keyframes messageSlide { 
+    from { opacity: 0; transform: translateY(10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+.message.user { 
+    flex-direction: row-reverse; 
+}
+.message-avatar { 
+    width: 28px; 
+    height: 28px; 
+    border-radius: 50%; 
+    background: var(--gradient-primary); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    color: white; 
+    font-size: 12px; 
+    flex-shrink: 0; 
+}
+.message.user .message-avatar { 
+    background: var(--text-secondary); 
+}
+.message-content { 
+    max-width: 75%; 
+    padding: 10px 14px; 
+    border-radius: 16px; 
+    background: var(--hover-bg); 
+    color: var(--text-primary); 
+    font-size: 13px; 
+    line-height: 1.5; 
+    word-wrap: break-word;
+}
+.message.user .message-content { 
+    background: var(--gradient-primary); 
+    color: white; 
+}
+.chat-input-area { 
+    padding: 16px; 
+    border-top: 1px solid var(--border-color); 
+    display: flex; 
+    gap: 12px; 
+    align-items: flex-end; 
+    background: var(--card-bg);
+}
+.chat-input { 
+    flex: 1; 
+    padding: 12px 16px; 
+    border: 2px solid var(--border-color); 
+    border-radius: 12px; 
+    background: var(--bg-color); 
+    color: var(--text-primary); 
+    font-size: 14px; 
+    font-family: inherit; 
+    resize: none; 
+    max-height: 100px; 
+    transition: all 0.3s; 
+}
+.chat-input:focus { 
+    outline: none; 
+    border-color: var(--main-color); 
+    background: var(--card-bg);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+.chat-send { 
+    width: 46px; 
+    height: 46px; 
+    border-radius: 50%; 
+    background: var(--gradient-primary); 
+    border: none; 
+    color: white; 
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 18px; 
+    transition: all 0.3s; 
+    flex-shrink: 0; 
+}
+.chat-send:hover { 
+    transform: scale(1.1); 
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
 
 /* SCROLL TO TOP */
-#scrollToTopBtn { position: fixed; bottom: 90px; right: 20px; width: 44px; height: 44px; border-radius: var(--radius-full); background: var(--card-bg); border: 1px solid var(--border-color); color: var(--main-color); cursor: pointer; display: none; align-items: center; justify-content: center; font-size: 16px; box-shadow: var(--shadow-lg); transition: all 0.3s; z-index: 99; }
-#scrollToTopBtn:hover { background: var(--gradient-primary); color: white; border-color: transparent; transform: translateY(-4px); }
+#scrollToTopBtn { 
+    position: fixed; 
+    bottom: 180px; 
+    right: 20px; 
+    width: 50px; 
+    height: 50px; 
+    border-radius: 50%; 
+    background: var(--card-bg); 
+    border: 2px solid var(--border-color); 
+    color: var(--main-color); 
+    cursor: pointer; 
+    display: none; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 18px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); 
+    transition: all 0.3s; 
+    z-index: 1400; 
+}
+#scrollToTopBtn:hover { 
+    background: var(--gradient-primary); 
+    color: white; 
+    border-color: transparent; 
+    transform: translateY(-6px); 
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+}
 
 /* LIGHTBOX */
 .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 30px; cursor: zoom-out; }
@@ -2404,9 +2808,11 @@ textarea.form-input { resize: vertical; min-height: 120px; }
 /* FOOTER */
 footer { 
     text-align: center; 
-    padding: 70px 20px 60px; 
+    padding: 70px 20px 30px; 
     background: var(--card-bg); 
     border-top: 1px solid var(--border-color);
+    margin: 0;
+    width: 100%;
 }
 .footer-quote { 
     font-size: 1.1rem; 
@@ -2428,8 +2834,8 @@ footer {
 .footer-copy { 
     color: var(--text-secondary); 
     font-size: 14px;
-    line-height: 2;
-    margin: 8px 0;
+    line-height: 1.8;
+    margin: 6px 0;
 }
 .footer-copy .highlight { 
     background: var(--gradient-primary); 
@@ -2437,6 +2843,53 @@ footer {
     background-clip: text; 
     -webkit-text-fill-color: transparent; 
     font-weight: 600;
+}
+
+/* FIX BLANK SPACE - FORCE NO EXTRA SPACING */
+html, body {
+    overflow-x: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100vw !important;
+}
+html {
+    height: 100% !important;
+    position: relative;
+}
+body {
+    position: relative;
+    min-height: 100vh !important;
+    height: auto !important;
+}
+body::before,
+body::after {
+    content: none !important;
+    display: none !important;
+}
+main, section, div {
+    max-width: 100%;
+}
+footer {
+    position: relative;
+    clear: both;
+    margin-bottom: 0 !important;
+}
+footer::before,
+footer::after {
+    content: none !important;
+    display: none !important;
+}
+/* Remove any pseudo-elements that might add space */
+*::after, *::before {
+    box-sizing: border-box;
+}
+/* Force remove extra spacing */
+body > *:last-child {
+    margin-bottom: 0 !important;
+}
+html::after, html::before {
+    content: none !important;
+    display: none !important;
 }
 
 /* PRELOADER */
@@ -3624,7 +4077,7 @@ footer {
     </div>
 
     <style>
-        .footer-social { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin: 18px 0 10px; }
+        .footer-social { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin: 16px 0 12px; }
         .footer-social-link { 
             width: 44px; height: 44px; border-radius: var(--radius); 
             background: rgba(99, 102, 241, 0.08);
@@ -3643,14 +4096,15 @@ footer {
 
         @media (max-width: 480px) {
             .footer-social-link { width: 40px; height: 40px; font-size: 16px; }
+            footer { padding: 50px 20px 20px; }
         }
     </style>
 
 
-    <p class="footer-copy">
+    <p class="footer-copy" style="margin-top: 12px;">
         © 2025 M.Fawwaz. All Rights Reserved.
     </p>
-    <p class="footer-copy">
+    <p class="footer-copy" style="margin-bottom: 0 !important; padding-bottom: 0 !important;">
         Designed and Developed by <span class="highlight">Muhammad Fawwaz Rayyan Khalish</span>
     </p>
 </footer>
@@ -3665,15 +4119,45 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .navbar { padding: 10px 16px; flex-wrap: nowrap; position: sticky; }
-    .navbar-center { display: none; }
-    .navbar-left { flex: 1; min-width: 0; max-width: 60%; }
-    .navbar-right { flex-shrink: 0; gap: 8px; }
-    .mobile-menu-toggle { display: flex; align-items: center; justify-content: center; }
-    .search-container { display: none; }
-    .logo { font-size: 1.15rem; max-width: 100%; }
-    .logo-text-full { display: none; }
-    .logo-text-short { display: inline; }
+    .navbar { 
+        padding: 10px 16px; 
+        flex-wrap: nowrap; 
+    }
+    .navbar-center { 
+        display: none; 
+    }
+    .navbar-left { 
+        flex: 1; 
+        min-width: 0; 
+        max-width: 60%; 
+    }
+    .navbar-right { 
+        flex-shrink: 0; 
+        gap: 8px; 
+    }
+    .mobile-menu-toggle { 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+    }
+    .search-container { 
+        display: none; 
+    }
+    .logo { 
+        font-size: 1.15rem; 
+        max-width: 100%; 
+    }
+    .logo-text-full { 
+        display: none; 
+    }
+    .logo-text-short { 
+        display: inline; 
+    }
+    .icon-button {
+        width: 38px;
+        height: 38px;
+        font-size: 15px;
+    }
     .hero-title-main { font-size: clamp(1.65rem, 6vw, 1.9rem); }
     .hero-title-sub { font-size: clamp(1.2rem, 4.5vw, 1.5rem); }
     .hero-description { font-size: 0.95rem; margin-left: auto; margin-right: auto; padding: 0 8px; }
@@ -3847,31 +4331,31 @@ footer {
 /* ===== VOICE AI ASSISTANT STYLES ===== */
 .voice-ai-widget {
     position: fixed;
-    bottom: 160px;
+    bottom: 100px;
     right: 20px;
     z-index: 1500;
 }
 
 .voice-ai-toggle {
     position: relative;
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
+    font-size: 24px;
     color: white;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 0 30px rgba(139, 92, 246, 0.4);
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
     transition: all 0.3s;
 }
 
 .voice-ai-toggle:hover {
     transform: scale(1.1);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 0 40px rgba(139, 92, 246, 0.6);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.6);
 }
 
 .voice-ai-toggle.active {
@@ -3903,19 +4387,19 @@ footer {
 }
 
 .voice-ai-panel {
-    position: absolute;
-    bottom: 70px;
-    right: 0;
-    width: 400px;
-    max-height: 600px;
+    position: fixed;
+    bottom: 170px;
+    right: 20px;
+    width: 420px;
+    max-height: 650px;
     background: var(--card-bg);
-    border-radius: 16px;
+    border-radius: 20px;
     border: 1px solid var(--border-color);
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
     display: none;
     flex-direction: column;
     overflow: hidden;
-    animation: voiceAiSlideUp 0.3s ease;
+    animation: voiceAiSlideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .voice-ai-panel.active {
@@ -3923,16 +4407,23 @@ footer {
 }
 
 @keyframes voiceAiSlideUp {
-    from { opacity: 0; transform: translateY(20px) scale(0.95); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    from { 
+        opacity: 0; 
+        transform: translateY(30px) scale(0.9); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+    }
 }
 
 .voice-ai-header {
     background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
-    padding: 16px;
+    padding: 18px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .voice-ai-header-info {
@@ -3942,15 +4433,16 @@ footer {
 }
 
 .voice-ai-avatar {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.25);
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 18px;
+    font-size: 22px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .voice-ai-info {
@@ -3958,8 +4450,8 @@ footer {
 }
 
 .voice-ai-title {
-    font-weight: 600;
-    font-size: 15px;
+    font-weight: 700;
+    font-size: 16px;
     margin-bottom: 4px;
 }
 
@@ -3969,6 +4461,7 @@ footer {
     gap: 6px;
     font-size: 12px;
     color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
 }
 
 .status-dot {
@@ -3995,21 +4488,23 @@ footer {
 }
 
 .voice-ai-close {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
     border: none;
     color: white;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s;
+    transition: all 0.2s;
+    font-size: 18px;
 }
 
 .voice-ai-close:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1);
 }
 
 .voice-ai-body {
@@ -4032,13 +4527,13 @@ footer {
 .visualizer-bar {
     width: 4px;
     height: 20px;
-    background: #6366f1;
+    background: linear-gradient(to top, #6366f1, #8b5cf6);
     border-radius: 2px;
     transition: height 0.1s;
 }
 
 .voice-ai-visualizer.active .visualizer-bar {
-    animation: visualizeAi 0.8s ease-in-out infinite;
+    animation: visualizeAi 0.6s ease-in-out infinite;
 }
 
 .visualizer-bar:nth-child(1) { animation-delay: 0s; }
@@ -4050,8 +4545,22 @@ footer {
 .visualizer-bar:nth-child(7) { animation-delay: 0.6s; }
 
 @keyframes visualizeAi {
-    0%, 100% { height: 20px; }
-    50% { height: 40px; }
+    0%, 100% { 
+        height: 20px; 
+        background: linear-gradient(to top, #6366f1, #8b5cf6);
+    }
+    25% { 
+        height: 35px; 
+        background: linear-gradient(to top, #8b5cf6, #ec4899);
+    }
+    50% { 
+        height: 45px; 
+        background: linear-gradient(to top, #ec4899, #f59e0b);
+    }
+    75% { 
+        height: 35px; 
+        background: linear-gradient(to top, #8b5cf6, #ec4899);
+    }
 }
 
 .voice-ai-conversation {
@@ -4156,30 +4665,32 @@ footer {
 
 .voice-ai-input-area {
     display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
+    gap: 12px;
+    margin-bottom: 10px;
 }
 
 .voice-ai-text-input {
     flex: 1;
-    padding: 10px 14px;
+    padding: 12px 16px;
     border: 2px solid var(--border-color);
     border-radius: 12px;
     background: var(--bg-color);
     color: var(--text-primary);
-    font-size: 13px;
+    font-size: 14px;
     font-family: inherit;
-    transition: border-color 0.3s;
+    transition: all 0.3s;
 }
 
 .voice-ai-text-input:focus {
     outline: none;
     border-color: var(--main-color);
+    background: var(--card-bg);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
 .voice-ai-send-btn {
-    width: 40px;
-    height: 40px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
     background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
     border: none;
@@ -4188,12 +4699,13 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 18px;
     transition: all 0.3s;
 }
 
 .voice-ai-send-btn:hover {
-    transform: scale(1.05);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
 }
 
 .voice-ai-controls {
@@ -4204,32 +4716,38 @@ footer {
 
 .voice-ai-mic-btn {
     flex: 1;
-    padding: 12px 20px;
+    padding: 14px 24px;
     background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
     border: none;
     border-radius: 12px;
     color: white;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
     transition: all 0.3s;
 }
 
 .voice-ai-mic-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
 }
 
 .voice-ai-mic-btn.listening {
     background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    animation: micPulse 1s infinite;
 }
 
 .voice-ai-mic-btn.listening i {
     animation: micPulseAi 1s infinite;
+}
+
+@keyframes micPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
 }
 
 @keyframes micPulseAi {
@@ -4266,14 +4784,56 @@ footer {
 /* Mobile Voice AI */
 @media (max-width: 768px) {
     .voice-ai-widget {
-        bottom: 88px;
+        bottom: 90px;
         right: 16px;
     }
     
     .voice-ai-toggle {
-        width: 52px;
-        height: 52px;
-        font-size: 20px;
+        width: 56px;
+        height: 56px;
+        font-size: 22px;
+    }
+    
+    .chat-widget {
+        bottom: 16px;
+        right: 16px;
+    }
+    
+    .chat-toggle {
+        width: 56px;
+        height: 56px;
+        font-size: 22px;
+    }
+    
+    #scrollToTopBtn {
+        bottom: 160px;
+        right: 16px;
+        width: 46px;
+        height: 46px;
+        font-size: 16px;
+    }
+    
+    .voice-ai-panel {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        max-width: 100%;
+        max-height: 90vh;
+        border-radius: 20px 20px 0 0;
+    }
+    
+    .chat-container {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        max-width: 100%;
+        height: 85vh;
+        max-height: 85vh;
+        border-radius: 20px 20px 0 0;
     }
     
     .voice-ai-panel {
@@ -4291,6 +4851,17 @@ footer {
     @keyframes voiceAiSlideUpMobile {
         from { transform: translateY(100%); }
         to { transform: translateY(0); }
+    }
+    
+    .chat-container {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        max-width: 100%;
+        max-height: 80vh;
+        border-radius: 20px 20px 0 0;
     }
     
     .voice-ai-header {
@@ -4365,10 +4936,34 @@ footer {
         right: 12px;
     }
     
+    .voice-ai-widget {
+        bottom: 80px;
+        right: 12px;
+    }
+    
     .voice-ai-toggle {
-        width: 48px;
-        height: 48px;
-        font-size: 18px;
+        width: 52px;
+        height: 52px;
+        font-size: 20px;
+    }
+    
+    .chat-widget {
+        bottom: 12px;
+        right: 12px;
+    }
+    
+    .chat-toggle {
+        width: 52px;
+        height: 52px;
+        font-size: 20px;
+    }
+    
+    #scrollToTopBtn {
+        bottom: 145px;
+        right: 12px;
+        width: 44px;
+        height: 44px;
+        font-size: 15px;
     }
     
     .voice-ai-panel {
@@ -4554,14 +5149,8 @@ footer {
 document.addEventListener('DOMContentLoaded', function() {
     PortfolioDB.init();
     const dbHint = document.getElementById('dbStatusHint');
-    if (dbHint) {
-        if (PortfolioDB.ready) {
-            dbHint.classList.add('connected');
-            dbHint.innerHTML = '<i class="fas fa-database"></i> Terhubung ke database (Firebase Firestore)';
-        } else {
-            dbHint.classList.add('local');
-            dbHint.innerHTML = '<i class="fas fa-database"></i> Mode offline — simpan lokal (atur firebase-config.js)';
-        }
+    if (dbHint && PortfolioDB.ready) {
+        dbHint.classList.add('connected');
     }
 
     document.querySelectorAll('.service-cta[data-service]').forEach(btn => {
@@ -4686,11 +5275,37 @@ document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('section');
     const navItems = document.querySelectorAll('.nav-item');
     const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+    
+    // Navbar Auto Hide/Show on Scroll
+    const navbar = document.querySelector('.navbar');
+    let lastScrollTop = 0;
+    let scrollThreshold = 100;
+    
     window.addEventListener('scroll', () => {
         let current = 'home';
         sections.forEach(section => { if (window.scrollY >= section.offsetTop - 100) current = section.getAttribute('id'); });
         navItems.forEach(link => link.classList.toggle('active', link.getAttribute('href').includes(current)));
         mobileNavItems.forEach(link => link.classList.toggle('active', link.getAttribute('href').includes(current)));
+        
+        // Auto hide/show navbar
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > scrollThreshold) {
+            navbar.classList.add('navbar-scrolled');
+            
+            if (scrollTop > lastScrollTop && scrollTop > 200) {
+                // Scrolling down - hide navbar
+                navbar.classList.add('navbar-hidden');
+            } else {
+                // Scrolling up - show navbar
+                navbar.classList.remove('navbar-hidden');
+            }
+        } else {
+            navbar.classList.remove('navbar-scrolled');
+            navbar.classList.remove('navbar-hidden');
+        }
+        
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     }, { passive: true });
 
     // SCROLL TO TOP
@@ -4714,17 +5329,14 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.innerHTML = 'Mengirim... <i class="fas fa-spinner fa-spin"></i>';
         btn.disabled = true;
         try {
-            const result = await PortfolioDB.saveContact({
+            await PortfolioDB.saveContact({
                 name: document.getElementById('name').value.trim(),
                 email: document.getElementById('email').value.trim(),
                 subject: document.getElementById('subject').value.trim(),
                 message: document.getElementById('message').value.trim(),
                 service: document.getElementById('contact-service').value
             });
-            const msg = result.storage === 'firestore'
-                ? 'Terima kasih! Pesan Anda sudah tersimpan di database.'
-                : 'Terima kasih! Pesan tersimpan (mode lokal — hubungkan Firebase untuk database cloud).';
-            showNotification(msg, 'success');
+            showNotification('Terima kasih! Pesan Anda sudah kami terima.', 'success');
             form.reset();
         } catch (err) {
             console.error(err);
@@ -4897,7 +5509,7 @@ document.addEventListener('DOMContentLoaded', function() {
         voiceAiRecognition = new SpeechRecognition();
         voiceAiRecognition.continuous = false;
         voiceAiRecognition.interimResults = true;
-        voiceAiRecognition.lang = 'id-ID';
+        voiceAiRecognition.lang = 'en-US'; // Changed to English for better compatibility
         
         voiceAiRecognition.onstart = () => {
             isVoiceAiListening = true;
@@ -4924,7 +5536,17 @@ document.addEventListener('DOMContentLoaded', function() {
         voiceAiRecognition.onerror = (event) => {
             console.error('Speech recognition error:', event.error);
             stopVoiceAiListening();
-            showNotification('Voice recognition error. Please try again.', 'error');
+            
+            let errorMessage = 'Voice recognition error. Please try again.';
+            if (event.error === 'no-speech') {
+                errorMessage = 'No speech detected. Please try again.';
+            } else if (event.error === 'not-allowed') {
+                errorMessage = 'Microphone access denied. Please allow microphone access.';
+            } else if (event.error === 'network') {
+                errorMessage = 'Network error. Please check your connection.';
+            }
+            
+            addAiMessage(errorMessage);
         };
         
         voiceAiRecognition.onend = () => {
@@ -4932,7 +5554,15 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     } else {
         voiceAiMicBtn.disabled = true;
-        voiceAiMicBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i><span>Not Supported</span>';
+        voiceAiMicBtn.innerHTML = '<i class="fas fa-microphone-slash"></i><span>Not Supported</span>';
+        voiceAiMicBtn.title = 'Voice recognition not supported in your browser. Please use Chrome, Edge, or Safari.';
+        voiceAiMicBtn.style.opacity = '0.5';
+        voiceAiMicBtn.style.cursor = 'not-allowed';
+        
+        // Show message in conversation
+        setTimeout(() => {
+            addAiMessage('Voice recognition is not supported in your browser. Please use text input instead, or try Chrome, Edge, or Safari for voice features.');
+        }, 500);
     }
     
     function stopVoiceAiListening() {
@@ -4981,7 +5611,14 @@ document.addEventListener('DOMContentLoaded', function() {
         utterance.rate = 0.9;
         utterance.pitch = 1;
         utterance.volume = 1;
-        utterance.lang = 'id-ID';
+        utterance.lang = 'en-US'; // Changed to English
+        
+        // Try to get a better voice
+        const voices = speechSynthesis.getVoices();
+        const englishVoice = voices.find(voice => voice.lang.startsWith('en'));
+        if (englishVoice) {
+            utterance.voice = englishVoice;
+        }
         
         speechSynthesis.speak(utterance);
     }
