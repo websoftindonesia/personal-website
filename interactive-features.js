@@ -198,6 +198,11 @@ function unlockAchievement(key) {
 function showAchievement(icon, name, desc) {
     const achDiv = document.createElement('div');
     achDiv.className = 'achievement-popup';
+    // Apply blue gradient specifically for Speedster achievement
+    const isSpeedster = name === 'Speedster';
+    if (isSpeedster) {
+        achDiv.style.background = 'linear-gradient(135deg, #1877f2 0%, #0c63d4 100%)';
+    }
     achDiv.innerHTML = `
         <div class="achievement-icon">${icon}</div>
         <div class="achievement-content">
