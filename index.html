@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -292,18 +292,20 @@ footer {
 <body>
 <div id="scrollProgressBar"></div>
 <div id="preloader">
-    <div class="glasscube-glow"></div>
-    <div class="glasscube-scene">
-        <div class="glasscube-tilt">
-            <div class="glasscube-rig">
-                <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
-                <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
-                <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
-                <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
-                <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
-                <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
-                <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
-                <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
+    <div class="glasscube-perspective" id="glasscubePreloader">
+        <div class="glasscube-glow"></div>
+        <div class="glasscube-scene">
+            <div class="glasscube-tilt">
+                <div class="glasscube-rig">
+                    <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
+                    <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
+                    <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
+                    <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
+                    <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
+                    <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
+                    <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
+                    <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
+                </div>
             </div>
         </div>
     </div>
@@ -658,7 +660,7 @@ footer {
     max-width: 640px;
 }
 
-/* Profile Photo - menyatu dengan background tanpa gradient */
+/* Profile Photo - no gradient, no glow, no fade of any kind. Plain photo. */
 .profile-photo-card {
     position: relative;
     width: 100%;
@@ -675,10 +677,11 @@ footer {
     object-position: bottom center;
     position: relative;
     transition: transform 0.5s ease;
-    /* Menghilangkan semua gradient dan filter */
-    filter: none;
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+    filter: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    mix-blend-mode: normal !important;
+    isolation: isolate;
 }
 
 .profile-photo-card:hover img {
@@ -3398,7 +3401,7 @@ html::after, html::before {
         <div class="minigame-board" id="mgBoard" style="position:relative;">
             <div class="minigame-win" id="mgWin">
                 <i class="fas fa-trophy"></i>
-                <h3>Selamat! Kamu Menang ??</h3>
+                <h3>Selamat! Kamu Menang 🎉</h3>
                 <p id="mgWinDetail">Selesai dalam sekian move dan waktu tertentu.</p>
                 <button class="minigame-reset-btn" id="mgPlayAgain"><i class="fas fa-rotate-right"></i> Main Lagi</button>
             </div>
@@ -5231,11 +5234,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatSend = document.getElementById('chatSend');
     const chatResponses = {
         'hello': ['Hello! How can I help you today?', 'Hi there! Welcome to my portfolio!'],
-        'skills': ['I specialize in React.js, Node.js, and full-stack development! ??'],
-        'contact': ['You can reach me through the contact form or via LinkedIn! ??'],
-        'projects': ['Check out the portfolio section to see my projects! ??'],
-        'education': ['I\'m studying Computer Science at Universitas Gunadarma! ??'],
-        'default': ['Feel free to ask about my skills, projects, or how to contact me! ??']
+        'skills': ['I specialize in React.js, Node.js, and full-stack development! 💻'],
+        'contact': ['You can reach me through the contact form or via LinkedIn! 📩'],
+        'projects': ['Check out the portfolio section to see my projects! 🚀'],
+        'education': ['I\'m studying Computer Science at Universitas Gunadarma! 🎓'],
+        'default': ['Feel free to ask about my skills, projects, or how to contact me! 😊']
     };
     chatToggle.addEventListener('click', () => chatContainer.classList.toggle('active'));
     chatClose.addEventListener('click', () => chatContainer.classList.remove('active'));
@@ -5862,10 +5865,22 @@ document.addEventListener('DOMContentLoaded', function() {
         curtain.className = 'page-curtain';
         curtain.innerHTML = `
             <div class="curtain-content">
-                <div class="curtain-loader">
-                    <div class="loader-ring"></div>
-                    <div class="loader-ring"></div>
-                    <div class="loader-ring"></div>
+                <div class="glasscube-perspective curtain-glasscube">
+                    <div class="glasscube-glow"></div>
+                    <div class="glasscube-scene">
+                        <div class="glasscube-tilt">
+                            <div class="glasscube-rig">
+                                <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
+                                <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
+                                <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
+                                <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
+                                <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
+                                <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
+                                <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
+                                <div class="glasscube-let"><div class="glasscube-face gcf-front"></div><div class="glasscube-face gcf-back"></div><div class="glasscube-face gcf-right"></div><div class="glasscube-face gcf-left"></div><div class="glasscube-face gcf-top"></div><div class="glasscube-face gcf-bottom"></div></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <p class="curtain-text">Loading...</p>
             </div>
@@ -5943,20 +5958,12 @@ document.addEventListener('DOMContentLoaded', function() {
             window.requestAnimationFrame(() => {
                 const scrolled = window.pageYOffset;
                 
-                // Parallax for hero section
-                // Clamp the offset so the hero can never drift down far enough
-                // to overlap the section below it (this was causing the hero's
-                // text/photo to visually collide with "Education Background").
-                const hero = document.querySelector('.hero');
-                if (hero) {
-                    const heroHeight = hero.offsetHeight;
-                    if (scrolled < heroHeight) {
-                        const offset = Math.min(scrolled * 0.5, heroHeight * 0.25);
-                        hero.style.transform = `translateY(${offset}px)`;
-                    } else {
-                        hero.style.transform = 'translateY(0)';
-                    }
-                }
+                // Hero parallax intentionally disabled: translating the whole
+                // .hero block down on scroll made it drift over the section
+                // below (its blue background + leftover text sat on top of
+                // "Education Background"). Only the decorative floating
+                // shapes keep their parallax movement now, so nothing in the
+                // hero can ever visually collide with the next section.
                 
                 // Parallax for floating shapes
                 document.querySelectorAll('.shape').forEach((shape, index) => {
@@ -6183,7 +6190,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function activateEasterEgg() {
         document.body.style.animation = 'rainbowBackground 2s ease infinite';
-        showNotification('?? Easter Egg Activated! You found the secret!', 'success');
+        showNotification('🎉 Easter Egg Activated! You found the secret!', 'success');
         
         // Create confetti
         for (let i = 0; i < 50; i++) {
@@ -6213,8 +6220,8 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => confetti.remove(), 5000);
     }
 
-    console.log('?? Portfolio with Voice AI & Advanced Animations loaded successfully!');
-    console.log('?? Tip: Try the Konami Code for a surprise! ????????BA');
+    console.log('🚀 Portfolio with Voice AI & Advanced Animations loaded successfully!');
+    console.log('💡 Tip: Try the Konami Code for a surprise! ↑↑↓↓←→←→BA');
 });
 </script>
 
@@ -6241,29 +6248,11 @@ document.addEventListener('DOMContentLoaded', function() {
     text-align: center;
     color: white;
 }
-.curtain-loader {
-    position: relative;
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 20px;
-}
-.loader-ring {
-    position: absolute;
-    inset: 0;
-    border: 3px solid transparent;
-    border-top-color: rgba(255,255,255,0.8);
-    border-radius: 50%;
-    animation: ringRotate 1s linear infinite;
-}
-.loader-ring:nth-child(2) {
-    inset: 10px;
-    animation-delay: -0.3s;
-    border-top-color: rgba(11, 37, 69, 0.8);
-}
-.loader-ring:nth-child(3) {
-    inset: 20px;
-    animation-delay: -0.6s;
-    border-top-color: rgba(11, 37, 69, 0.8);
+/* Page-transition loader now reuses the same glasscube animation as the
+   welcome screen, just scaled down to fit the short transition curtain. */
+.curtain-glasscube {
+    transform: scale(0.55);
+    margin: 0 auto -70px;
 }
 .curtain-text {
     font-size: 1.2rem;
@@ -7295,11 +7284,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 <label for="visitorPurpose"><i class="fas fa-bullseye"></i> Tujuan Kunjungan</label>
                 <select id="visitorPurpose">
                     <option value="">Pilih tujuan...</option>
-                    <option value="hiring">?? Tertarik untuk hiring</option>
-                    <option value="collab">?? Ingin kolaborasi</option>
-                    <option value="learn">?? Belajar dari portfolio</option>
-                    <option value="connect">?? Ingin berkenalan</option>
-                    <option value="other">? Lainnya</option>
+                    <option value="hiring">💼 Tertarik untuk hiring</option>
+                    <option value="collab">🤝 Ingin kolaborasi</option>
+                    <option value="learn">📚 Belajar dari portfolio</option>
+                    <option value="connect">👋 Ingin berkenalan</option>
+                    <option value="other">✨ Lainnya</option>
                 </select>
                 <span class="field-error"><i class="fas fa-circle-exclamation"></i> <span class="field-error-text">Silakan pilih salah satu tujuan</span></span>
             </div>
@@ -7320,11 +7309,52 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <div class="welcome-feature">
                 <i class="fas fa-heart"></i>
-                <span>Made By Rayyan?????</span>
+                <span>Made By Rayyan ❤️</span>
             </div>
         </div>
         <p class="welcome-tailwind-note">Using <a href="https://tailwindcss.com/" target="_blank" rel="noopener noreferrer">Tailwind CSS</a></p>
     </div>
+</div>
+
+<div style="font-family: var(--font-sans); color: var(--foreground);">
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:700px;">
+    <div style="border:1px solid var(--border); border-radius: var(--radius); overflow:hidden; background:var(--card);">
+      <div style="padding:8px 12px; font-size:12px; font-weight:600; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+        <span>SEBELUM</span><span style="color:var(--destructive);">gradasi putih di bawah foto</span>
+      </div>
+      <div style="position:relative; height:280px; background:linear-gradient(180deg,#1877f2 0%,#1877f2 52%,#cfe0f7 78%,#ffffff 100%);">
+        <div style="position:absolute; left:8%; top:8%; width:84%; height:84%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:13px; text-align:center; line-height:1.5;">
+          Backdrop foto asli:<br>abu → putih<br>di bagian bawah
+        </div>
+      </div>
+    </div>
+    <div style="border:1px solid var(--border); border-radius: var(--radius); overflow:hidden; background:var(--card);">
+      <div style="padding:8px 12px; font-size:12px; font-weight:600; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+        <span>SESUDAH</span><span style="color:var(--success);">backdrop dicat ulang biru brand</span>
+      </div>
+      <div style="position:relative; height:280px; background:linear-gradient(135deg,#1877f2 0%,#0c63d4 100%);">
+        <div style="position:absolute; left:8%; top:8%; width:84%; height:84%; display:flex; align-items:center; justify-content:center;">
+          <svg width="180" height="230" viewBox="0 0 120 155" role="img" aria-label="Foto profil utuh dengan backdrop biru">
+            <title>Foto profil utuh, backdrop biru brand</title>
+            <rect x="8" y="8" width="104" height="139" rx="6" fill="#0d6ef0"/>
+            <ellipse cx="60" cy="48" rx="34" ry="38" fill="#8a5a3b"/>
+            <path d="M60 30 c-16 0 -26 10 -26 24 c0 14 10 22 26 22 c16 0 26 -8 26 -22 c0 -14 -10 -24 -26 -24z" fill="#d9a06b"/>
+            <rect x="26" y="82" width="68" height="73" rx="10" fill="#16325c"/>
+          </svg>
+        </div>
+        <div style="position:absolute; bottom:10px; left:0; right:0; text-align:center; color:#eaf1fe; font-size:12px;">
+          Foto tetap utuh persegi — backdrop biru menyatu dengan hero
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:14px; border:1px solid var(--border); border-radius: var(--radius); padding:12px 14px; background:var(--muted); font-size:13px; line-height:1.7;">
+    <strong>Pendekatan baru (tanpa potong):</strong><br>
+    • Backdrop abu-abu→putih pada <code>profile.png</code> <b>dicat ulang</b> dengan gradasi biru brand yang sama dengan hero (<code>#1877f2 → #0c63d4</code>)<br>
+    • Foto <b>tetap persegi utuh</b> — tidak ada transparansi, tidak ada tepi terpotong/gap yang membuat tampilan jelek<br>
+    • Tepi orang di-blend halus (16px) ke warna biru, orang utuh dari kepala sampai celana<br>
+    • Verifikasi: <b>0% piksel terang</b> di area backdrop; baris bawah foto kini biru murni <code>(15,104,220)</code> — gradasi putih hilang total
+  </div>
 </div>
 
 <script>
