@@ -7316,47 +7316,6 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 </div>
 
-<div style="font-family: var(--font-sans); color: var(--foreground);">
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:700px;">
-    <div style="border:1px solid var(--border); border-radius: var(--radius); overflow:hidden; background:var(--card);">
-      <div style="padding:8px 12px; font-size:12px; font-weight:600; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
-        <span>SEBELUM</span><span style="color:var(--destructive);">gradasi putih di bawah foto</span>
-      </div>
-      <div style="position:relative; height:280px; background:linear-gradient(180deg,#1877f2 0%,#1877f2 52%,#cfe0f7 78%,#ffffff 100%);">
-        <div style="position:absolute; left:8%; top:8%; width:84%; height:84%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:13px; text-align:center; line-height:1.5;">
-          Backdrop foto asli:<br>abu → putih<br>di bagian bawah
-        </div>
-      </div>
-    </div>
-    <div style="border:1px solid var(--border); border-radius: var(--radius); overflow:hidden; background:var(--card);">
-      <div style="padding:8px 12px; font-size:12px; font-weight:600; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
-        <span>SESUDAH</span><span style="color:var(--success);">backdrop dicat ulang biru brand</span>
-      </div>
-      <div style="position:relative; height:280px; background:linear-gradient(135deg,#1877f2 0%,#0c63d4 100%);">
-        <div style="position:absolute; left:8%; top:8%; width:84%; height:84%; display:flex; align-items:center; justify-content:center;">
-          <svg width="180" height="230" viewBox="0 0 120 155" role="img" aria-label="Foto profil utuh dengan backdrop biru">
-            <title>Foto profil utuh, backdrop biru brand</title>
-            <rect x="8" y="8" width="104" height="139" rx="6" fill="#0d6ef0"/>
-            <ellipse cx="60" cy="48" rx="34" ry="38" fill="#8a5a3b"/>
-            <path d="M60 30 c-16 0 -26 10 -26 24 c0 14 10 22 26 22 c16 0 26 -8 26 -22 c0 -14 -10 -24 -26 -24z" fill="#d9a06b"/>
-            <rect x="26" y="82" width="68" height="73" rx="10" fill="#16325c"/>
-          </svg>
-        </div>
-        <div style="position:absolute; bottom:10px; left:0; right:0; text-align:center; color:#eaf1fe; font-size:12px;">
-          Foto tetap utuh persegi — backdrop biru menyatu dengan hero
-        </div>
-      </div>
-    </div>
-  </div>
-  <div style="margin-top:14px; border:1px solid var(--border); border-radius: var(--radius); padding:12px 14px; background:var(--muted); font-size:13px; line-height:1.7;">
-    <strong>Pendekatan baru (tanpa potong):</strong><br>
-    • Backdrop abu-abu→putih pada <code>profile.png</code> <b>dicat ulang</b> dengan gradasi biru brand yang sama dengan hero (<code>#1877f2 → #0c63d4</code>)<br>
-    • Foto <b>tetap persegi utuh</b> — tidak ada transparansi, tidak ada tepi terpotong/gap yang membuat tampilan jelek<br>
-    • Tepi orang di-blend halus (16px) ke warna biru, orang utuh dari kepala sampai celana<br>
-    • Verifikasi: <b>0% piksel terang</b> di area backdrop; baris bawah foto kini biru murni <code>(15,104,220)</code> — gradasi putih hilang total
-  </div>
-</div>
-
 <script>
 // ===== WELCOME SCREEN & GREETING HANDLER =====
 // Tambahkan di awal DOMContentLoaded
