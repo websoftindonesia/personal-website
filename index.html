@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     <script>
       tailwind.config = { corePlugins: { preflight: false } };
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
 :root {
     --bg-color: #f8fafc;
@@ -60,7 +60,7 @@ html {
     overflow-y: auto;
 }
 body { 
-    font-family: 'Inter', sans-serif; 
+    font-family: 'Manrope', sans-serif; 
     background: var(--bg-color); 
     color: var(--text-primary); 
     line-height: 1.6; 
@@ -289,7 +289,7 @@ footer {
 <meta name="google-site-verification" content="P15ozg3h8CienGFjoiunvBpRf2P33XsYIghta92TQJs" />
 </head>
 <script src="interactive-features.js"></script>
-<body>
+<body class="theme-dark">
 <div id="scrollProgressBar"></div>
 <div id="preloader">
     <div class="glasscube-perspective" id="glasscubePreloader">
@@ -364,7 +364,6 @@ footer {
             </audio>
         </div>
         <button class="mobile-menu-toggle" id="mobileMenuToggle"><i class="fas fa-bars"></i></button>
-        <button class="icon-button theme-toggle" id="themeToggle" title="Toggle Theme"><i class="fas fa-moon"></i></button>
     </div>
     <div class="mobile-nav" id="mobileNav">
         <a href="#home" class="mobile-nav-item active"><i class="fas fa-home"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Home</span><span class="mobile-nav-desc">Welcome page</span></div></a>
@@ -451,7 +450,7 @@ footer {
 }
 
 .hero-title-main {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Sora', sans-serif;
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 800;
     line-height: 1.15;
@@ -466,7 +465,7 @@ footer {
 }
 
 .hero-title-sub {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Sora', sans-serif;
     font-size: clamp(2rem, 4vw, 3.2rem);
     font-weight: 800;
     line-height: 1.2;
@@ -617,7 +616,7 @@ footer {
     padding: 14px 32px;
     background: #ffffff;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radius-full);
     color: #0B2545;
     font-size: 15px;
     font-weight: 600;
@@ -697,7 +696,7 @@ footer {
 .social-link { 
     width: 44px; 
     height: 44px; 
-    border-radius: 10px; 
+    border-radius: var(--radius-full); 
     background: rgba(255, 255, 255, 0.15); 
     border: 1px solid rgba(255, 255, 255, 0.3); 
     color: #ffffff; 
@@ -1015,7 +1014,7 @@ footer {
     border: 1px solid rgba(24, 119, 242, 0.2);
 }
 .section-title { 
-    font-family: 'Poppins', sans-serif; 
+    font-family: 'Sora', sans-serif; 
     font-size: clamp(2.2rem, 4.5vw, 3rem); 
     font-weight: 800; 
     color: var(--text-primary); 
@@ -1044,15 +1043,46 @@ footer {
 }
 .education-card { 
     display: flex; 
-    gap: 28px; 
-    padding: 32px; 
+    flex-direction: column;
+    gap: 0; 
+    padding: 0; 
     background: var(--card-bg); 
     border-radius: var(--radius-xl); 
     border: 1px solid var(--border-color); 
     transition: all 0.3s; 
-    align-items: flex-start;
+    align-items: stretch;
     position: relative;
     overflow: hidden;
+}
+.education-building {
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    position: relative;
+    background: var(--search-bg);
+}
+.education-building img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+    display: block;
+    transition: transform 0.6s ease;
+}
+.education-card:hover .education-building img {
+    transform: scale(1.06);
+}
+.education-building::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.45) 100%);
+}
+.education-body {
+    display: flex;
+    gap: 28px;
+    padding: 32px;
+    align-items: flex-start;
 }
 .education-card::before {
     content: '';
@@ -1172,40 +1202,52 @@ footer {
     </div>
     <div class="education-container">
         <div class="education-card animate-on-scroll">
-            <div class="education-logo">
-                <img src="https://1.bp.blogspot.com/-6GWB_O5cozE/V7vc8i2d1ZI/AAAAAAAAA78/svP56LnwbgssD3Lu6bGWXPsRK9ujsHHFQCLcB/s1600/images%2B%25281%2529.png" alt="Universitas Gunadarma">
+            <div class="education-building">
+                <img src="https://i.ibb.co.com/4R75Spnz/Whats-App-Image-2026-09-11-at-18-35-18.jpg" alt="Gedung Kampus Universitas Gunadarma" loading="lazy" onerror="this.parentElement.style.display='none'">
             </div>
-            <div class="education-content">
-                <h3 class="education-degree">Bachelor of Informatics Engineering</h3>
-                <a href="https://www.gunadarma.ac.id" target="_blank" rel="noopener noreferrer" class="education-school" aria-label="Kunjungi website Universitas Gunadarma">Universitas Gunadarma <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
-                <span class="education-period"><i class="fas fa-calendar"></i> 2025 - 2029</span>
-                <p class="education-description">Focusing on software development, artificial intelligence, and distributed systems. Involved in several research projects in machine learning and modern web application development.</p>
+            <div class="education-body">
+                <div class="education-logo">
+                    <img src="https://1.bp.blogspot.com/-6GWB_O5cozE/V7vc8i2d1ZI/AAAAAAAAA78/svP56LnwbgssD3Lu6bGWXPsRK9ujsHHFQCLcB/s1600/images%2B%25281%2529.png" alt="Universitas Gunadarma">
+                </div>
+                <div class="education-content">
+                    <h3 class="education-degree">Bachelor of Informatics Engineering</h3>
+                    <a href="https://www.gunadarma.ac.id" target="_blank" rel="noopener noreferrer" class="education-school" aria-label="Kunjungi website Universitas Gunadarma">Universitas Gunadarma <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+                    <span class="education-period"><i class="fas fa-calendar"></i> 2025 - 2029</span>
+                    <p class="education-description">Focusing on software development, artificial intelligence, and distributed systems. Involved in several research projects in machine learning and modern web application development.</p>
+                </div>
             </div>
         </div>
         <div class="education-card animate-on-scroll">
-            <div class="education-logo">
-                <img src="https://media.licdn.com/dms/image/v2/D560BAQEZhHnG5O9d3A/company-logo_200_200/company-logo_200_200/0/1689378768324?e=2147483647&v=beta&t=w6e8fOBGcE4Kpa9qgms0yP42JVHAcLE-POFBpWzmcag" alt="SMA Muhammadiyah 8 Ciputat">
+            <div class="education-building">
+                <img src="https://i.ibb.co.com/1f6rTwL9/Whats-App-Image-2026-09-11-at-18-35-19.jpg" alt="Gedung SMA Muhammadiyah 8 Ciputat" loading="lazy" onerror="this.parentElement.style.display='none'">
             </div>
-            <div class="education-content">
-                <h3 class="education-degree">Natural Science</h3>
-                <a href="https://smamdelapan.sch.id/" target="_blank" rel="noopener noreferrer" class="education-school" aria-label="Kunjungi website SMA Muhammadiyah 8 Ciputat">SMA Muhammadiyah 8 Ciputat <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
-                <span class="education-period"><i class="fas fa-calendar"></i> 2023 - 2025</span>
-                <p class="education-description">Active in science club and computer olympiad. Developed deep interest in programming and technology from an early age.</p>
+            <div class="education-body">
+                <div class="education-logo">
+                    <img src="https://media.licdn.com/dms/image/v2/D560BAQEZhHnG5O9d3A/company-logo_200_200/company-logo_200_200/0/1689378768324?e=2147483647&v=beta&t=w6e8fOBGcE4Kpa9qgms0yP42JVHAcLE-POFBpWzmcag" alt="SMA Muhammadiyah 8 Ciputat">
+                </div>
+                <div class="education-content">
+                    <h3 class="education-degree">Natural Science</h3>
+                    <a href="https://smamdelapan.sch.id/" target="_blank" rel="noopener noreferrer" class="education-school" aria-label="Kunjungi website SMA Muhammadiyah 8 Ciputat">SMA Muhammadiyah 8 Ciputat <i class="fas fa-external-link-alt" aria-hidden="true"></i></a>
+                    <span class="education-period"><i class="fas fa-calendar"></i> 2023 - 2025</span>
+                    <p class="education-description">Active in science club and computer olympiad. Developed deep interest in programming and technology from an early age.</p>
+                </div>
             </div>
         </div>
 
         <!-- Non Formal Education (Unik) -->
         <div class="education-card animate-on-scroll nonformal">
-            <div class="education-logo">
-                <img src="https://i.ibb.co.com/2c7c1Zb/online-learning.png" alt="Non Formal Learning">
-            </div>
-            <div class="education-content">
-                <h3 class="education-degree">Non-Formal Learning (Bootcamp & Kursus)</h3>
-                <span class="education-period"><i class="fas fa-calendar"></i> 2023 - Present</span>
-                <p class="education-description">Melengkapi pendidikan formal melalui kursus intensif, proyek mini, dan pembelajaran mandiri. Fokus pada praktik: membangun aplikasi kecil end-to-end, belajar debugging, dan memahami arsitektur modern.</p>
-                <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:6px;">
-                    <a href="#certificates" class="education-school" aria-label="Lihat sertifikat dan pencapaian non formal"><i class="fas fa-award" aria-hidden="true"></i> Lihat Sertifikat</a>
-                    <a href="#portfolio" class="education-school" aria-label="Lihat portfolio proyek yang dibangun dari pembelajaran non formal"><i class="fas fa-folder-open" aria-hidden="true"></i> Lihat Proyek</a>
+            <div class="education-body">
+                <div class="education-logo">
+                    <img src="https://i.ibb.co.com/2c7c1Zb/online-learning.png" alt="Non Formal Learning">
+                </div>
+                <div class="education-content">
+                    <h3 class="education-degree">Non-Formal Learning (Bootcamp & Kursus)</h3>
+                    <span class="education-period"><i class="fas fa-calendar"></i> 2023 - Present</span>
+                    <p class="education-description">Melengkapi pendidikan formal melalui kursus intensif, proyek mini, dan pembelajaran mandiri. Fokus pada praktik: membangun aplikasi kecil end-to-end, belajar debugging, dan memahami arsitektur modern.</p>
+                    <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:6px;">
+                        <a href="#certificates" class="education-school" aria-label="Lihat sertifikat dan pencapaian non formal"><i class="fas fa-award" aria-hidden="true"></i> Lihat Sertifikat</a>
+                        <a href="#portfolio" class="education-school" aria-label="Lihat portfolio proyek yang dibangun dari pembelajaran non formal"><i class="fas fa-folder-open" aria-hidden="true"></i> Lihat Proyek</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1609,7 +1651,7 @@ footer {
 .service-image-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(15, 23, 42, 0.75) 100%); display: flex; align-items: flex-end; padding: 16px; }
 .service-icon-badge { width: 44px; height: 44px; border-radius: var(--radius-lg); background: var(--gradient-primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: var(--shadow-lg); }
 .service-body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
-.service-title { font-family: 'Poppins', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; line-height: 1.3; }
+.service-title { font-family: 'Sora', sans-serif; font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; line-height: 1.3; }
 .service-description { color: var(--text-secondary); font-size: 14px; line-height: 1.65; margin-bottom: 16px; flex: 1; word-break: normal; overflow-wrap: break-word; }
 .service-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
 .service-tag { padding: 4px 10px; background: rgba(11, 37, 69, 0.1); border-radius: var(--radius-full); color: var(--main-color); font-size: 11px; font-weight: 600; }
@@ -1619,7 +1661,7 @@ footer {
 .service-cta-secondary:hover { background: rgba(11, 37, 69, 0.1); color: var(--main-color); }
 .service-cta-group { display: flex; flex-direction: column; gap: 0; }
 .services-cta-banner { margin-top: 48px; padding: 32px 28px; border-radius: var(--radius-xl); background: linear-gradient(135deg, rgba(11, 37, 69, 0.12) 0%, rgba(11, 37, 69, 0.08) 100%); border: 1px solid var(--border-color); text-align: center; }
-.services-cta-banner h3 { font-family: 'Poppins', sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
+.services-cta-banner h3 { font-family: 'Sora', sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; }
 .services-cta-banner p { color: var(--text-secondary); margin-bottom: 20px; font-size: 0.95rem; line-height: 1.6; }
 .services-cta-banner .hero-cta { margin-top: 0; }
 </style>
@@ -2269,7 +2311,7 @@ footer {
 }
 .sp-title {
     color: var(--text-primary);
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Sora', sans-serif;
     font-weight: 800;
     font-size: clamp(1.8rem, 4vw, 2.6rem);
     margin-bottom: 18px;
@@ -2574,7 +2616,7 @@ footer {
 .form-input:focus { outline: none; border-color: var(--main-color); background: var(--card-bg); }
 .form-input::placeholder { color: var(--text-secondary); }
 textarea.form-input { resize: vertical; min-height: 120px; }
-.submit-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; background: var(--gradient-primary); border: none; border-radius: var(--radius-lg); color: white; font-size: 15px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.3s; }
+.submit-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; background: var(--gradient-primary); border: none; border-radius: var(--radius-full); color: white; font-size: 15px; font-weight: 600; font-family: inherit; cursor: pointer; transition: all 0.3s; }
 .submit-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
 
 /* CHAT WIDGET */
@@ -2990,7 +3032,7 @@ html::after, html::before {
     75% { content: '...'; }
 }
 
-.loader-logo { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; background: linear-gradient(90deg, #0B2545, #93c5fd, #0B2545, #fbbf24, #0B2545); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; animation: logoShimmer 3s linear infinite, logoFloat 2.4s ease-in-out infinite; }
+.loader-logo { font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; background: linear-gradient(90deg, #0B2545, #93c5fd, #0B2545, #fbbf24, #0B2545); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; animation: logoShimmer 3s linear infinite, logoFloat 2.4s ease-in-out infinite; }
 @keyframes logoShimmer { 0% { background-position: 0% 50%; } 100% { background-position: 300% 50%; } }
 @keyframes logoFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 
@@ -3064,7 +3106,7 @@ html::after, html::before {
     text-align: center;
 }
 .testi-simple-title {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Sora', sans-serif;
     font-size: clamp(1.4rem, 3vw, 1.9rem);
     font-weight: 800;
     letter-spacing: 0.01em;
@@ -3753,7 +3795,7 @@ html::after, html::before {
         .footer-v2-col { min-width: 180px; }
         .footer-v2-logo {
             color: #ffffff;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Sora', sans-serif;
             font-size: 1.6rem;
             font-weight: 800;
             letter-spacing: 0.02em;
@@ -3808,8 +3850,8 @@ html::after, html::before {
             color: #1d4ed8;
             font-size: 12.5px;
             font-weight: 600;
-            padding: 7px 12px;
-            border-radius: 8px;
+            padding: 7px 14px;
+            border-radius: 999px;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -3955,7 +3997,8 @@ html::after, html::before {
         line-height: 1.6;
     }
     .education-container { gap: 20px; }
-    .education-card { 
+    .education-building { height: 240px; }
+    .education-body { 
         flex-direction: column; 
         text-align: center; 
         padding: 28px 20px; 
@@ -4050,7 +4093,8 @@ html::after, html::before {
         line-height: 1.5;
     }
     .education-container { gap: 16px; }
-    .education-card { padding: 24px 16px; gap: 16px; }
+    .education-building { height: 190px; }
+    .education-body { padding: 24px 16px; gap: 16px; }
     .education-logo { width: 70px; height: 70px; padding: 10px; }
     .education-degree { font-size: 1rem; }
     .education-school { font-size: 0.9rem; }
@@ -5183,13 +5227,9 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', () => { scrollBtn.style.display = window.scrollY > 300 ? 'flex' : 'none'; }, { passive: true });
     scrollBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
-    // THEME TOGGLE
-    const themeToggle = document.getElementById('themeToggle');
-    let isDark = localStorage.getItem('theme') === 'dark';
-    if (isDark) document.body.classList.add('theme-dark');
-    updateThemeIcon();
-    themeToggle.addEventListener('click', () => { isDark = !isDark; document.body.classList.toggle('theme-dark', isDark); localStorage.setItem('theme', isDark ? 'dark' : 'light'); updateThemeIcon(); });
-    function updateThemeIcon() { themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>'; }
+    // THEME: Light mode dimatikan, situs selalu menggunakan dark mode
+    document.body.classList.add('theme-dark');
+    localStorage.setItem('theme', 'dark');
 
     // CONTACT FORM ? Database
     document.getElementById('contact-form').addEventListener('submit', async function(e) {
@@ -5894,8 +5934,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => {
                     curtain.remove();
                     resolve();
-                }, 600);
-            }, 800);
+                }, 1100);
+            }, 1600);
         });
     }
     
@@ -6277,7 +6317,7 @@ document.addEventListener('DOMContentLoaded', function() {
     justify-content: center;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.6s ease;
+    transition: opacity 1s ease;
 }
 .page-curtain.active {
     opacity: 1;
@@ -6504,7 +6544,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .welcome-card h2 {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Sora', sans-serif;
     font-size: 1.6rem;
     font-weight: 700;
     color: #60a5fa !important;
@@ -6978,7 +7018,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .greeting-title {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Sora', sans-serif;
     font-size: 1.2rem;
     font-weight: 400;
     color: rgba(255,255,255,0.8);
@@ -6988,7 +7028,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .greeting-name {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Sora', sans-serif;
     font-size: 3rem;
     font-weight: 700;
     background: linear-gradient(135deg, #ffffff 0%, #60a5fa 50%, #93c5fd 100%);
