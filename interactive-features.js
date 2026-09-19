@@ -589,7 +589,6 @@ console.log('- Shake your device');
 console.log('- Keyboard shortcuts: Ctrl+K, Ctrl+H, Ctrl+C');
 console.log('- Explore all sections for achievements!');
 
-// ===== CERTIFICATES MODAL HANDLER =====
 // Tambahkan script ini di bagian JavaScript sebelum closing </script>
 
 // Certificates Modal Handler
