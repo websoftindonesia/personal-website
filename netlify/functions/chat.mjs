@@ -1,5 +1,9 @@
 const MAX_MESSAGES = 10;
 const MAX_MESSAGE_LENGTH = 2000;
+const json = (body, status = 200, headers = {}) => new Response(JSON.stringify(body), {
+  status,
+  headers: { "Content-Type": "application/json", "Cache-Control": "no-store", ...headers }
+});
 
 function sanitiseMessages(messages) {
   if (!Array.isArray(messages)) return [];
@@ -11,18 +15,18 @@ function sanitiseMessages(messages) {
 }
 
 export default async (request) => {
-  if (request.httpMethod !== "POST") {
-    return { statusCode: 405, headers: { Allow: "POST" }, body: JSON.stringify({ error: "Method not allowed." }) };
+  if (request.method !== "POST") {
+    return json({ error: "Method not allowed." }, 405, { Allow: "POST" });
   }
 
   if (!process.env.OPENAI_API_KEY) {
-    return { statusCode: 503, body: JSON.stringify({ error: "AI service has not been configured yet." }) };
+    return json({ error: "AI service has not been configured yet." }, 503);
   }
 
   let body;
-  try { body = JSON.parse(request.body || "{}"); } catch { return { statusCode: 400, body: JSON.stringify({ error: "Invalid request body." }) }; }
+  try { body = await request.json(); } catch { return json({ error: "Invalid request body." }, 400); }
   const input = sanitiseMessages(body.messages);
-  if (!input.length) return { statusCode: 400, body: JSON.stringify({ error: "Please send a message." }) };
+  if (!input.length) return json({ error: "Please send a message." }, 400);
 
   const instructions = "You are Wazryn Assistant, the helpful AI concierge for Muhammad Fawwaz Rayyan Khalish's portfolio. Reply in the visitor's language; Indonesian is the default. Be warm, accurate, and concise (normally under 150 words). You can discuss the portfolio, skills, services, projects, and contact options. Do not invent personal facts, pricing, availability, credentials, or links. If a question is unrelated to the portfolio, you may help generally but state uncertainty when appropriate.";
 
@@ -35,13 +39,13 @@ export default async (request) => {
     const payload = await response.json();
     if (!response.ok) {
       console.error("OpenAI response error", response.status, payload?.error?.message);
-      return { statusCode: 502, body: JSON.stringify({ error: "AI service could not answer right now." }) };
+      return json({ error: "AI service could not answer right now." }, 502);
     }
     const reply = String(payload.output_text || "").trim();
-    if (!reply) return { statusCode: 502, body: JSON.stringify({ error: "AI service returned an empty reply." }) };
-    return { statusCode: 200, headers: { "Content-Type": "application/json", "Cache-Control": "no-store" }, body: JSON.stringify({ reply }) };
+    if (!reply) return json({ error: "AI service returned an empty reply." }, 502);
+    return json({ reply });
   } catch (error) {
     console.error("AI proxy failed", error);
-    return { statusCode: 502, body: JSON.stringify({ error: "Unable to reach the AI service." }) };
+    return json({ error: "Unable to reach the AI service." }, 502);
   }
 };
