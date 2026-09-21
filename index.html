@@ -8643,8 +8643,110 @@ body.theme-dark .sp-item:hover .sp-logo {
 .chat-input::placeholder { color: #475569 !important; opacity: 1 !important; }
 .chat-send { color: #ffffff !important; background: #0b2545 !important; border-color: #0b2545 !important; }
 .chat-send i { color: #ffffff !important; }
+
+/* Lightweight polish: these effects use composited properties only, and are
+   disabled for visitors who prefer reduced motion. */
+.content-section { content-visibility: auto; contain-intrinsic-size: auto 720px; }
+.project-card, .service-card, .testi-simple-card, .experience-card {
+    transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+    .project-card:hover, .service-card:hover, .testi-simple-card:hover, .experience-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 18px 36px rgba(15, 23, 42, .14);
+    }
+}
+.reading-progress-label {
+    position: fixed;
+    right: 20px;
+    bottom: 22px;
+    z-index: 850;
+    display: grid;
+    width: 48px;
+    height: 48px;
+    place-items: center;
+    border: 1px solid rgba(15, 23, 42, .15);
+    border-radius: 50%;
+    color: #ffffff;
+    background: #0b2545;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, .22);
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: opacity .2s ease, transform .2s ease, background .2s ease;
+}
+.reading-progress-label.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.reading-progress-label:hover { background: #1877f2; transform: translateY(-3px); }
+.reading-progress-label:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
+.reading-progress-label .reading-percent { font-size: .64rem; font-weight: 800; line-height: 1; }
+.reading-progress-label i { font-size: .84rem; }
+@media (max-width: 720px) {
+    .reading-progress-label { right: 16px; bottom: max(88px, env(safe-area-inset-bottom)); }
+    .content-section { contain-intrinsic-size: auto 560px; }
+}
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
 </style>
+<script>
+/* Progressive enhancement only: no network requests or framework overhead. */
+(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const navLinks = [...document.querySelectorAll('.nav-item[href^="#"], .mobile-nav-item[href^="#"]')];
+    const sections = [...document.querySelectorAll('section[id]')];
+
+    // Mark the current section in both desktop and mobile navigation.
+    if ('IntersectionObserver' in window && sections.length) {
+        const sectionObserver = new IntersectionObserver((entries) => {
+            const current = entries.filter((entry) => entry.isIntersecting)
+                .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+            if (!current) return;
+            navLinks.forEach((link) => {
+                const active = link.getAttribute('href') === `#${current.target.id}`;
+                link.classList.toggle('active', active);
+                if (active) link.setAttribute('aria-current', 'page');
+                else link.removeAttribute('aria-current');
+            });
+        }, { rootMargin: '-28% 0px -58% 0px', threshold: [0.01, .2, .45] });
+        sections.forEach((section) => sectionObserver.observe(section));
+    }
+
+    // Defer images that are outside the first viewport and decode them off the main paint path.
+    const images = [...document.images];
+    images.forEach((image, index) => {
+        if (index > 2 && !image.hasAttribute('loading')) image.loading = 'lazy';
+        image.decoding = 'async';
+        if (index > 6) image.fetchPriority = 'low';
+    });
+    document.querySelectorAll('iframe').forEach((frame) => { if (!frame.hasAttribute('loading')) frame.loading = 'lazy'; });
+
+    // Accessible back-to-top control with a compact reading percentage.
+    const backTop = document.createElement('button');
+    backTop.type = 'button';
+    backTop.className = 'reading-progress-label';
+    backTop.setAttribute('aria-label', 'Kembali ke bagian atas halaman');
+    backTop.title = 'Kembali ke atas';
+    backTop.innerHTML = '<span class="reading-percent">0%</span><i class="fas fa-arrow-up" aria-hidden="true"></i>';
+    document.body.appendChild(backTop);
+    const percent = backTop.querySelector('.reading-percent');
+    let ticking = false;
+    const updateReadingState = () => {
+        const maximum = document.documentElement.scrollHeight - window.innerHeight;
+        const value = maximum > 0 ? Math.round((window.scrollY / maximum) * 100) : 0;
+        percent.textContent = `${Math.min(100, Math.max(0, value))}%`;
+        backTop.classList.toggle('is-visible', window.scrollY > 520);
+        ticking = false;
+    };
+    const onScroll = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(updateReadingState);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    updateReadingState();
+    backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
+})();
+</script>
 <script src="voice-ai-local.js" defer></script>
 </body>
 </html>
