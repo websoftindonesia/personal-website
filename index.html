@@ -340,6 +340,7 @@ footer {
         <a href="#skills" class="nav-item"><i class="fas fa-code"></i> Skills</a>
         <a href="#experience" class="nav-item"><i class="fas fa-briefcase"></i> Experience</a>
         <a href="#services" class="nav-item"><i class="fas fa-handshake"></i> Services</a>
+        <a href="#why-choose-us" class="nav-item"><i class="fas fa-circle-check"></i> Why Me</a>
         <a href="#portfolio" class="nav-item"><i class="fas fa-folder-open"></i> Portfolio</a>
         <a href="#certificates" class="nav-item"><i class="fas fa-certificate"></i> Certifications</a>
         <a href="#scholarship-partners" class="nav-item"><i class="fas fa-award"></i> Partnership</a>
@@ -384,6 +385,7 @@ footer {
         <a href="#skills" class="mobile-nav-item"><i class="fas fa-code"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Skills</span><span class="mobile-nav-desc">Technical expertise</span></div></a>
         <a href="#experience" class="mobile-nav-item"><i class="fas fa-briefcase"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Experience</span><span class="mobile-nav-desc">Work history</span></div></a>
         <a href="#services" class="mobile-nav-item"><i class="fas fa-handshake"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Services</span><span class="mobile-nav-desc">Layanan yang saya tawarkan</span></div></a>
+        <a href="#why-choose-us" class="mobile-nav-item"><i class="fas fa-circle-check"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Mengapa Saya</span><span class="mobile-nav-desc">Nilai kerja sama yang ditawarkan</span></div></a>
         <a href="#portfolio" class="mobile-nav-item"><i class="fas fa-folder-open"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Portfolio</span><span class="mobile-nav-desc">My projects</span></div></a>
         <a href="#certificates" class="mobile-nav-item"><i class="fas fa-certificate"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Certifications</span><span class="mobile-nav-desc">My achievements</span></div></a>
         <a href="#testimonials" class="mobile-nav-item"><i class="fas fa-quote-right"></i><div class="mobile-nav-text"><span class="mobile-nav-title">Testimoni</span><span class="mobile-nav-desc">Kata mereka</span></div></a>
@@ -1769,6 +1771,62 @@ footer {
         <h3>Butuh kombinasi beberapa layanan?</h3>
         <p>Saya bisa membantu paket custom, misalnya website Hostinger + dashboard admin + desain branding dalam satu proyek.</p>
         <a href="https://api.whatsapp.com/send?phone=6285719562762&text=Halo%20Fawwaz%2C%20saya%20tertarik%20dengan%20layanan%20Anda." target="_blank" rel="noopener noreferrer" class="hero-cta">Hubungi via WhatsApp <i class="fab fa-whatsapp"></i></a>
+    </div>
+</section>
+
+<style>
+/* WHY CHOOSE US */
+.choose-us-section { overflow: hidden; }
+.choose-us-intro { max-width: 650px; margin: 0 auto 42px; color: var(--text-secondary); text-align: center; font-size: 1rem; line-height: 1.75; }
+.choose-us-layout { display: grid; grid-template-columns: minmax(260px, .9fr) minmax(0, 1.1fr); align-items: center; gap: clamp(28px, 6vw, 82px); }
+.choose-us-visual { position: relative; min-height: 410px; overflow: hidden; border: 1px solid rgba(99, 102, 241, .25); border-radius: 28px; background: #0b2545; box-shadow: 0 24px 50px rgba(15, 23, 42, .18); }
+.choose-us-visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(11,37,69,.08) 10%, rgba(11,37,69,.23) 52%, rgba(2,6,23,.82) 100%); pointer-events: none; }
+.choose-us-photo { width: 100%; height: 100%; min-height: 410px; object-fit: cover; object-position: center top; display: block; transform: scale(1.02); }
+.choose-us-caption { position: absolute; z-index: 1; right: 20px; bottom: 20px; left: 20px; display: flex; align-items: center; gap: 11px; padding: 13px 15px; border: 1px solid rgba(255,255,255,.28); border-radius: 16px; color: #fff; background: rgba(11,37,69,.7); backdrop-filter: blur(12px); font-weight: 700; font-size: .88rem; }
+.choose-us-caption i { color: #86efac; }
+.choose-us-accordion { border-top: 1px solid var(--border-color); }
+.choose-us-item { width: 100%; border: 0; border-bottom: 1px solid var(--border-color); background: transparent; color: var(--text-primary); display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 22px 2px; font: inherit; font-size: clamp(1rem, 2.1vw, 1.2rem); font-weight: 750; text-align: left; cursor: pointer; }
+.choose-us-item:hover { color: #4f46e5; }
+.choose-us-item i { flex: 0 0 auto; color: #64748b; font-size: 1rem; transition: transform .24s ease, color .24s ease; }
+.choose-us-item[aria-expanded="true"] { color: #4f46e5; }
+.choose-us-item[aria-expanded="true"] i { color: #4f46e5; transform: rotate(45deg); }
+.choose-us-answer { display: grid; grid-template-rows: 0fr; border-bottom: 1px solid transparent; transition: grid-template-rows .3s ease, border-color .3s ease; }
+.choose-us-answer > div { min-height: 0; overflow: hidden; }
+.choose-us-answer p { margin: 0; padding: 0 4px 0; color: var(--text-secondary); font-size: .96rem; line-height: 1.75; }
+.choose-us-answer.is-open { grid-template-rows: 1fr; border-bottom-color: var(--border-color); }
+.choose-us-answer.is-open p { padding-bottom: 22px; }
+@media (max-width: 820px) { .choose-us-layout { grid-template-columns: 1fr; gap: 30px; }.choose-us-visual, .choose-us-photo { min-height: 300px; }.choose-us-visual { max-width: 640px; width: 100%; margin: 0 auto; } }
+@media (max-width: 520px) { .choose-us-visual, .choose-us-photo { min-height: 250px; border-radius: 22px; }.choose-us-caption { right: 14px; bottom: 14px; left: 14px; font-size: .78rem; }.choose-us-item { padding: 18px 2px; font-size: 1rem; } }
+</style>
+
+<section id="why-choose-us" class="content-section choose-us-section">
+    <div class="section-header animate-on-scroll">
+        <span class="section-badge"><i class="fas fa-circle-check"></i> Why Choose Me</span>
+        <h2 class="section-title">Mengapa Memilih Saya?</h2>
+        <p class="section-subtitle">Kolaborasi yang jelas, fleksibel, dan berorientasi pada hasil.</p>
+    </div>
+    <p class="choose-us-intro animate-on-scroll">Setiap proyek dirancang untuk menyelesaikan kebutuhan nyata—mulai dari ide, desain, pengembangan, hingga siap digunakan oleh audiens Anda.</p>
+    <div class="choose-us-layout animate-on-scroll">
+        <div class="choose-us-visual">
+            <img class="choose-us-photo" src="https://i.ibb.co.com/VpNFDDsx/Whats-App-Image-2026-05-15-at-20-45-47.jpg" alt="Muhammad Fawwaz Rayyan Khalish siap berkolaborasi" loading="lazy" decoding="async">
+            <div class="choose-us-caption"><i class="fas fa-sparkles" aria-hidden="true"></i><span>Membangun solusi digital yang bermakna.</span></div>
+        </div>
+        <div class="choose-us-accordion" data-choose-us-accordion>
+            <button class="choose-us-item" type="button" aria-expanded="true" aria-controls="choose-answer-1"><span>Bagaimana proses kerja sama dimulai?</span><i class="fas fa-plus" aria-hidden="true"></i></button>
+            <div class="choose-us-answer is-open" id="choose-answer-1" role="region"><div><p>Kita mulai dengan memahami tujuan, target pengguna, dan kebutuhan utama Anda. Setelah itu saya menyiapkan arah solusi, ruang lingkup, serta estimasi pengerjaan yang mudah dipahami.</p></div></div>
+
+            <button class="choose-us-item" type="button" aria-expanded="false" aria-controls="choose-answer-2"><span>Apakah website akan responsif di mobile?</span><i class="fas fa-plus" aria-hidden="true"></i></button>
+            <div class="choose-us-answer" id="choose-answer-2" role="region"><div><p>Ya. Tampilan dirancang dengan pendekatan mobile-first agar nyaman dibuka di ponsel, tablet, maupun laptop tanpa mengorbankan kecepatan dan keterbacaan.</p></div></div>
+
+            <button class="choose-us-item" type="button" aria-expanded="false" aria-controls="choose-answer-3"><span>Bagaimana komunikasi selama proyek berlangsung?</span><i class="fas fa-plus" aria-hidden="true"></i></button>
+            <div class="choose-us-answer" id="choose-answer-3" role="region"><div><p>Setiap tahapan dikomunikasikan secara terbuka. Anda akan memperoleh pembaruan progres dan ruang untuk memberi masukan sebelum proyek masuk ke tahap berikutnya.</p></div></div>
+
+            <button class="choose-us-item" type="button" aria-expanded="false" aria-controls="choose-answer-4"><span>Apakah tersedia dukungan setelah website online?</span><i class="fas fa-plus" aria-hidden="true"></i></button>
+            <div class="choose-us-answer" id="choose-answer-4" role="region"><div><p>Tersedia bantuan untuk pengecekan awal, perbaikan kecil, dan panduan penggunaan agar website dapat berjalan dengan stabil setelah dipublikasikan.</p></div></div>
+
+            <button class="choose-us-item" type="button" aria-expanded="false" aria-controls="choose-answer-5"><span>Bisakah layanan disesuaikan dengan kebutuhan proyek?</span><i class="fas fa-plus" aria-hidden="true"></i></button>
+            <div class="choose-us-answer" id="choose-answer-5" role="region"><div><p>Bisa. Ruang lingkup dapat disesuaikan, misalnya hanya desain UI, pengembangan website penuh, dashboard, integrasi database, atau kombinasi beberapa layanan.</p></div></div>
+        </div>
     </div>
 </section>
 
@@ -6580,7 +6638,7 @@ document.addEventListener('DOMContentLoaded', function() {
     95% { transform: rotate(12deg); }
 }
 
-.welcome-card h2 {
+.welcom ce-card h2 {
     font-family: 'Sora', sans-serif;
     font-size: 1.6rem;
     font-weight: 700;
@@ -8644,6 +8702,67 @@ body.theme-dark .sp-item:hover .sp-logo {
 .chat-send { color: #ffffff !important; background: #0b2545 !important; border-color: #0b2545 !important; }
 .chat-send i { color: #ffffff !important; }
 
+/* ===== WELCOME FORM: SPLIT VISUAL + VALIDATION ===== */
+.welcome-screen { background: radial-gradient(circle at 15% 15%, #0b4a6b 0, #062d48 38%, #041d35 100%) !important; }
+.welcome-screen .glasscube-scene,
+.welcome-screen .glasscube-glow { display: none !important; }
+.welcome-card {
+    display: grid !important;
+    grid-template-columns: minmax(280px, .95fr) minmax(360px, 1fr);
+    max-width: min(1020px, calc(100vw - 40px)) !important;
+    min-height: 560px;
+    margin: auto !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(255,255,255,.28) !important;
+    border-radius: 22px !important;
+    background: #ffffff !important;
+    box-shadow: 0 28px 80px rgba(0, 13, 28, .42) !important;
+    text-align: left !important;
+}
+.welcome-visual { position: relative; min-height: 100%; overflow: hidden; background: #0b2545; }
+.welcome-visual::after { content: ''; position: absolute; inset: 0; background: linear-gradient(150deg, rgba(2, 29, 53, .22), rgba(2, 19, 35, .7)); }
+.welcome-visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.welcome-visual-copy { position: absolute; z-index: 1; bottom: 0; left: 0; right: 0; padding: 30px; color: #ffffff; }
+.welcome-visual-copy span { display: inline-flex; gap: 8px; align-items: center; padding: 7px 11px; border: 1px solid rgba(255,255,255,.34); border-radius: 999px; background: rgba(7, 28, 50, .5); font-size: .72rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+.welcome-visual-copy h2 { margin: 15px 0 7px !important; color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; font-family: 'Sora', sans-serif; font-size: clamp(1.6rem, 3vw, 2.35rem) !important; line-height: 1.13; }
+.welcome-visual-copy p { margin: 0; color: rgba(255,255,255,.88); line-height: 1.6; font-size: .9rem; }
+.welcome-form-pane { align-self: center; width: min(100%, 470px); padding: 44px 46px; margin: auto; }
+.welcome-form-pane .welcome-avatar { display: none !important; }
+.welcome-form-pane > h2 { margin: 0 0 7px !important; color: #111827 !important; -webkit-text-fill-color: #111827 !important; font-size: clamp(1.75rem, 3vw, 2.25rem) !important; line-height: 1.15; }
+.welcome-form-pane .welcome-subtitle { margin: 0 0 27px !important; color: #64748b !important; }
+.welcome-form .form-group { margin-bottom: 15px; }
+.welcome-form .form-group label { color: #334155 !important; font-size: .78rem; }
+.welcome-form .form-group input,
+.welcome-form .form-group select { padding: 12px 14px !important; border: 1px solid #cbd5e1 !important; border-radius: 9px !important; background: #f8fafc !important; color: #0f172a !important; }
+.welcome-form .form-group input:focus,
+.welcome-form .form-group select:focus { border-color: #1877f2 !important; background: #ffffff !important; box-shadow: 0 0 0 4px rgba(24,119,242,.12) !important; }
+.welcome-form .form-group.field-valid input,
+.welcome-form .form-group.field-valid select { border-color: #16a34a !important; background: #f0fdf4 !important; }
+.welcome-form .form-group.field-invalid input,
+.welcome-form .form-group.field-invalid select { border-color: #dc2626 !important; background: #fef2f2 !important; }
+.welcome-btn { min-height: 49px; margin-top: 7px; border-radius: 9px !important; background: #087bb8 !important; box-shadow: 0 9px 22px rgba(8,123,184,.26) !important; }
+.welcome-btn:hover { background: #056aa3 !important; transform: translateY(-1px); }
+.welcome-skip { display: block; width: 100%; margin-top: 16px; color: #475569 !important; font-size: .82rem; }
+.welcome-features { justify-content: center; margin-top: 18px; }
+.welcome-feature { color: #64748b !important; }
+.welcome-tailwind-note { display: none !important; }
+@media (max-width: 720px) {
+    .welcome-screen { padding: 16px !important; background: #061f37 !important; }
+    .welcome-card { display: block !important; min-height: 0; max-width: 520px !important; background: #0b2545 url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=82') center/cover !important; }
+    .welcome-card::before { content: ''; position: absolute; inset: 0; z-index: 0; background: rgba(2, 20, 37, .74); backdrop-filter: blur(1px); }
+    .welcome-visual { display: none !important; }
+    .welcome-form-pane { position: relative; z-index: 1; width: 100%; padding: 32px 24px 25px; }
+    .welcome-form-pane > h2 { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; }
+    .welcome-form-pane .welcome-subtitle,
+    .welcome-form .form-group label,
+    .welcome-skip,
+    .welcome-feature { color: rgba(255,255,255,.86) !important; }
+    .welcome-form .form-group input,
+    .welcome-form .form-group select { background: rgba(255,255,255,.96) !important; }
+    .welcome-features { gap: 10px; flex-wrap: wrap; }
+}
+
 /* Lightweight polish: these effects use composited properties only, and are
    disabled for visitors who prefer reduced motion. */
 .content-section { content-visibility: auto; contain-intrinsic-size: auto 720px; }
@@ -8694,6 +8813,30 @@ body.theme-dark .sp-item:hover .sp-logo {
     const navLinks = [...document.querySelectorAll('.nav-item[href^="#"], .mobile-nav-item[href^="#"]')];
     const sections = [...document.querySelectorAll('section[id]')];
 
+    // Restyle the existing visitor-validation form without changing its IDs,
+    // fields, validation logic, or local-storage behaviour.
+    const welcomeCard = document.querySelector('#welcomeScreen .welcome-card');
+    if (welcomeCard && !welcomeCard.querySelector('.welcome-form-pane')) {
+        const visual = document.createElement('aside');
+        visual.className = 'welcome-visual';
+        visual.setAttribute('aria-hidden', 'true');
+        visual.innerHTML = `
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=82" alt="" decoding="async" fetchpriority="high">
+            <div class="welcome-visual-copy">
+                <span><i class="fas fa-lightbulb"></i> Kolaborasi digital</span>
+                <h2>Dari ide menjadi solusi.</h2>
+                <p>Ceritakan kebutuhan Anda, lalu mari buat pengalaman digital yang berguna dan mudah diingat.</p>
+            </div>`;
+        const pane = document.createElement('div');
+        pane.className = 'welcome-form-pane';
+        while (welcomeCard.firstChild) pane.appendChild(welcomeCard.firstChild);
+        welcomeCard.append(visual, pane);
+        const heading = pane.querySelector(':scope > h2');
+        const subtitle = pane.querySelector('.welcome-subtitle');
+        if (heading) heading.textContent = 'Mari Berkenalan';
+        if (subtitle) subtitle.textContent = 'Isi data singkat untuk pengalaman portofolio yang lebih personal.';
+    }
+
     // Mark the current section in both desktop and mobile navigation.
     if ('IntersectionObserver' in window && sections.length) {
         const sectionObserver = new IntersectionObserver((entries) => {
@@ -8709,6 +8852,24 @@ body.theme-dark .sp-item:hover .sp-logo {
         }, { rootMargin: '-28% 0px -58% 0px', threshold: [0.01, .2, .45] });
         sections.forEach((section) => sectionObserver.observe(section));
     }
+
+    // "Mengapa Memilih Saya?" accordion: one concise answer at a time.
+    document.querySelectorAll('[data-choose-us-accordion]').forEach((accordion) => {
+        const controls = [...accordion.querySelectorAll('.choose-us-item')];
+        controls.forEach((control) => control.addEventListener('click', () => {
+            const isOpen = control.getAttribute('aria-expanded') === 'true';
+            controls.forEach((item) => {
+                const answer = document.getElementById(item.getAttribute('aria-controls'));
+                item.setAttribute('aria-expanded', 'false');
+                answer?.classList.remove('is-open');
+            });
+            if (!isOpen) {
+                const answer = document.getElementById(control.getAttribute('aria-controls'));
+                control.setAttribute('aria-expanded', 'true');
+                answer?.classList.add('is-open');
+            }
+        }));
+    });
 
     // Defer images that are outside the first viewport and decode them off the main paint path.
     const images = [...document.images];
