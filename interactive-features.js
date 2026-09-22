@@ -3,14 +3,19 @@
 
 // ===== 1. CURSOR TRAIL EFFECT =====
 const cursorTrail = [];
-const maxTrailLength = 15;
+const maxTrailLength = 8;
+const canUseCursorTrail = window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let lastTrailTime = 0;
 
 document.addEventListener('mousemove', (e) => {
-    if (Math.random() > 0.7) {
+    const now = performance.now();
+    if (canUseCursorTrail && now - lastTrailTime > 80) {
+        lastTrailTime = now;
         const trail = document.createElement('div');
         trail.className = 'cursor-trail';
-        trail.style.left = e.pageX + 'px';
-        trail.style.top = e.pageY + 'px';
+        trail.style.left = e.clientX + 'px';
+        trail.style.top = e.clientY + 'px';
         document.body.appendChild(trail);
         
         cursorTrail.push(trail);
@@ -153,22 +158,21 @@ class TextScramble {
     }
 }
 
-// Apply scramble effect to section titles
+// Reveal section titles once. This replaces the repeated text-rewrite animation,
+// which could trigger unnecessary layout work while scrolling.
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.section-header h2').forEach(el => {
-        const fx = new TextScramble(el);
-        const originalText = el.innerText;
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    fx.setText(originalText);
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        observer.observe(el);
-    });
+    const titles = document.querySelectorAll('.section-header h2');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion || !('IntersectionObserver' in window)) return;
+    titles.forEach((title) => title.classList.add('smooth-reveal'));
+    const observer = new IntersectionObserver((entries, titleObserver) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-revealed');
+            titleObserver.unobserve(entry.target);
+        });
+    }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
+    titles.forEach((title) => observer.observe(title));
 });
 
 // ===== 6. ACHIEVEMENT SYSTEM =====
@@ -198,11 +202,6 @@ function unlockAchievement(key) {
 function showAchievement(icon, name, desc) {
     const achDiv = document.createElement('div');
     achDiv.className = 'achievement-popup';
-    // Apply blue gradient specifically for Speedster achievement
-    const isSpeedster = name === 'Speedster';
-    if (isSpeedster) {
-        achDiv.style.background = 'linear-gradient(135deg, #1877f2 0%, #0c63d4 100%)';
-    }
     achDiv.innerHTML = `
         <div class="achievement-icon">${icon}</div>
         <div class="achievement-content">
@@ -245,20 +244,21 @@ document.addEventListener('click', () => {
 });
 
 // Track scroll speed
-let lastScrollTime = Date.now();
+let lastScrollTime = performance.now();
 let lastScrollY = window.scrollY;
-
+let scrollSpeedFrame = 0;
 window.addEventListener('scroll', () => {
-    const now = Date.now();
-    const currentY = window.scrollY;
-    const speed = Math.abs(currentY - lastScrollY) / (now - lastScrollTime);
-    
-    if (speed > 5) {
-        unlockAchievement('speedster');
-    }
-    
-    lastScrollTime = now;
-    lastScrollY = currentY;
+    if (scrollSpeedFrame) return;
+    scrollSpeedFrame = requestAnimationFrame(() => {
+        const now = performance.now();
+        const currentY = window.scrollY;
+        const elapsed = now - lastScrollTime;
+        const speed = elapsed > 0 ? Math.abs(currentY - lastScrollY) / elapsed : 0;
+        if (speed > 5) unlockAchievement('speedster');
+        lastScrollTime = now;
+        lastScrollY = currentY;
+        scrollSpeedFrame = 0;
+    });
 }, { passive: true });
 
 // Check time of day

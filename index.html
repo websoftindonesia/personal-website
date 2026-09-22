@@ -288,7 +288,7 @@ footer {
 </style>
 <meta name="google-site-verification" content="P15ozg3h8CienGFjoiunvBpRf2P33XsYIghta92TQJs" />
 </head>
-<script src="interactive-features.js"></script>
+<script src="interactive-features.js" defer></script>
 <body class="theme-dark">
 <div class="cinematic-background" aria-hidden="true">
     <span class="cinematic-orb cinematic-orb-one"></span>
@@ -3303,12 +3303,12 @@ html::after, html::before {
     'use strict';
 
     var testimonials = [
-        { initials: 'AL', name: 'Alya Putri', role: 'Founder, UMKM Kuliner', text: 'Hasil website rapi, cepat, dan gampang diupdate. Proses komunikasinya juga enak banget, responnya cepat.' },
-        { initials: 'MR', name: 'Muhammad Rafi', role: 'Project Owner, Startup', text: 'Front-end-nya interaktif dan performanya bagus. Timing delivery sesuai, dan dokumentasinya jelas.' },
-        { initials: 'DS', name: 'Dewi Salsabila', role: 'Operations, Komunitas Tech', text: 'Konsultasinya detail, saran teknisnya masuk akal, dan hasilnya sesuai kebutuhan tim kami.' },
-        { initials: 'KS', name: 'Kevin Santoso', role: 'Coordinator, Program Volunteers', text: 'Design-nya menarik dan tetap fokus pada user experience. Proyek terasa rapi dari awal sampai akhir.' },
-        { initials: 'YA', name: 'Yusuf A.', role: 'Client, Dashboard & API', text: 'Backend-nya stabil dan api-nya enak dipakai. Dashboard-nya responsif dan mudah dipahami.' },
-        { initials: 'NZ', name: 'Nadia Zahra', role: 'Designer, UI Collaboration', text: 'Kolaborasinya smooth. Hasil implementasi sesuai mockup, dan detail kecilnya diperhatikan.' }
+        { initials: 'AL', name: 'Alya Putri', role: 'Founder, UMKM Kuliner', photo: 'https://i.pravatar.cc/160?img=47', text: 'Hasil website rapi, cepat, dan gampang diupdate. Proses komunikasinya juga enak banget, responnya cepat.' },
+        { initials: 'MR', name: 'Muhammad Rafi', role: 'Project Owner, Startup', photo: 'https://i.pravatar.cc/160?img=12', text: 'Front-end-nya interaktif dan performanya bagus. Timing delivery sesuai, dan dokumentasinya jelas.' },
+        { initials: 'DS', name: 'Dewi Salsabila', role: 'Operations, Komunitas Tech', photo: 'https://i.pravatar.cc/160?img=32', text: 'Konsultasinya detail, saran teknisnya masuk akal, dan hasilnya sesuai kebutuhan tim kami.' },
+        { initials: 'KS', name: 'Kevin Santoso', role: 'Coordinator, Program Volunteers', photo: 'https://i.pravatar.cc/160?img=53', text: 'Design-nya menarik dan tetap fokus pada user experience. Proyek terasa rapi dari awal sampai akhir.' },
+        { initials: 'YA', name: 'Yusuf A.', role: 'Client, Dashboard & API', photo: 'https://i.pravatar.cc/160?img=68', text: 'Backend-nya stabil dan api-nya enak dipakai. Dashboard-nya responsif dan mudah dipahami.' },
+        { initials: 'NZ', name: 'Nadia Zahra', role: 'Designer, UI Collaboration', photo: 'https://i.pravatar.cc/160?img=44', text: 'Kolaborasinya smooth. Hasil implementasi sesuai mockup, dan detail kecilnya diperhatikan.' }
     ];
 
     var PAGE_SIZE = 3;
@@ -3336,7 +3336,7 @@ html::after, html::before {
                     '<div class="testi-simple-quote">&ldquo;</div>' +
                     '<p class="testi-simple-text">' + escapeHTML(t.text) + '</p>' +
                     '<div class="testi-simple-person">' +
-                        '<div class="testi-simple-avatar" aria-hidden="true">' + escapeHTML(t.initials) + '</div>' +
+                        '<div class="testi-simple-avatar"><img src="' + escapeHTML(t.photo) + '" alt="Foto ' + escapeHTML(t.name) + '" loading="lazy" decoding="async"></div>' +
                         '<div class="testi-simple-meta">' +
                             '<div class="testi-simple-name">' + escapeHTML(t.name) + '</div>' +
                             '<div class="testi-simple-role">' + escapeHTML(t.role) + '</div>' +
@@ -8806,25 +8806,26 @@ body.theme-dark .sp-item:hover .sp-logo {
 .testi-simple-controls button { border-color: #cbd5e1 !important; color: #0b2545 !important; background: #ffffff !important; box-shadow: 0 7px 17px rgba(15,23,42,.08); }
 .testi-simple-controls button:hover { color: #ffffff !important; background: #0b2545 !important; }
 .testi-simple-grid { gap: 18px !important; }
-.testi-simple-card { overflow: hidden; min-height: 300px !important; padding: 27px 25px 23px !important; border: 1px solid #dbe7f1 !important; border-radius: 22px !important; background: linear-gradient(145deg, #ffffff, #f1f7fb) !important; box-shadow: 0 12px 30px rgba(15,23,42,.07) !important; }
+.testi-simple-card { overflow: hidden; min-height: 300px !important; padding: 27px 25px 23px !important; border: 1px solid #dbe7f1 !important; border-radius: 22px !important; background: #ffffff !important; box-shadow: 0 12px 30px rgba(15,23,42,.07) !important; }
 .testi-simple-card::after { right: auto !important; left: 25px !important; width: 58px !important; background: linear-gradient(90deg, #087bb8, #2dd4bf) !important; opacity: 1 !important; }
 .testi-simple-card:hover { border-color: rgba(8,123,184,.38) !important; box-shadow: 0 20px 40px rgba(8,123,184,.13) !important; }
 .testi-simple-quote { color: #087bb8 !important; font-size: 2.65rem !important; }
 .testi-simple-text { color: #334155 !important; font-style: normal !important; font-size: .93rem !important; line-height: 1.75 !important; }
 .testi-simple-person { padding-top: 15px !important; border-top: 1px solid #dbe7f1; }
-.testi-simple-avatar { width: 48px !important; height: 48px !important; color: #ffffff !important; background: linear-gradient(135deg, #0b2545, #087bb8) !important; box-shadow: 0 7px 15px rgba(8,123,184,.19); }
+.testi-simple-avatar { width: 48px !important; height: 48px !important; overflow: hidden; color: #ffffff !important; background: #0b2545 !important; box-shadow: 0 7px 15px rgba(8,123,184,.19); }
+.testi-simple-avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .testi-simple-name { color: #0f172a !important; letter-spacing: 0 !important; text-transform: none !important; font-size: .9rem !important; }
 .testi-simple-role { color: #64748b !important; }
 .testi-simple-footer { padding-top: 4px; }
 .testi-simple-footer p { color: #475569 !important; }.testi-simple-footer p i { color: #087bb8 !important; }
 .testi-simple-dots button { width: 22px !important; height: 5px !important; border-radius: 999px !important; background: #cbd5e1 !important; }.testi-simple-dots button.active { width: 38px !important; background: #087bb8 !important; }
 
-/* Achievement notification from interactive-features.js. */
-.achievement-popup { right: -420px !important; top: 92px !important; gap: 14px; max-width: 370px !important; padding: 14px !important; border: 1px solid rgba(125,211,252,.5); border-radius: 18px !important; color: #e0f2fe !important; background: linear-gradient(135deg, rgba(7,31,58,.98), rgba(8,123,184,.96)) !important; box-shadow: 0 18px 44px rgba(2,19,35,.3) !important; backdrop-filter: blur(14px); }
-.achievement-popup::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(circle at 88% 8%, rgba(94,234,212,.35), transparent 38%); pointer-events: none; }
-.achievement-popup.show { right: 22px !important; }
-.achievement-icon { position: relative; z-index: 1; display: grid; width: 56px; height: 56px; place-items: center; border: 1px solid rgba(255,255,255,.35); border-radius: 16px; font-size: 1.85rem !important; background: rgba(255,255,255,.12); animation: none !important; }
-.achievement-content { position: relative; z-index: 1; }.achievement-title { color: #99f6e4; font-size: .65rem !important; font-weight: 800; letter-spacing: .13em !important; }.achievement-name { color: #ffffff; font-size: 1.05rem !important; }.achievement-desc { color: #dbeafe; font-size: .78rem !important; }
+/* Solid achievement notification: no gradients, glass blur, or repaint-heavy effects. */
+.achievement-popup { right: 22px !important; top: 92px !important; gap: 14px; max-width: 370px !important; padding: 14px !important; border: 1px solid #0b5fc0; border-radius: 16px !important; color: #ffffff !important; background: #1877f2 !important; box-shadow: 0 12px 28px rgba(15, 23, 42, .18) !important; backdrop-filter: none !important; transform: translate3d(420px, 0, 0); opacity: 0; transition: transform .38s cubic-bezier(.2, .8, .2, 1), opacity .28s ease !important; will-change: transform, opacity; }
+.achievement-popup::before { content: none !important; }
+.achievement-popup.show { right: 22px !important; transform: translate3d(0, 0, 0); opacity: 1; }
+.achievement-icon { display: grid; width: 52px; height: 52px; place-items: center; border: 1px solid rgba(255,255,255,.34); border-radius: 13px; font-size: 1.7rem !important; background: rgba(255,255,255,.12); animation: none !important; }
+.achievement-content { flex: 1; }.achievement-title { color: rgba(255,255,255,.82); font-size: .65rem !important; font-weight: 800; letter-spacing: .13em !important; }.achievement-name { color: #ffffff; font-size: 1.05rem !important; }.achievement-desc { color: rgba(255,255,255,.88); font-size: .78rem !important; }
 @media (max-width: 720px) { .connect-card { grid-template-columns: 1fr !important; }.connect-orbit { order: -1; }.testi-simple-heading { align-items: flex-start !important; }.testi-simple-controls { margin-top: 0 !important; align-self: flex-start !important; }.testi-simple-card { min-height: 0 !important; }.achievement-popup { top: max(72px, env(safe-area-inset-top)) !important; right: calc(-100% - 24px) !important; left: auto; max-width: none !important; }.achievement-popup.show { right: 12px !important; left: 12px; }.achievement-icon { width: 50px; height: 50px; } }
 
 /* Lightweight polish: these effects use composited properties only, and are
@@ -8864,6 +8865,10 @@ body.theme-dark .sp-item:hover .sp-logo {
 .reading-progress-label:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
 .reading-progress-label .reading-percent { font-size: .64rem; font-weight: 800; line-height: 1; }
 .reading-progress-label i { font-size: .84rem; }
+/* One-time reveal animation: composited only, then the element is released. */
+.smooth-reveal { opacity: 0; transform: translate3d(0, 16px, 0); }
+.smooth-reveal.is-revealed { animation: smoothReveal .55s cubic-bezier(.2, .75, .25, 1) both; }
+@keyframes smoothReveal { to { opacity: 1; transform: translate3d(0, 0, 0); } }
 @media (max-width: 720px) {
     .reading-progress-label { right: 16px; bottom: max(88px, env(safe-area-inset-bottom)); }
     .content-section { contain-intrinsic-size: auto 560px; }
