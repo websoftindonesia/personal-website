@@ -2669,6 +2669,11 @@ footer {
                 <p class="connect-eyebrow"><span></span> TERBUKA UNTUK KOLABORASI</p>
                 <h3>Punya ide yang ingin diwujudkan?</h3>
                 <p>Diskusikan website, produk digital, atau kolaborasi kreatif dengan saya. Saya akan membalas secepat mungkin.</p>
+                <div class="connect-proof" aria-label="Keunggulan kerja sama">
+                    <span><i class="fas fa-bolt" aria-hidden="true"></i> Respon cepat</span>
+                    <span><i class="fas fa-mobile-screen-button" aria-hidden="true"></i> Mobile-ready</span>
+                    <span><i class="fas fa-shield-halved" aria-hidden="true"></i> Terstruktur</span>
+                </div>
                 <div class="connect-actions">
                     <a href="#contact" class="connect-primary">Mulai percakapan <i class="fas fa-arrow-up-right-from-square"></i></a>
                     <a href="https://www.instagram.com/wazrynn" target="_blank" rel="noopener noreferrer" class="connect-secondary"><i class="fab fa-instagram"></i> @wazrynn</a>
@@ -3174,7 +3179,7 @@ html::after, html::before {
 
 <section id="testimonials" class="content-section testi-simple-section">
     <div class="testi-simple-heading">
-        <div><span class="testi-simple-kicker">TESTIMONI KLIEN</span><h2 class="testi-simple-title">Kata mereka tentang Wazryn.</h2></div>
+        <div><span class="testi-simple-kicker">TESTIMONI KLIEN</span><h2 class="testi-simple-title">Kata mereka tentang Wazryn.</h2><p class="testi-simple-lead">Cerita singkat dari rekan dan klien yang pernah berkolaborasi.</p></div>
         <div class="testi-simple-controls" aria-label="Navigasi testimoni">
             <button type="button" id="testiPrev" aria-label="Testimoni sebelumnya"><i class="fas fa-arrow-left"></i></button>
             <button type="button" id="testiNext" aria-label="Testimoni berikutnya"><i class="fas fa-arrow-right"></i></button>
@@ -8762,6 +8767,65 @@ body.theme-dark .sp-item:hover .sp-logo {
     .welcome-form .form-group select { background: rgba(255,255,255,.96) !important; }
     .welcome-features { gap: 10px; flex-wrap: wrap; }
 }
+
+/* ===== CONNECT + TESTIMONIALS REFRESH ===== */
+.instagram-section .section-header { max-width: 700px; margin-right: auto; margin-left: auto; }
+.connect-card {
+    grid-template-columns: minmax(0, 1fr) 230px !important;
+    gap: clamp(26px, 5vw, 68px) !important;
+    padding: clamp(30px, 5vw, 60px) !important;
+    border: 1px solid rgba(96, 165, 250, .32) !important;
+    border-radius: 30px !important;
+    color: #ffffff;
+    background: linear-gradient(127deg, #071f3a 0%, #0b3a61 56%, #0d5575 100%) !important;
+    box-shadow: 0 25px 60px rgba(11, 37, 69, .22) !important;
+}
+.connect-card::after { content: ''; position: absolute; width: 370px; height: 370px; top: -210px; right: -140px; border: 1px solid rgba(125, 211, 252, .27); border-radius: 50%; box-shadow: 0 0 0 45px rgba(125,211,252,.045), 0 0 0 90px rgba(125,211,252,.035); pointer-events: none; }
+.connect-card-copy { position: relative; z-index: 1; }
+.connect-eyebrow, .connect-card-copy > p:not(.connect-eyebrow) { color: rgba(226, 232, 240, .88) !important; }
+.connect-eyebrow { font-size: .7rem !important; letter-spacing: .15em !important; }
+.connect-eyebrow span { background: #2dd4bf !important; box-shadow: 0 0 0 5px rgba(45,212,191,.14) !important; }
+.connect-card h3 { color: #ffffff !important; -webkit-text-fill-color: #ffffff !important; max-width: 580px; }
+.connect-proof { display: flex; flex-wrap: wrap; gap: 8px; margin: 21px 0 25px; }
+.connect-proof span { display: inline-flex; align-items: center; gap: 7px; padding: 7px 10px; border: 1px solid rgba(186, 230, 253, .26); border-radius: 999px; color: #e0f2fe; background: rgba(255,255,255,.08); font-size: .75rem; font-weight: 700; }
+.connect-proof i { color: #5eead4; }
+.connect-primary { color: #06233e !important; background: #ffffff !important; box-shadow: 0 10px 22px rgba(0,0,0,.18) !important; }
+.connect-primary i { color: #087bb8 !important; }
+.connect-secondary { color: #ffffff !important; border-color: rgba(255,255,255,.36) !important; background: rgba(255,255,255,.08) !important; }
+.connect-secondary * { color: #ffffff !important; }
+.connect-orbit { z-index: 1; width: 200px !important; border-color: rgba(125,211,252,.7) !important; animation-duration: 26s !important; }
+.connect-orbit-core { inset: 37px !important; border: 3px solid rgba(255,255,255,.88); box-shadow: 0 0 0 14px rgba(125,211,252,.12), 0 18px 38px rgba(0,0,0,.28) !important; }
+.dot-one { background: #5eead4 !important; }.dot-two { background: #fcd34d !important; }.dot-three { background: #93c5fd !important; }
+
+.testi-simple-section { position: relative; padding-top: clamp(70px, 8vw, 112px) !important; }
+.testi-simple-section::before { content: ''; position: absolute; top: 40px; left: 28px; width: 94px; height: 94px; border-radius: 50%; background: radial-gradient(circle, rgba(56,189,248,.2), transparent 68%); filter: blur(3px); pointer-events: none; }
+.testi-simple-heading { align-items: flex-end !important; margin-bottom: 34px !important; }
+.testi-simple-kicker { color: #087bb8 !important; letter-spacing: .14em !important; }
+.testi-simple-title { color: #0f172a !important; font-size: clamp(2rem, 4vw, 3.3rem) !important; line-height: 1.05; }
+.testi-simple-lead { max-width: 520px; margin: 15px 0 0; color: #64748b; font-size: .98rem; line-height: 1.65; }
+.testi-simple-controls button { border-color: #cbd5e1 !important; color: #0b2545 !important; background: #ffffff !important; box-shadow: 0 7px 17px rgba(15,23,42,.08); }
+.testi-simple-controls button:hover { color: #ffffff !important; background: #0b2545 !important; }
+.testi-simple-grid { gap: 18px !important; }
+.testi-simple-card { overflow: hidden; min-height: 300px !important; padding: 27px 25px 23px !important; border: 1px solid #dbe7f1 !important; border-radius: 22px !important; background: linear-gradient(145deg, #ffffff, #f1f7fb) !important; box-shadow: 0 12px 30px rgba(15,23,42,.07) !important; }
+.testi-simple-card::after { right: auto !important; left: 25px !important; width: 58px !important; background: linear-gradient(90deg, #087bb8, #2dd4bf) !important; opacity: 1 !important; }
+.testi-simple-card:hover { border-color: rgba(8,123,184,.38) !important; box-shadow: 0 20px 40px rgba(8,123,184,.13) !important; }
+.testi-simple-quote { color: #087bb8 !important; font-size: 2.65rem !important; }
+.testi-simple-text { color: #334155 !important; font-style: normal !important; font-size: .93rem !important; line-height: 1.75 !important; }
+.testi-simple-person { padding-top: 15px !important; border-top: 1px solid #dbe7f1; }
+.testi-simple-avatar { width: 48px !important; height: 48px !important; color: #ffffff !important; background: linear-gradient(135deg, #0b2545, #087bb8) !important; box-shadow: 0 7px 15px rgba(8,123,184,.19); }
+.testi-simple-name { color: #0f172a !important; letter-spacing: 0 !important; text-transform: none !important; font-size: .9rem !important; }
+.testi-simple-role { color: #64748b !important; }
+.testi-simple-footer { padding-top: 4px; }
+.testi-simple-footer p { color: #475569 !important; }.testi-simple-footer p i { color: #087bb8 !important; }
+.testi-simple-dots button { width: 22px !important; height: 5px !important; border-radius: 999px !important; background: #cbd5e1 !important; }.testi-simple-dots button.active { width: 38px !important; background: #087bb8 !important; }
+
+/* Achievement notification from interactive-features.js. */
+.achievement-popup { right: -420px !important; top: 92px !important; gap: 14px; max-width: 370px !important; padding: 14px !important; border: 1px solid rgba(125,211,252,.5); border-radius: 18px !important; color: #e0f2fe !important; background: linear-gradient(135deg, rgba(7,31,58,.98), rgba(8,123,184,.96)) !important; box-shadow: 0 18px 44px rgba(2,19,35,.3) !important; backdrop-filter: blur(14px); }
+.achievement-popup::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(circle at 88% 8%, rgba(94,234,212,.35), transparent 38%); pointer-events: none; }
+.achievement-popup.show { right: 22px !important; }
+.achievement-icon { position: relative; z-index: 1; display: grid; width: 56px; height: 56px; place-items: center; border: 1px solid rgba(255,255,255,.35); border-radius: 16px; font-size: 1.85rem !important; background: rgba(255,255,255,.12); animation: none !important; }
+.achievement-content { position: relative; z-index: 1; }.achievement-title { color: #99f6e4; font-size: .65rem !important; font-weight: 800; letter-spacing: .13em !important; }.achievement-name { color: #ffffff; font-size: 1.05rem !important; }.achievement-desc { color: #dbeafe; font-size: .78rem !important; }
+@media (max-width: 720px) { .connect-card { grid-template-columns: 1fr !important; }.connect-orbit { order: -1; }.testi-simple-heading { align-items: flex-start !important; }.testi-simple-controls { margin-top: 0 !important; align-self: flex-start !important; }.testi-simple-card { min-height: 0 !important; }.achievement-popup { top: max(72px, env(safe-area-inset-top)) !important; right: calc(-100% - 24px) !important; left: auto; max-width: none !important; }.achievement-popup.show { right: 12px !important; left: 12px; }.achievement-icon { width: 50px; height: 50px; } }
 
 /* Lightweight polish: these effects use composited properties only, and are
    disabled for visitors who prefer reduced motion. */
