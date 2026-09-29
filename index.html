@@ -2915,34 +2915,6 @@ textarea.form-input { resize: vertical; min-height: 120px; }
     box-shadow: 0 6px 20px rgba(11, 37, 69, 0.4);
 }
 
-/* SCROLL TO TOP */
-#scrollToTopBtn { 
-    position: fixed; 
-    bottom: 180px; 
-    right: 20px; 
-    width: 50px; 
-    height: 50px; 
-    border-radius: 50%; 
-    background: var(--card-bg); 
-    border: 2px solid var(--border-color); 
-    color: var(--main-color); 
-    cursor: pointer; 
-    display: none; 
-    align-items: center; 
-    justify-content: center; 
-    font-size: 18px; 
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); 
-    transition: all 0.3s; 
-    z-index: 1400; 
-}
-#scrollToTopBtn:hover { 
-    background: var(--gradient-primary); 
-    color: white; 
-    border-color: transparent; 
-    transform: translateY(-6px); 
-    box-shadow: 0 10px 30px rgba(11, 37, 69, 0.4);
-}
-
 /* LIGHTBOX */
 .lightbox { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 30px; cursor: zoom-out; }
 .lightbox.active { display: flex; animation: fadeIn 0.3s ease; }
@@ -3823,8 +3795,6 @@ html::after, html::before {
     </div>
 </div>
 
-<button id="scrollToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
-
 <div class="lightbox" id="lightbox">
     <button class="lightbox-close"><i class="fas fa-times"></i></button>
     <img src="" alt="Preview" id="lightboxImg">
@@ -4155,7 +4125,6 @@ html::after, html::before {
     .chat-widget { bottom: 16px; right: 16px; }
     .chat-toggle { width: 50px; height: 50px; font-size: 20px; }
     .chat-container { width: min(340px, calc(100vw - 32px)); height: min(400px, 70vh); bottom: 64px; right: 0; }
-    #scrollToTopBtn { bottom: 148px; right: 16px; width: 40px; height: 40px; }
     .voice-ai-widget { bottom: 88px; right: 16px; }
     footer { padding: 50px 20px 40px; }
     #glasscubePreloader { transform: scale(0.8); }
@@ -4230,7 +4199,6 @@ html::after, html::before {
     .hero-title-sub { font-size: 1rem; }
     .logo { font-size: 1rem; }
     .section-title { font-size: 1.2rem; }
-    #scrollToTopBtn { bottom: 140px; right: 12px; width: 36px; height: 36px; }
     .voice-ai-widget { bottom: 80px; right: 12px; }
     .chat-widget { bottom: 12px; right: 12px; }
 }
@@ -4737,14 +4705,6 @@ html::after, html::before {
         font-size: 22px;
     }
     
-    #scrollToTopBtn {
-        bottom: 160px;
-        right: 16px;
-        width: 46px;
-        height: 46px;
-        font-size: 16px;
-    }
-    
     .voice-ai-panel {
         position: fixed;
         bottom: 0;
@@ -4888,14 +4848,6 @@ html::after, html::before {
         width: 52px;
         height: 52px;
         font-size: 20px;
-    }
-    
-    #scrollToTopBtn {
-        bottom: 145px;
-        right: 12px;
-        width: 44px;
-        height: 44px;
-        font-size: 15px;
     }
     
     .voice-ai-panel {
@@ -5288,11 +5240,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let lastScrollTop = 0;
     let scrollThreshold = 100;
     
-    // SCROLL TO TOP
-    const scrollBtn = document.getElementById('scrollToTopBtn');
-    scrollBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-
-    // Active-nav highlighting + navbar auto hide/show + back-to-top visibility, all merged
+    // Active-nav highlighting + navbar auto hide/show, merged
     // into a single rAF-throttled scroll handler. Previously this ran on every raw scroll
     // event (which can fire dozens of times per second) and read section.offsetTop each
     // time, forcing a synchronous layout reflow per section per event.
@@ -5322,8 +5270,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-
-        scrollBtn.style.display = scrollTop > 300 ? 'flex' : 'none';
 
         navScrollTicking = false;
     }
@@ -8545,6 +8491,58 @@ body.theme-dark .sp-item:hover .sp-logo {
 }
 .certificate-stat-icon { background: #ffffff !important; color: #111827 !important; }
 .certificate-stat-icon i { color: #111827 !important; }
+
+/* Certificate section copy must stay dark on the white page; badges must not be white-on-white. */
+#certificates,
+.certificates-section {
+    background: #ffffff !important;
+    content-visibility: visible;
+}
+#certificates .section-badge {
+    color: #0b2545 !important;
+    -webkit-text-fill-color: #0b2545 !important;
+    background: #eef2f7 !important;
+    border-color: rgba(15, 23, 42, .14) !important;
+}
+#certificates .section-title,
+#certificates .certificate-title,
+#certificates .certificate-issuer-name {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+    background: none !important;
+}
+#certificates .section-subtitle,
+#certificates .certificate-description,
+#certificates .certificate-date,
+#certificates .certificate-id,
+#certificates .certificate-stat-label {
+    color: #334155 !important;
+    -webkit-text-fill-color: #334155 !important;
+}
+#certificates .certificate-card,
+#certificates .certificate-stat,
+#certificates .certificate-content {
+    background: #ffffff !important;
+    color: #0f172a;
+}
+#certificates .certificate-skill {
+    color: #0b2545 !important;
+    background: #e8eef6 !important;
+}
+#certificates .certificate-badge {
+    background: #0b2545 !important;
+    color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+#certificates .certificate-image {
+    height: 230px;
+    background: #f1f5f9 !important;
+}
+#certificates .certificate-image img {
+    object-fit: contain;
+    object-position: center top;
+    background: #f8fafc;
+}
 .skill-icon, .skill-icon i { color: #111827 !important; -webkit-text-fill-color: #111827 !important; }
 .service-icon-badge { background: #ffffff !important; color: #111827 !important; border: 1px solid rgba(15,23,42,.12); box-shadow: 0 8px 18px rgba(15,23,42,.16); }
 .service-icon-badge i { color: #111827 !important; }
@@ -8905,12 +8903,13 @@ body.theme-dark .sp-item:hover .sp-logo {
 .reading-progress-label {
     position: fixed;
     right: 20px;
-    bottom: 22px;
-    z-index: 850;
+    bottom: 172px;
+    z-index: 1450;
     display: grid;
-    width: 48px;
-    height: 48px;
+    width: 56px;
+    height: 56px;
     place-items: center;
+    gap: 1px;
     border: 1px solid rgba(15, 23, 42, .15);
     border-radius: 50%;
     color: #ffffff;
@@ -8925,14 +8924,14 @@ body.theme-dark .sp-item:hover .sp-logo {
 .reading-progress-label.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
 .reading-progress-label:hover { background: #1877f2; transform: translateY(-3px); }
 .reading-progress-label:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; }
-.reading-progress-label .reading-percent { font-size: .64rem; font-weight: 800; line-height: 1; }
-.reading-progress-label i { font-size: .84rem; }
+.reading-progress-label .reading-percent { font-size: .64rem; font-weight: 800; line-height: 1; grid-row: 1; }
+.reading-progress-label i { font-size: .84rem; grid-row: 2; }
 /* One-time reveal animation: composited only, then the element is released. */
 .smooth-reveal { opacity: 0; transform: translate3d(0, 16px, 0); }
 .smooth-reveal.is-revealed { animation: smoothReveal .55s cubic-bezier(.2, .75, .25, 1) both; }
 @keyframes smoothReveal { to { opacity: 1; transform: translate3d(0, 0, 0); } }
 @media (max-width: 720px) {
-    .reading-progress-label { right: 16px; bottom: max(88px, env(safe-area-inset-bottom)); }
+    .reading-progress-label { right: 16px; bottom: max(86px, calc(env(safe-area-inset-bottom) + 72px)); }
     .content-section { contain-intrinsic-size: auto 560px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
