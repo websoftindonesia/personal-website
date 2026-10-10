@@ -3,7 +3,7 @@ I am a person with a strong interest in computer science, with a focus on: [soft
 
 ## Mengaktifkan M. Fawwaz Assistant
 
-Chat dan Voice AI ini memakai deployment dari Netlify Function di `netlify/functions/chat.mjs`, sehingga kunci APInya tidak pernah dikirim ke browser. Function memprioritaskan Gemini bila `GEMINI_API_KEY` tersedia, lalu memakai OpenAI bila hanya `OPENAI_API_KEY` yang dikonfigurasi.
+Jadi Chat dan Voice AI ini memakai deployment dari Netlify Function di `netlify/functions/chat.mjs`, sehingga kunci APInya tidak pernah dikirim ke Web Browser. Function memprioritaskan Gemini bila `GEMINI_API_KEY` tersedia, lalu memakai OpenAI bila hanya `OPENAI_API_KEY` yang dikonfigurasi.
 
 1. Di dashboard Netlify, bisa buka **Site configuration → Environment variables**.
 2. Untuk Gemini Free Tier, tambahkan `GEMINI_API_KEY` dari Google AI Studio. untuk Opsional: `GEMINI_MODEL` (default: `gemini-2.5-flash-lite`).
