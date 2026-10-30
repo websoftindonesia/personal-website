@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -434,12 +434,12 @@ footer {
 .hero-container { 
     position: relative; 
     z-index: 1; 
-    max-width: 1200px; 
+    max-width: 1280px; 
     margin: 0 auto; 
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+    gap: 32px;
     align-items: center;
 }
 
@@ -668,14 +668,13 @@ footer {
     justify-content: center;
     align-items: center;
 }
-
 .hero-photo-frame {
     position: relative;
     width: 100%;
-    max-width: 640px;
+    max-width: 700px;
 }
 
-/* Profile Photo - no gradient, no glow, no fade of any kind. Plain photo. */
+/* The transparent portrait fades softly into the hero background at its edges. */
 .profile-photo-card {
     position: relative;
     width: 100%;
@@ -693,6 +692,8 @@ footer {
     position: relative;
     transition: transform 0.5s ease, filter 0.6s ease;
     filter: grayscale(100%);
+    -webkit-mask-image: radial-gradient(ellipse 78% 78% at 50% 40%, #000 68%, rgba(0, 0, 0, .92) 78%, rgba(0, 0, 0, .62) 91%, transparent 100%);
+    mask-image: radial-gradient(ellipse 78% 78% at 50% 40%, #000 68%, rgba(0, 0, 0, .92) 78%, rgba(0, 0, 0, .62) 91%, transparent 100%);
     mix-blend-mode: normal;
     isolation: isolate;
 }
@@ -952,7 +953,7 @@ footer {
         <div class="hero-image-section">
             <div class="hero-photo-frame">
                 <div class="profile-photo-card">
-                    <img src="profile.png" alt="Muhammad Fawwaz Rayyan Khalish">
+                    <img src="profile-cutout.png" alt="Muhammad Fawwaz Rayyan Khalish">
                 </div>
             </div>
         </div>
@@ -3912,8 +3913,6 @@ html::after, html::before {
     </div>
 </div>
 
-<button id="scrollToTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
-
 <div class="lightbox" id="lightbox">
     <button class="lightbox-close"><i class="fas fa-times"></i></button>
     <img src="" alt="Preview" id="lightboxImg">
@@ -5378,8 +5377,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let scrollThreshold = 100;
     
     // SCROLL TO TOP
-    const scrollBtn = document.getElementById('scrollToTopBtn');
-    scrollBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
     // Active-nav highlighting + navbar auto hide/show + back-to-top visibility, all merged
     // into a single rAF-throttled scroll handler. Previously this ran on every raw scroll
@@ -8591,9 +8588,23 @@ body.theme-dark .sp-item:hover .sp-logo {
 .hero-strong-text,
 .theme-dark .hero-strong-text,
 .hero-description strong {
-    color: #111827 !important;
-    -webkit-text-fill-color: #111827 !important;
+    color: #0b2545 !important;
+    -webkit-text-fill-color: #0b2545 !important;
     background: none !important;
+}
+.hero-content .social-links {
+    margin-top: 20px;
+}
+.hero-content .social-link {
+    color: #0b2545;
+    border-color: rgba(15, 23, 42, .18);
+    background: rgba(255, 255, 255, .92);
+}
+.hero-content .social-link:hover,
+.hero-content .social-link:focus-visible {
+    color: #ffffff;
+    border-color: #0b2545;
+    background: #0b2545;
 }
 .tab-btn.active-tab,
 .filter-btn.active-filter,
