@@ -1,0 +1,189 @@
+/* ============================================================
+   RESPONSIVE FIXES — Override untuk portfolio Wazryn
+   Load file INI TERAKHIR (setelah interactive-styles.css &
+   tailwind-build.css) agar menang spesifikasinya.
+   ============================================================ */
+
+/* ---------- 0. RESET OVERFLOW & ANCHOR OFFSET ---------- */
+html {
+    scroll-padding-top: 84px;          /* anchor tidak tertutup navbar */
+    overflow-x: clip;
+}
+body {
+    overflow-x: clip;                  /* lebih modern dari hidden, tidak bikin sticky rusak */
+}
+img, video, iframe, svg { max-width: 100%; }
+section[id], div[id] { scroll-margin-top: 84px; }
+
+/* ---------- 1. FLUID SPACING — hilangkan kaku ---------- */
+.content-section {
+    padding: clamp(48px, 8vw, 100px) clamp(16px, 4vw, 28px);
+    width: min(1100px, 100%);          /* container yang benar-benar fluid */
+}
+.section-header { margin-bottom: clamp(36px, 6vw, 64px); }
+
+/* ---------- 2. FLUID TYPOGRAPHY ---------- */
+.section-title { font-size: clamp(1.55rem, 4.5vw, 2.6rem); }
+.section-subtitle {
+    font-size: clamp(.9rem, 1.6vw, 1.05rem);
+    max-width: 62ch;
+    margin-inline: auto;
+}
+.section-badge { font-size: clamp(.62rem, 1.4vw, .72rem); }
+
+/* ---------- 3. GRID YANG BENAR-BENAR ADAPTIF ---------- */
+.services-grid,
+.certificates-grid,
+.portfolio-grid,
+.certificates-stats,
+.sp-grid,
+.instagram-grid,
+.experience-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+}
+.experience-gallery { grid-template-columns: repeat(auto-fit, minmax(min(100%, 130px), 1fr)); }
+
+/* Gallery tidak gepeng di mobile */
+@media (max-width: 768px) {
+    .experience-gallery { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 480px) {
+    .experience-gallery { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------- 4. HERO — gunakan svh supaya tidak terpotong di mobile ---------- */
+.hero { min-height: 100svh; }
+@supports not (height: 100svh) {
+    .hero { min-height: 100vh; }
+}
+.hero-container { gap: clamp(24px, 5vw, 48px); }
+.hero-photo-frame { max-width: min(560px, 92vw); }
+
+/* ---------- 5. MOBILE NAV — animasi slide, bukan display:none ---------- */
+.mobile-nav {
+    display: block;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: max-height .38s cubic-bezier(.4,0,.2,1),
+                opacity .28s ease, transform .38s cubic-bezier(.4,0,.2,1);
+}
+.mobile-nav.active {
+    max-height: 72vh;                  /* cukup untuk ~12 item + scroll */
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    animation: none;                   /* matikan slideDown bawaan yang bentrok */
+}
+
+/* ---------- 6. CHAT & VOICE PANEL — aman di semua layar ---------- */
+.chat-container,
+.voice-ai-panel {
+    width: min(400px, calc(100vw - 24px));
+    height: min(560px, calc(100dvh - 130px));
+    right: 12px;
+    bottom: 86px;
+}
+@media (max-width: 640px) {
+    .chat-container,
+    .voice-ai-panel {
+        left: 0; right: 0;
+        width: 100%;
+        max-width: 100%;
+        height: min(78dvh, 640px);
+        bottom: 0;
+        border-radius: 20px 20px 0 0;
+    }
+    .voice-ai-conversation,
+    .chat-messages { max-height: none; }   /* biarkan flex yang atur */
+}
+
+/* ---------- 7. TILT vs HOVER — jangan bertabrakan ---------- */
+.project-card, .service-card, .certificate-card, .education-card,
+.team-card, .skill-item, .sp-item {
+    will-change: transform;
+}
+/* Hapus transform hover bawaan saat tilt aktif (desktop halus) */
+@media (hover: hover) and (pointer: fine) {
+    .project-card:hover, .service-card:hover, .certificate-card:hover,
+    .education-card:hover, .sp-item:hover {
+        transform: translateY(-6px);
+    }
+}
+
+/* ---------- 8. TOUCH TARGET MINIMAL 44px (WCAG) ---------- */
+button, a, .filter-btn, .tab-btn, .quick-action-btn,
+.toggle-btn, .icon-button, .certificate-btn {
+    min-height: 44px;
+}
+@media (hover: none) and (pointer: coarse) {
+    /* tap highlight yang lebih halus */
+    * { -webkit-tap-highlight-color: rgba(24,119,242,.12); }
+}
+
+/* ---------- 9. TAB BUTTONS — scroll horizontal di mobile, bukan kolom kaku ---------- */
+@media (max-width: 640px) {
+    .tabs-wrapper { overflow-x: auto; scrollbar-width: none; }
+    .tabs-wrapper::-webkit-scrollbar { display: none; }
+    .tab-buttons {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: max-content;
+        border-radius: var(--radius-full, 999px);
+    }
+    .tab-btn { width: auto; white-space: nowrap; }
+    .tab-content { padding: 18px 14px; }
+}
+
+/* ---------- 10. FORM & INPUT — font-size 16px mencegah auto-zoom iOS ---------- */
+@media (max-width: 768px) {
+    .form-input, .chat-input, .voice-ai-text-input,
+    .search-box, input, select, textarea { font-size: 16px; }
+}
+
+/* ---------- 11. EXPERIENCE TIMELINE — rapi di mobile ---------- */
+@media (max-width: 768px) {
+    .experience-item { gap: 14px; }
+    .experience-content:hover { transform: none; }  /* hindari layout jump */
+}
+
+/* ---------- 12. EDUCATION BUILDING — aspect-ratio, bukan height fix ---------- */
+.education-building { height: auto; aspect-ratio: 16 / 8; }
+@media (max-width: 768px) { .education-building { aspect-ratio: 16 / 10; } }
+
+/* ---------- 13. REDUCED MOTION — hormati preferensi user ---------- */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+    .cursor-trail, .confetti, .click-particle { display: none !important; }
+}
+
+/* ---------- 14. UTILITY: cegah teks terpotong ---------- */
+p, h1, h2, h3, h4, li, span {
+    overflow-wrap: break-word;
+}
+/* Teks panjang (email, ID sertifikat) boleh wrap */
+.certificate-id, .footer-v2-email {
+    word-break: break-all;
+    white-space: normal;
+}
+
+/* ---------- 15. SCROLLBAR HALUS (opsional, desktop) ---------- */
+@media (hover: hover) and (pointer: fine) {
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb {
+        background: rgba(24,119,242,.35);
+        border-radius: 8px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+    }
+}

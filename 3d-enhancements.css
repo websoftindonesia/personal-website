@@ -1,0 +1,119 @@
+/* ============================================================
+   3D ENHANCEMENTS — ringan: hanya transform & opacity (GPU)
+   Load SETELAH responsive-fixes.css
+   ============================================================ */
+
+/* ---------- 1. HERO: foto 3D dengan kedalaman ---------- */
+.hero-image-section { perspective: 1100px; }
+.hero-photo-frame {
+    transform-style: preserve-3d;
+    transform: rotateX(var(--fx-rx, 0deg)) rotateY(var(--fx-ry, 0deg)) translate3d(0, var(--fx-sy, 0px), 0);
+    transition: transform .28s ease-out;
+}
+.hero-photo-frame .profile-photo-card { transform: translateZ(30px); }
+
+/* Chip melayang di berbagai kedalaman (Z) */
+.fx-chip {
+    position: absolute;
+    width: 54px; height: 54px;
+    display: grid; place-items: center;
+    border-radius: 16px;
+    font-size: 21px;
+    color: var(--main-color, #1877f2);
+    background: rgba(255,255,255,.92);
+    border: 1px solid rgba(var(--main-color-rgb, 24,119,242), .22);
+    box-shadow: 0 14px 30px rgba(var(--main-color-rgb, 24,119,242), .25);
+    pointer-events: none;
+    animation: fxBob 5s ease-in-out infinite;
+}
+.fx-chip:nth-of-type(1) { top: 8%;  left: -2%;  transform: translateZ(90px);  animation-delay: 0s; }
+.fx-chip:nth-of-type(2) { top: 40%; right: -3%; transform: translateZ(120px); animation-delay: -1.6s; }
+.fx-chip:nth-of-type(3) { bottom: 10%; left: 2%; transform: translateZ(70px);  animation-delay: -3.2s; }
+@keyframes fxBob {
+    0%,100% { translate: 0 0; }
+    50%     { translate: 0 -12px; }
+}
+
+/* ---------- 2. HERO: kubus 3D melayang ---------- */
+.fx-cubes {
+    position: absolute; inset: 0;
+    z-index: 0; pointer-events: none; overflow: hidden;
+    perspective: 900px;
+    transition: transform .6s ease-out;
+}
+.fx-cube {
+    --s: 56px;
+    position: absolute;
+    width: var(--s); height: var(--s);
+    transform-style: preserve-3d;
+    animation: fxSpin 22s linear infinite;
+    will-change: transform;
+}
+.fx-cube i {
+    position: absolute; inset: 0;
+    border: 1.5px solid rgba(var(--main-color-rgb, 24,119,242), .45);
+    background: rgba(var(--main-color-rgb, 24,119,242), .07);
+}
+.fx-cube i:nth-child(1) { transform: translateZ(calc(var(--s) / 2)); }
+.fx-cube i:nth-child(2) { transform: rotateY(180deg) translateZ(calc(var(--s) / 2)); }
+.fx-cube i:nth-child(3) { transform: rotateY(90deg)  translateZ(calc(var(--s) / 2)); }
+.fx-cube i:nth-child(4) { transform: rotateY(-90deg) translateZ(calc(var(--s) / 2)); }
+.fx-cube i:nth-child(5) { transform: rotateX(90deg)  translateZ(calc(var(--s) / 2)); }
+.fx-cube i:nth-child(6) { transform: rotateX(-90deg) translateZ(calc(var(--s) / 2)); }
+.fx-cube:nth-child(1) { --s: 70px; left: 6%;  top: 18%; }
+.fx-cube:nth-child(2) { --s: 44px; left: 46%; top: 8%;  animation-duration: 28s; animation-direction: reverse; }
+.fx-cube:nth-child(3) { --s: 58px; right: 8%; top: 62%; animation-duration: 25s; }
+.fx-cube:nth-child(4) { --s: 36px; left: 34%; bottom: 10%; animation-duration: 19s; animation-direction: reverse; }
+@keyframes fxSpin {
+    from { transform: rotateX(-20deg) rotateY(0deg); }
+    to   { transform: rotateX(-20deg) rotateY(360deg); }
+}
+@media (max-width: 768px) {
+    .fx-cube:nth-child(n+3) { display: none; }
+    .fx-chip { width: 44px; height: 44px; font-size: 17px; border-radius: 13px; }
+}
+
+/* Hemat tenaga: berhenti saat hero tidak terlihat / mode lite */
+.fx-paused .fx-cube, .fx-paused .fx-chip { animation-play-state: paused; }
+html.fx-lite .fx-cubes, html.fx-lite .fx-chip, html.fx-lite .fx-glare { display: none !important; }
+html.fx-lite .hero-photo-frame { transform: none; }
+
+/* ---------- 3. REVEAL 3D saat scroll (tanpa JS tambahan) ---------- */
+html:not(.fx-lite) .animate-on-scroll:not(.visible) {
+    transform: perspective(900px) translate3d(0, 34px, -60px) rotateX(9deg);
+    transform-origin: 50% 100%;
+}
+html:not(.fx-lite) .animate-on-scroll.visible {
+    transform: perspective(900px) translate3d(0, 0, 0) rotateX(0deg);
+}
+
+/* ---------- 4. KILAU (glare) mengikuti kursor di kartu ---------- */
+.fx-glare {
+    position: absolute; inset: 0;
+    z-index: 3; pointer-events: none;
+    opacity: 0;
+    transition: opacity .3s ease;
+    background: radial-gradient(260px circle at var(--gx, 50%) var(--gy, 50%),
+                rgba(255,255,255,.28), transparent 62%);
+    border-radius: inherit;
+}
+.fx-glare-on > .fx-glare { opacity: 1; }
+
+/* ---------- 5. RIPPLE klik ---------- */
+.fx-ripple-host { position: relative; overflow: hidden; }
+.fx-ripple {
+    position: absolute; border-radius: 50%;
+    width: 12px; height: 12px;
+    margin: -6px 0 0 -6px;
+    background: rgba(255,255,255,.55);
+    pointer-events: none;
+    animation: fxRipple .6s ease-out forwards;
+}
+@keyframes fxRipple { to { transform: scale(28); opacity: 0; } }
+
+/* ---------- 6. Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .fx-cubes, .fx-chip, .fx-glare { display: none !important; }
+    .hero-photo-frame { transform: none !important; }
+    .animate-on-scroll:not(.visible), .animate-on-scroll.visible { transform: none !important; }
+}

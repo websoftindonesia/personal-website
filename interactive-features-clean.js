@@ -1,0 +1,670 @@
+// ===== 🎨 INTERACTIVE FEATURES - WEBSOFT INDONESIA =====
+// 20+ Unique JavaScript Interactions
+
+// ===== 1. CURSOR TRAIL EFFECT =====
+const cursorTrail = [];
+const maxTrailLength = 8;
+const canUseCursorTrail = window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let lastTrailTime = 0;
+
+document.addEventListener('mousemove', (e) => {
+    const now = performance.now();
+    if (canUseCursorTrail && now - lastTrailTime > 80) {
+        lastTrailTime = now;
+        const trail = document.createElement('div');
+        trail.className = 'cursor-trail';
+        trail.style.left = e.clientX + 'px';
+        trail.style.top = e.clientY + 'px';
+        document.body.appendChild(trail);
+        
+        cursorTrail.push(trail);
+        if (cursorTrail.length > maxTrailLength) {
+            const oldTrail = cursorTrail.shift();
+            oldTrail.remove();
+        }
+        
+        setTimeout(() => trail.remove(), 800);
+    }
+});
+
+// ===== 2. KONAMI CODE EASTER EGG =====
+const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+let konamiIndex = 0;
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+            activateKonamiMode();
+            konamiIndex = 0;
+        }
+    } else {
+        konamiIndex = 0;
+    }
+});
+
+function activateKonamiMode() {
+    showNotification('🎮 Konami Code Activated! Secret Mode Unlocked!', 'success');
+    createConfetti();
+    document.body.style.animation = 'rainbow 3s linear infinite';
+    setTimeout(() => {
+        document.body.style.animation = '';
+    }, 5000);
+}
+
+// ===== 3. CONFETTI EFFECT =====
+function createConfetti() {
+    const colors = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981'];
+    for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = Math.random() * 3 + 's';
+        confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 5000);
+    }
+}
+
+// ===== 4. SHAKE TO REVEAL =====
+let lastX = 0, lastY = 0, lastZ = 0;
+let shakeCount = 0;
+
+if (window.DeviceMotionEvent) {
+    window.addEventListener('devicemotion', (e) => {
+        const acc = e.accelerationIncludingGravity;
+        const threshold = 15;
+        
+        if (Math.abs(acc.x - lastX) > threshold || 
+            Math.abs(acc.y - lastY) > threshold || 
+            Math.abs(acc.z - lastZ) > threshold) {
+            shakeCount++;
+            if (shakeCount > 3) {
+                showNotification('📱 Shake detected! Here\'s a surprise!', 'success');
+                createConfetti();
+                shakeCount = 0;
+            }
+        }
+        
+        lastX = acc.x;
+        lastY = acc.y;
+        lastZ = acc.z;
+    });
+}
+
+// ===== 5. TEXT SCRAMBLE EFFECT =====
+class TextScramble {
+    constructor(el) {
+        this.el = el;
+        this.chars = '!<>-_\\/[]{}—=+*^?#________';
+        this.update = this.update.bind(this);
+    }
+    
+    setText(newText) {
+        const oldText = this.el.innerText;
+        const length = Math.max(oldText.length, newText.length);
+        const promise = new Promise((resolve) => this.resolve = resolve);
+        this.queue = [];
+        
+        for (let i = 0; i < length; i++) {
+            const from = oldText[i] || '';
+            const to = newText[i] || '';
+            const start = Math.floor(Math.random() * 40);
+            const end = start + Math.floor(Math.random() * 40);
+            this.queue.push({ from, to, start, end });
+        }
+        
+        cancelAnimationFrame(this.frameRequest);
+        this.frame = 0;
+        this.update();
+        return promise;
+    }
+    
+    update() {
+        let output = '';
+        let complete = 0;
+        
+        for (let i = 0, n = this.queue.length; i < n; i++) {
+            let { from, to, start, end, char } = this.queue[i];
+            
+            if (this.frame >= end) {
+                complete++;
+                output += to;
+            } else if (this.frame >= start) {
+                if (!char || Math.random() < 0.28) {
+                    char = this.randomChar();
+                    this.queue[i].char = char;
+                }
+                output += char;
+            } else {
+                output += from;
+            }
+        }
+        
+        this.el.innerText = output;
+        
+        if (complete === this.queue.length) {
+            this.resolve();
+        } else {
+            this.frameRequest = requestAnimationFrame(this.update);
+            this.frame++;
+        }
+    }
+    
+    randomChar() {
+        return this.chars[Math.floor(Math.random() * this.chars.length)];
+    }
+}
+
+// Reveal section titles once. This replaces the repeated text-rewrite animation,
+// which could trigger unnecessary layout work while scrolling.
+document.addEventListener('DOMContentLoaded', () => {
+    const titles = document.querySelectorAll('.section-header h2');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion || !('IntersectionObserver' in window)) return;
+    titles.forEach((title) => title.classList.add('smooth-reveal'));
+    const observer = new IntersectionObserver((entries, titleObserver) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-revealed');
+            titleObserver.unobserve(entry.target);
+        });
+    }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
+    titles.forEach((title) => observer.observe(title));
+});
+
+// ===== 6. ACHIEVEMENT SYSTEM =====
+const achievements = {
+    explorer: { name: 'Explorer', desc: 'Visited all sections', icon: '🗺️', unlocked: false },
+    speedster: { name: 'Speedster', desc: 'Scrolled super fast', icon: '⚡', unlocked: false },
+    curious: { name: 'Curious Mind', desc: 'Clicked 10+ items', icon: '🔍', unlocked: false },
+    chatter: { name: 'Chatterbox', desc: 'Sent 5+ chat messages', icon: '💬', unlocked: false },
+    nightowl: { name: 'Night Owl', desc: 'Visited at night', icon: '🦉', unlocked: false },
+    earlybird: { name: 'Early Bird', desc: 'Visited in morning', icon: '🌅', unlocked: false },
+    loyal: { name: 'Loyal Visitor', desc: 'Visited 5+ times', icon: '⭐', unlocked: false }
+};
+
+let clickCount = 0;
+let chatMessageCount = 0;
+let visitedSections = new Set();
+
+function unlockAchievement(key) {
+    if (!achievements[key].unlocked) {
+        achievements[key].unlocked = true;
+        const ach = achievements[key];
+        showAchievement(ach.icon, ach.name, ach.desc);
+        localStorage.setItem('achievements', JSON.stringify(achievements));
+    }
+}
+
+function showAchievement(icon, name, desc) {
+    const achDiv = document.createElement('div');
+    achDiv.className = 'achievement-popup';
+    achDiv.innerHTML = `
+        <div class="achievement-icon">${icon}</div>
+        <div class="achievement-content">
+            <div class="achievement-title">Achievement Unlocked!</div>
+            <div class="achievement-name">${name}</div>
+            <div class="achievement-desc">${desc}</div>
+        </div>
+    `;
+    document.body.appendChild(achDiv);
+    
+    setTimeout(() => achDiv.classList.add('show'), 100);
+    setTimeout(() => {
+        achDiv.classList.remove('show');
+        setTimeout(() => achDiv.remove(), 500);
+    }, 4000);
+}
+
+// Track section visits
+document.addEventListener('DOMContentLoaded', () => {
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                visitedSections.add(entry.target.id);
+                if (visitedSections.size >= 5) {
+                    unlockAchievement('explorer');
+                }
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('section[id]').forEach(section => {
+        sectionObserver.observe(section);
+    });
+});
+
+// Track clicks
+document.addEventListener('click', () => {
+    clickCount++;
+    if (clickCount >= 10) unlockAchievement('curious');
+});
+
+// Track scroll speed
+let lastScrollTime = performance.now();
+let lastScrollY = window.scrollY;
+let scrollSpeedFrame = 0;
+window.addEventListener('scroll', () => {
+    if (scrollSpeedFrame) return;
+    scrollSpeedFrame = requestAnimationFrame(() => {
+        const now = performance.now();
+        const currentY = window.scrollY;
+        const elapsed = now - lastScrollTime;
+        const speed = elapsed > 0 ? Math.abs(currentY - lastScrollY) / elapsed : 0;
+        if (speed > 5) unlockAchievement('speedster');
+        lastScrollTime = now;
+        lastScrollY = currentY;
+        scrollSpeedFrame = 0;
+    });
+}, { passive: true });
+
+// Check time of day
+const hour = new Date().getHours();
+if (hour >= 22 || hour < 6) {
+    setTimeout(() => unlockAchievement('nightowl'), 3000);
+} else if (hour >= 5 && hour < 9) {
+    setTimeout(() => unlockAchievement('earlybird'), 3000);
+}
+
+// ===== 7. INTERACTIVE BACKGROUND =====
+document.addEventListener('DOMContentLoaded', () => {
+    const hero = document.querySelector('.hero');
+    if (hero) {
+        hero.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const { offsetWidth, offsetHeight } = hero;
+            
+            const xPos = (clientX / offsetWidth - 0.5) * 20;
+            const yPos = (clientY / offsetHeight - 0.5) * 20;
+            
+            const shapes = hero.querySelectorAll('.hero-shape');
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 0.5;
+                shape.style.transform = `translate(${xPos * speed}px, ${yPos * speed}px)`;
+            });
+        });
+    }
+});
+
+// ===== 8. SOUND EFFECTS =====
+const sounds = {
+    click: () => playTone(800, 0.1, 0.05),
+    hover: () => playTone(600, 0.05, 0.03),
+    success: () => playTone(1000, 0.2, 0.1)
+};
+
+function playTone(frequency, duration, volume = 0.1) {
+    if (!window.AudioContext) return;
+    
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.value = frequency;
+        oscillator.type = 'sine';
+        
+        gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + duration);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
+}
+
+// Add sound to buttons
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('button, .btn, a.nav-link').forEach(el => {
+        el.addEventListener('mouseenter', () => sounds.hover());
+        el.addEventListener('click', () => sounds.click());
+    });
+});
+
+// ===== 9. PARALLAX SCROLL EFFECT =====
+window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    
+    document.querySelectorAll('.hero-shape').forEach((shape, index) => {
+        const speed = (index + 1) * 0.3;
+        shape.style.transform = `translateY(${scrolled * speed}px)`;
+    });
+}, { passive: true });
+
+// ===== 10. DOUBLE CLICK EASTER EGG =====
+let clickTimer = null;
+document.addEventListener('DOMContentLoaded', () => {
+    const logo = document.querySelector('.logo');
+    if (logo) {
+        logo.addEventListener('click', (e) => {
+            if (clickTimer) {
+                clearTimeout(clickTimer);
+                clickTimer = null;
+                showNotification('🎭 Developer mode activated!', 'success');
+                console.log('%c🚀 Welcome Developer!', 'font-size: 20px; color: #6366f1; font-weight: bold;');
+                console.log('Achievements:', achievements);
+                console.log('Sections Visited:', Array.from(visitedSections));
+            } else {
+                clickTimer = setTimeout(() => {
+                    clickTimer = null;
+                }, 300);
+            }
+        });
+    }
+});
+
+// ===== 11. LONG PRESS EFFECT =====
+let pressTimer;
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.portfolio-card, .service-card').forEach(card => {
+        card.addEventListener('mousedown', () => {
+            pressTimer = setTimeout(() => {
+                card.style.transform = 'scale(1.05) rotate(2deg)';
+                showNotification('✨ Long press detected!', 'success');
+            }, 1000);
+        });
+        
+        card.addEventListener('mouseup', () => {
+            clearTimeout(pressTimer);
+            card.style.transform = '';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            clearTimeout(pressTimer);
+            card.style.transform = '';
+        });
+    });
+});
+
+// ===== 12. VISITOR STATS TRACKER =====
+function updateVisitorStats() {
+    const stats = JSON.parse(localStorage.getItem('visitorStats') || '{}');
+    stats.visits = (stats.visits || 0) + 1;
+    stats.lastVisit = new Date().toISOString();
+    stats.totalTimeSpent = (stats.totalTimeSpent || 0);
+    localStorage.setItem('visitorStats', JSON.stringify(stats));
+    
+    if (stats.visits >= 5) {
+        unlockAchievement('loyal');
+    }
+}
+
+updateVisitorStats();
+
+// Track time spent
+let startTime = Date.now();
+window.addEventListener('beforeunload', () => {
+    const stats = JSON.parse(localStorage.getItem('visitorStats') || '{}');
+    stats.totalTimeSpent = (stats.totalTimeSpent || 0) + (Date.now() - startTime);
+    localStorage.setItem('visitorStats', JSON.stringify(stats));
+});
+
+// ===== 13. TYPING INDICATOR FOR CHAT =====
+function showTypingIndicator() {
+    const chatMessages = document.getElementById('chatMessages');
+    if (chatMessages) {
+        const typing = document.createElement('div');
+        typing.className = 'chat-typing';
+        typing.id = 'typingIndicator';
+        typing.innerHTML = '<span></span><span></span><span></span>';
+        chatMessages.appendChild(typing);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+}
+
+function hideTypingIndicator() {
+    const typing = document.getElementById('typingIndicator');
+    if (typing) typing.remove();
+}
+
+// ===== 14. NOTIFICATION SYSTEM =====
+function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+        <span>${message}</span>
+    `;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => notification.classList.add('show'), 100);
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 500);
+    }, 3500);
+}
+
+// ===== 15. SCROLL PROGRESS BAR =====
+const progressBar = document.createElement('div');
+progressBar.className = 'scroll-progress';
+document.body.appendChild(progressBar);
+
+window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    progressBar.style.width = scrolled + '%';
+}, { passive: true });
+
+// ===== 16. COPY TO CLIPBOARD =====
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.contact-item p').forEach(el => {
+        el.style.cursor = 'pointer';
+        el.title = 'Click to copy';
+        el.addEventListener('click', () => {
+            navigator.clipboard.writeText(el.textContent).then(() => {
+                showNotification('📋 Copied to clipboard!', 'success');
+            });
+        });
+    });
+});
+
+// ===== 17. IMAGE LAZY LOADING WITH BLUR =====
+document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('img[data-src]');
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.add('loaded');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+});
+
+// ===== 18. DARK MODE TOGGLE =====
+const darkModeToggle = document.createElement('button');
+darkModeToggle.className = 'dark-mode-toggle';
+darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+darkModeToggle.title = 'Toggle Dark Mode';
+document.body.appendChild(darkModeToggle);
+
+darkModeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    darkModeToggle.innerHTML = `<i class="fas fa-${isDark ? 'sun' : 'moon'}"></i>`;
+    localStorage.setItem('darkMode', isDark);
+});
+
+// Load dark mode preference
+if (localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark-mode');
+    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+}
+
+// ===== 19. READING TIME ESTIMATOR =====
+function calculateReadingTime() {
+    const text = document.body.innerText;
+    const words = text.trim().split(/\s+/).length;
+    const readingTime = Math.ceil(words / 200); // 200 words per minute
+    return readingTime;
+}
+
+// ===== 20. KEYBOARD SHORTCUTS =====
+document.addEventListener('keydown', (e) => {
+    // Ctrl/Cmd + K: Open chat
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        document.getElementById('chatToggle')?.click();
+    }
+    
+    // Ctrl/Cmd + /: Show shortcuts
+    if ((e.ctrlKey || e.metaKey) && e.key === '/') {
+        e.preventDefault();
+        showNotification('⌨️ Shortcuts: Ctrl+K (Chat), Ctrl+H (Home), Ctrl+C (Contact)', 'success');
+    }
+    
+    // Ctrl/Cmd + H: Scroll to home
+    if ((e.ctrlKey || e.metaKey) && e.key === 'h') {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    // Ctrl/Cmd + C: Scroll to contact
+    if ((e.ctrlKey || e.metaKey) && e.key === 'c' && !e.shiftKey) {
+        e.preventDefault();
+        document.getElementById('kontak')?.scrollIntoView({ behavior: 'smooth' });
+    }
+});
+
+// ===== 21. MOUSE PARTICLE EXPLOSION =====
+document.addEventListener('click', (e) => {
+    if (Math.random() > 0.8) {
+        for (let i = 0; i < 10; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'click-particle';
+            particle.style.left = e.pageX + 'px';
+            particle.style.top = e.pageY + 'px';
+            particle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+            particle.style.setProperty('--ty', (Math.random() - 0.5) * 200 + 'px');
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 1000);
+        }
+    }
+});
+
+/* [ResponsiveFix] Auto scroll-snap dihapus — membuat scroll terasa kaku */
+
+// ===== CONSOLE WELCOME MESSAGE =====
+console.log('%c🚀 Websoft Indonesia', 'font-size: 24px; color: #6366f1; font-weight: bold;');
+console.log('%cInteractive features loaded!', 'font-size: 14px; color: #8b5cf6;');
+console.log('%cTry these:', 'font-size: 12px; color: #666;');
+console.log('- Konami Code: ↑↑↓↓←→←→BA');
+console.log('- Double click logo');
+console.log('- Long press cards');
+console.log('- Shake your device');
+console.log('- Keyboard shortcuts: Ctrl+K, Ctrl+H, Ctrl+C');
+console.log('- [ResponsiveFix] Auto snap scroll dinonaktifkan');
+console.log('- Explore all sections for achievements!');
+
+// Tambahkan script ini di bagian JavaScript sebelum closing </script>
+
+// Certificates Modal Handler
+const certificateModal = document.getElementById('certificateModal');
+const closeCertModal = document.getElementById('closeCertModal');
+const certificateCards = document.querySelectorAll('.certificate-card');
+
+const certificateData = {
+    1: {
+        title: 'Advanced React.js Development',
+        issuer: 'LinkedIn Learning',
+        date: 'January 2024',
+        id: 'LI-ABC123456',
+        image: 'https://i.ibb.co.com/b5RDpGHt/1748881706426-e-1772064000-v-beta-t-2-Fz-Y1n-Z5-N4-OLn2dragk-Ty6-ZI-0w-JD7-Gqzy4o-q3-YDl-Q.jpg'
+    },
+    2: {
+        title: 'AWS Certified Cloud Practitioner',
+        issuer: 'Amazon Web Services',
+        date: 'December 2023',
+        id: 'AWS-CCP-789',
+        image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900&h=600&fit=crop'
+    },
+    3: {
+        title: 'Full-Stack Web Development',
+        issuer: 'Microsoft',
+        date: 'November 2023',
+        id: 'MS-FSD-456',
+        image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=900&h=600&fit=crop'
+    },
+    4: {
+        title: 'Hackathon Winner - Best UI/UX',
+        issuer: 'Google Developer',
+        date: 'October 2023',
+        id: 'GDG-HK-2023',
+        image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=900&h=600&fit=crop'
+    },
+    5: {
+        title: 'JavaScript Algorithms & Data Structures',
+        issuer: 'Udemy',
+        date: 'September 2023',
+        id: 'UD-JS-DSA-99',
+        image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=900&h=600&fit=crop'
+    },
+    6: {
+        title: 'Machine Learning Fundamentals',
+        issuer: 'Coursera',
+        date: 'August 2023',
+        id: 'CR-ML-2023',
+        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&h=600&fit=crop'
+    }
+};
+
+certificateCards.forEach(card => {
+    const viewBtn = card.querySelector('.certificate-btn-primary');
+    if (viewBtn) {
+        viewBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const certId = card.getAttribute('data-certificate');
+            const cert = certificateData[certId];
+            
+            if (cert) {
+                document.getElementById('modalCertTitle').textContent = cert.title;
+                document.getElementById('modalCertIssuer').textContent = cert.issuer;
+                document.getElementById('modalCertDate').textContent = cert.date;
+                document.getElementById('modalCertId').textContent = cert.id;
+                document.getElementById('modalCertImage').src = cert.image;
+                
+                certificateModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    }
+});
+
+closeCertModal.addEventListener('click', () => {
+    certificateModal.classList.remove('active');
+    document.body.style.overflow = '';
+});
+
+certificateModal.addEventListener('click', (e) => {
+    if (e.target === certificateModal) {
+        certificateModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && certificateModal.classList.contains('active')) {
+        certificateModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// Update search data untuk certificates
+// Tambahkan ini ke array searchData yang sudah ada:
+/*
+{ title: 'Certificates', description: 'My achievements', section: 'certificates' },
+{ title: 'React.js Certificate', description: 'LinkedIn Learning', section: 'certificates' },
+{ title: 'AWS Certificate', description: 'Cloud Practitioner', section: 'certificates' },
+*/
